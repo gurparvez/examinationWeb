@@ -21,7 +21,7 @@ function Input({ name, label, type, value, setValue, required=true }) {
       }
 
     return (
-        <div className='relative mb-3'>
+        <div className='relative'>
             <input
                 className='peer w-full h-10 border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-yellow-500 placeholder-transparent'
                 id={id}
@@ -29,7 +29,7 @@ function Input({ name, label, type, value, setValue, required=true }) {
                 type={type}
                 placeholder={label}
                 value={value}
-                onchange={handleValueChange}
+                onChange={handleValueChange}
                 required={required}
             />
             <label
