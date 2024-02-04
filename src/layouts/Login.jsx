@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { login_img } from '../assets';
 import { Input } from "../components";
 import { useNavigate } from 'react-router-dom';
 
@@ -19,7 +20,7 @@ function Login() {
     return (
         <div className='flex flex-row w-screen h-screen bg-yellow-200'>
             <div className='hidden justify-center items-center sm:flex w-1/2'>
-                <img className='m-6 pl-14' src="./src/assets/2_images.png" alt="images" />
+                <img className='m-6 pl-14' src={login_img} alt="images" />
             </div>
             <div className='sm:w-1/2 w-full h-full flex justify-center items-center px-3 xxs:px-7 xs:px-14'>
                 <div className='bg-white flex w-full flex-col rounded-3xl overflow-hidden'>

@@ -14,6 +14,12 @@ module.exports = {
         poppins: ["Poppins", "sans-serif"],
         jost: ["Jost", "sans-serif"],
       },
+      keyframes: {
+        wiggle: {
+          '0%': { transform: 'rotate(-3deg)' },
+          '50%': { transform: 'rotate(3deg)' },
+        }
+      }
     },
     screens: {
       xxs: "320px",

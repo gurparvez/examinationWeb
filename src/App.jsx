@@ -1,21 +1,49 @@
 import { Outlet, NavLink } from "react-router-dom"
+import { logo, close, menu } from './assets'
+import { Button } from "./components"
+import { navLinks } from "./constants"
+import { useState } from "react"
 
 function App() {
+
+  const [navMenu, setNavMenu] = useState(false)
 
   return (
     <>
       <div className='sticky z-50 top-0 bg-white shadow-lg'>
-        <div className='navbar'>
+        <nav className='flex flex-row justify-between px-8'>
           <ul className='flex flex-row p-3.5'>
-            <li className='list-none px-6'><NavLink to="https://auts.ac.in/" target='_blank' ><img src="https://auts.ac.in/wp-content/uploads/2023/06/webpage-auts-logo-1June23.png" alt="AUTS" /></NavLink></li>
+            <li className='flex items-center list-none'><NavLink to="https://auts.ac.in/" target='_blank' ><img src={logo} alt="AUTS" className="h-[40px] xs:h-[50px] sm:h-full" /></NavLink></li>
           </ul>
-          <ul className='sidebar-container navbarAnchors'>
-            <li><NavLink to="/home" className="no-underline text-gray-900 text-sm transition-all ease-in-out" >Home</NavLink></li>
-            <li><NavLink to="courses" >Your Courses</NavLink></li>
-            <li id='AUTS-button'><NavLink to="examination" >Examination</NavLink></li>
-            <li><NavLink to="profile" >Profile</NavLink></li>
+          <ul className='list-none sm:flex hidden justify-end items-center flex-1'>
+            {navLinks.map((nav, index) => (
+              <li key={nav.id} className={`font-jost font-normal cursor-pointer ${index === (navLinks.length-1) ? 'mr-0' : 'mr-10'} text-[18px]`} >
+                <NavLink to={`${nav.id}`}>
+                  {nav.title}
+                </NavLink>
+              </li>
+            ))}
+            <li id='AUTS-button' className="m-10"><NavLink to="examination" ><Button data="Examination" /></NavLink></li>
+            <li id="profile" className="font-jost font-normal cursor-pointer text-[18px]" ><NavLink to="profile" >Profile</NavLink></li>
           </ul>
-        </div>
+
+          <div className="sm:hidden flex justify-end items-center">
+            <img src={navMenu ? close : menu} alt="menu" className="w-[28px] h-[28px] object-contain" onClick={() => setNavMenu((prev) => !prev)} />
+          </div>
+          <div class={`transform ${navMenu ? 'translate-x-0': 'translate-x-[100vw]'} transition-transform duration-300 ease-in-out p-6 absolute top-20 right-0 mx-4 my-2 min-w-[140px] rounded-xl bg-gradient-to-r from-slate-400 to-slate-300`}>
+            <ul className='list-none flex flex-col justify-end items-center flex-1'>
+              {navLinks.map((nav, index) => (
+                <li key={nav.id} className={`font-jost font-normal cursor-pointer ${index === (navLinks.length-1) ? 'mb-4' : 'mb-4'} text-[18px]`} >
+                  <NavLink to={`${nav.id}`}>
+                    {nav.title}
+                  </NavLink>
+                </li>
+              ))}
+              <li id='AUTS-button' className="mb-4"><NavLink to="examination" ><Button data="Examination" /></NavLink></li>
+              <li id="profile" className="font-jost font-normal cursor-pointer text-[18px]" ><NavLink to="profile" >Profile</NavLink></li>
+            </ul>
+          </div>
+        </nav>
       </div>
 
       <Outlet />
