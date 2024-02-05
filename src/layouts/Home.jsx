@@ -4,7 +4,7 @@ import { aboutUniversity } from '../constants'
 
 function Home() {
   return (
-    <div className='flex lg:flex-row flex-col py-4 xs:px-6 ss:px-9 bg-home justify-evenly'>
+    <div className='flex lg:flex-row flex-col py-4 px-3 xs:px-6 ss:px-9 bg-home justify-evenly'>
       <img src={home1} alt="about" className='lg:w-[50%] p-[15px] rounded-[50px] object-cover aspect-[33/26]' />
       <div className='lg:w-[50%] p-[15px]'>
         <h3 className='text-[18px] text-primary font-bold font-jost'>{aboutUniversity[0].heading}</h3>
