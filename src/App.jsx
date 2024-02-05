@@ -31,12 +31,13 @@ function App() {
           <div className="sm:hidden flex justify-end items-center">
             <img src={navMenu ? close : menu} alt="menu" className="w-[28px] h-[28px] object-contain" onClick={() => setNavMenu((prev) => !prev)} />
           </div>
-          <div class={`transform ${navMenu ? 'translate-x-0': 'translate-x-[100vw]'} transition-transform duration-300 ease-in-out p-6 absolute top-20 right-0 mx-4 my-2 min-w-[140px] rounded-xl bg-gradient-to-r from-slate-400 to-slate-300`}>
+          <div class={`transform ${navMenu ? 'flex translate-x-0': 'hidden translate-x-[100vw]'} transition-transform duration-300 ease-in-out p-6 absolute top-20 right-0 mx-4 my-2 min-w-[140px] rounded-xl bg-gradient-to-r from-slate-400 to-slate-300`}>
             <ul className='list-none flex flex-col justify-end items-center flex-1'>
               {navLinks.map((nav, index) => (
                 <li key={nav.id} className={`font-jost font-normal cursor-pointer ${index === (navLinks.length-1) ? 'mb-4' : 'mb-4'} text-[18px]`} >
-                  <NavLink to={`${nav.id}`}>
+                  <NavLink to={`${nav.id}`} className="relative group hover:text-primary">
                     {nav.title}
+                    <span className="absolute inset-x-0 bottom-0 h-0.5 bg-primary origin-left transform scale-x-0 group-hover:scale-x-100 transition-transform duration-250"></span>
                   </NavLink>
                 </li>
               ))}

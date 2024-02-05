@@ -103,22 +103,22 @@ export const aboutUniversity = [
         info2: "Three centuries ago, the tenth Master, Guru Gobind Singh Ji stayed at Talwandi Sabo, finalized the compilation of Guru Granth Sahib Ji and prophesied that this place will manifest as Guru Ki Kashi-a great Centre of teaching and learning from where will emerge great scholars of Sikhism.",
         content: [
             {
-                id: "1",
+                id: "01",
                 title: "Unique at AU",
                 content: "Our endeavour at Akal University is to help the students to discriminate between the valuable and the superficial in life.",
             },
             {
-                id: "2",
+                id: "02",
                 title: "Akal Alumni",
                 content: "Since 2015 more than 700 students have graduated from Akal University and many of them are pursuing careers in the social sector.",
             },
             {
-                id: "3",
+                id: "03",
                 title: "Scientific Events",
                 content: "The scientific events that shaped the decade. The microbes inside you, the edges of the known universe, and all the amazing stuff in between.",
             },
             {
-                id: "4",
+                id: "04",
                 title: "Societies & Clubs",
                 content: "Clubs and societies are possibly one of the single most important aspects of student life.",
             },
