@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { login_img } from '../assets';
-import { Input } from "../components";
+import { Button, Input } from "../components";
 import { useNavigate } from 'react-router-dom';
 
 function Login() {
@@ -43,13 +43,7 @@ function Login() {
                                 <Input label="AUID" type='text' value={auid} setValue={setAuid} />
                                 <Input label="Password" type='password' value={password} setValue={setPassword} />
                             </div>
-                            <input
-                                className='bg-primary text-white text-xl w-auto px-3 py-1.5 transition-all ease-in-out duration-200 hover:cursor-pointer hover:bg-secondary rounded-md'
-                                type="submit"
-                                name=""
-                                id=""
-                                value="Login"
-                            />
+                            <Button data='Login' type='submit' />
                         </form>
                     </div>
                 </div>
