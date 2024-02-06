@@ -4,5 +4,14 @@ import logo from './logo.png'
 import close from './close.svg'
 import menu from './menu.svg'
 import home1 from './home1.png'
+import profile from './profile.png'
 
-export { login_img, announcement_img, logo, close, menu, home1 }
+export { 
+    login_img, 
+    announcement_img, 
+    logo, 
+    close, 
+    menu, 
+    home1, 
+    profile,
+}

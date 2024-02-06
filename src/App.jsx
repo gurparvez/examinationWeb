@@ -1,5 +1,5 @@
 import { Outlet, NavLink } from "react-router-dom"
-import { logo, close, menu } from './assets'
+import { logo, close, menu, profile } from './assets'
 import { Button } from "./components"
 import { navLinks } from "./constants"
 import { useState } from "react"
@@ -25,7 +25,10 @@ function App() {
               </li>
             ))}
             <li id='AUTS-button' className="m-10"><NavLink to="examination" ><Button data="Examination" /></NavLink></li>
-            <li id="profile" className="font-jost font-normal cursor-pointer text-[18px]" ><NavLink to="profile" >Profile</NavLink></li>
+            <li id="profile" className="font-jost font-normal cursor-pointer text-[18px]" >
+              <NavLink to="profile" >
+                <img src={profile} alt="profile" className="h-10 rounded-[50%]" />
+              </NavLink></li>
           </ul>
 
           <div className="sm:hidden flex justify-end items-center">
@@ -42,7 +45,10 @@ function App() {
                 </li>
               ))}
               <li id='AUTS-button' className="mb-4"><NavLink to="examination" ><Button data="Examination" /></NavLink></li>
-              <li id="profile" className="font-jost font-normal cursor-pointer text-[18px]" ><NavLink to="profile" >Profile</NavLink></li>
+              <li id="profile" className="font-jost font-normal cursor-pointer text-[18px]" >
+                <NavLink to="profile" >
+                  <img src={profile} alt="profile" className="h-10 rounded-[50%]" />
+                </NavLink></li>
             </ul>
           </div>
         </nav>
