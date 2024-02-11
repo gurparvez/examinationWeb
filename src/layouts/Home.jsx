@@ -14,7 +14,7 @@ function Home() {
         <div className='ss:m-[15px] xs:m-[10px] my-[5px]'>
           <ul className='flex ss:flex-row flex-col flex-wrap *:flex *:flex-row *:ss:max-w-[50%] *:py-2 *:max-w-full'>
             {aboutUniversity[0].content.map((card) => (
-              <li>
+              <li id={card.id}>
                 <div className='bg-primary max-h-[55px] text-white font-bold py-[15px] px-[18px] rounded-[50%]'>{card.id}</div>
                 <div className='px-[16px]'>
                   <h2 className='text-xl font-bold'>{card.title}</h2>

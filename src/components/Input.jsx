@@ -1,36 +1,24 @@
-import React, { useId } from 'react'
+import React, { forwardRef, useId } from 'react'
 
-function Input({ name, label, type, value, setValue, required=true }) {
+function Input({
+    label,
+    type="text",
+    className='',
+    ...props
+}, ref) {
 
     const id = useId()
 
-    const handleValueChange = (e) => {
-        if (!setValue && type!="file") {
-          alert('setValue function not passed!')
-          return;
-        }
-        if (type === 'file') {
-          const file = e.target.files[0];
-          console.log(file);
-          //Upload the file
-    
-          return;
-        }
-        setValue(e.target.value)
-        console.log(value);
-      }
-
     return (
-        <div className='relative'>
+        <>
+        <div className={`relative ${className}`}>
             <input
-                className='peer w-full h-10 border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-yellow-500 placeholder-transparent'
+                className={`peer w-full h-10 border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-yellow-500 placeholder-transparent`}
+                ref={ref}
                 id={id}
-                name={name}
                 type={type}
                 placeholder={label}
-                value={value}
-                onChange={handleValueChange}
-                required={required}
+                {...props}
             />
             <label
                 htmlFor={id}
@@ -39,7 +27,8 @@ function Input({ name, label, type, value, setValue, required=true }) {
                 {label}
             </label>
         </div>
+        </>
     )
 }
 
-export default Input
+export default forwardRef(Input)
