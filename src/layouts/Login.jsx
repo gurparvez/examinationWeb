@@ -5,15 +5,27 @@ import { useNavigate } from 'react-router-dom';
 import { Provider, useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import store from '../store/store';
+import axios from 'axios';
+import { api } from '../constants';
 
 function Login() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const {register, handleSubmit} = useForm()
     const [error, setError] = useState("")
+    const [loading, setLoading] = useState(false)
 
-    const login = (data) => {
-        // use auxium to fetch data and dispatch it in store
+    const login = async (data) => {
+        try {
+            console.log(data);
+            const userData = (await axios.post(api.login, data)).data;
+            console.log(userData);
+            const {accessToken, refreshToken, ...user} = userData.data;
+            // dispatch(login(user))
+            navigate('/home')
+        } catch (error) {
+            console.error('Error during login:', error);
+        }
     }
 
     return (

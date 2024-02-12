@@ -1,3 +1,8 @@
+export const api = {
+    root: "https://examform.onrender.com/api/v1/",
+    login: "https://examform.onrender.com/api/v1/user/login",
+    logout: "https://examform.onrender.com/api/v1/user/logout",
+};
 export const navLinks = [
     {
         id: "/home",
