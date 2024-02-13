@@ -1,36 +1,60 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { login_img } from '../assets';
 import { Button, Input } from "../components";
 import { useNavigate } from 'react-router-dom';
 import { Provider, useDispatch } from 'react-redux';
-import { useForm } from 'react-hook-form';
+import { set, useForm } from 'react-hook-form';
 import store from '../store/store';
 import axios from 'axios';
 import { api } from '../constants';
+import { login } from '../store/authSlice';
+import ShowError from '../components/ShowError';
+import LoadingBar from './LoadingBar';
+import FadePage from './FadePage';
 
 function Login() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const {register, handleSubmit} = useForm()
-    const [error, setError] = useState("")
+    const [isError, setIsError] = useState(false)
+    const [error, setError] = useState("error")
     const [loading, setLoading] = useState(false)
 
-    const login = async (data) => {
+    const handleLogin = async (data) => {
+        setLoading(true)
+        setIsError(false)
+        setError("")
         try {
-            console.log(data);
             const userData = (await axios.post(api.login, data)).data;
-            console.log(userData);
             const {accessToken, refreshToken, ...user} = userData.data;
-            // dispatch(login(user))
+            dispatch(login(user))
+            setLoading(false)
+            setIsError(false)
             navigate('/home')
-        } catch (error) {
-            console.error('Error during login:', error);
+        } catch (e) {
+            setIsError(true)
+            let errorMessage = "";
+            switch (e.response.status) {
+                case 404:
+                    errorMessage = "Please provide correct credentials !";
+                    break;
+                case 400:
+                    errorMessage = "Please fill all the fields !";
+                    break;
+                default:
+                    errorMessage = "Sorry, there was an error while logging in !";
+            }
+            setError(errorMessage);
+        } finally {
+            setLoading(false)
         }
     }
 
     return (
-        <Provider store={store}>
-        <div className='flex flex-row w-screen h-screen bg-yellow-200'>
+        <>
+        <div className={`relative flex flex-row w-screen h-screen bg-yellow-200 ${loading ? 'pointer-events-none':'pointer-events-auto'}`}>
+            {loading && <FadePage />}
+            {loading && <LoadingBar classname='z-[51]' />}
             <div className='hidden justify-center items-center sm:flex w-1/2'>
                 <img className='m-6 pl-14' src={login_img} alt="images" />
             </div>
@@ -47,12 +71,14 @@ function Login() {
                         <h1 className='font-jost font-semibold text-2xl mb-3'>
                             Welcome back
                         </h1>
-                        <form onSubmit={handleSubmit(login)} className='sm:px-2'>
+                        <form onSubmit={handleSubmit(handleLogin)} className='sm:px-2'>
                             <div className='mb-4'>
                                 <Input 
                                 label="AUID" 
                                 type='text' 
-                                className='my-7' 
+                                className={`my-7 ${isError ? 'border-red-500' : ''}`}
+                                error={isError}
+                                readonly={loading}
                                 {...register("auid", {
                                     required: true,
                                     matchPatren: (value) => /^\d{9}$/.test(value) || "Please provide a valid AUID !"
@@ -61,12 +87,17 @@ function Login() {
                                 <Input 
                                 label="Password" 
                                 type='password' 
-                                className='my-7'
+                                className={`mt-7`}
+                                error={isError}
+                                readonly={loading}
                                 {...register("password", {
                                     required: true,
                                     matchPatren: (value) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])(.{8,})$/.test(value) || "Password must contain atleast 1 uppercase, 1 lowercase, 1 sepcial character and atleast 8 characters long !"
                                 })} />
 
+                            </div>
+                            <div className='w-full mb-4'>
+                                {isError ? <ShowError error={error} /> : <ShowError />}
                             </div>
                             <Button data='Login' type='submit' />
                         </form>
@@ -74,7 +105,7 @@ function Login() {
                 </div>
             </div>
         </div>
-        </Provider>
+        </>
     )
 }
 
