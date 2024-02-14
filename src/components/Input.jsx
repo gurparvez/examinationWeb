@@ -1,7 +1,7 @@
 import React, { forwardRef, useId } from 'react'
 
 function Input({
-    label,
+    label='',
     type="text",
     className='',
     error='',

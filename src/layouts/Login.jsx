@@ -1,18 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { login_img } from '../assets';
-import { Button, Input } from "../components";
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Provider, useDispatch } from 'react-redux';
-import { set, useForm } from 'react-hook-form';
-import store from '../store/store';
+import { useDispatch } from 'react-redux';
+import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { api } from '../constants';
 import { login } from '../store/authSlice';
-import ShowError from '../components/ShowError';
-import LoadingBar from './LoadingBar';
-import FadePage from './FadePage';
+import { login_img } from '../assets';
+import { Button, Input, ShowError, LoadingBar, FadePage } from '../components/';
 
 function Login() {
+
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const {register, handleSubmit} = useForm()
@@ -21,9 +18,11 @@ function Login() {
     const [loading, setLoading] = useState(false)
 
     const handleLogin = async (data) => {
+
         setLoading(true)
         setIsError(false)
         setError("")
+        
         try {
             const userData = (await axios.post(api.login, data)).data;
             const {accessToken, refreshToken, ...user} = userData.data;
