@@ -29,7 +29,7 @@ function Login() {
             setProgress(progress + 10)
             setProgress(progress + 60)
             const userData = (await axios.post(api.login, data)).data;
-            setProgress(progress + 70)
+            setProgress(80)
             const {accessToken, refreshToken, ...user} = userData.data;
             setProgress(90)
             dispatch(login(user))
