@@ -1,6 +1,6 @@
 import Login from "./Login";
 import Courses from "./Courses";
-import Examination from "./Examination";
+import Examination from "./Examination/Examination";
 import Profile from "./Profile";
 import Home from "./Home";
 

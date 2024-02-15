@@ -1,8 +1,8 @@
-const URL = "https://examform.onrender.com"
+const root = `/api/v1`
 export const api = {
-    root: `${URL}/api/v1/`,
-    login: `${URL}/api/v1/user/login`,
-    logout: `${URL}/api/v1/user/logout`,
+    login: `${root}/user/login`,
+    logout: `${root}/user/logout`,
+    formLive: `${root}/user/form-live`
 };
 export const navLinks = [
     {
