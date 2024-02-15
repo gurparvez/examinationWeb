@@ -1,15 +1,23 @@
-import { Outlet, NavLink } from "react-router-dom"
-import { logo, close, menu, profile } from './assets'
+import { Outlet, NavLink, Link } from "react-router-dom"
+import { logo, close, menu, profile, notFound } from './assets'
 import { Button } from "./components"
 import { navLinks } from "./constants"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useSelector } from "react-redux"
 
 function App() {
 
   const [navMenu, setNavMenu] = useState(false)
-  const userData = useSelector(state => state.userData)
-  const profileImage = userData
+  const [isLoggedin, setIsLoggedin] = useState(false)
+  
+  const user = useSelector(state => state.auth.userData);
+  useEffect(() => {
+    if (user) {
+      setIsLoggedin(true);
+    }
+  }, []);
+
+  const profileImage = user ? user.user.avatar : profile
 
   return (
     <>
@@ -30,7 +38,7 @@ function App() {
             <li id='AUTS-button' className="m-10"><NavLink to="examination" ><Button data="Examination" /></NavLink></li>
             <li id="profile" className="font-jost font-normal cursor-pointer text-[18px]" >
               <NavLink to="profile" >
-                <img src={profile} alt="profile" className="h-10 rounded-[50%]" />
+                <img src={profileImage} alt="profile" className="h-10 rounded-[50%] object-cover aspect-square" />
               </NavLink></li>
           </ul>
 
@@ -50,14 +58,25 @@ function App() {
               <li id='AUTS-button' className="mb-4"><NavLink to="examination" ><Button data="Examination" /></NavLink></li>
               <li id="profile" className="font-jost font-normal cursor-pointer text-[18px]" >
                 <NavLink to="profile" >
-                  <img src={profile} alt="profile" className="h-10 rounded-[50%]" />
+                  <img src={profileImage} alt="profile" className="h-10 rounded-[50%] object-cover aspect-square" />
                 </NavLink></li>
             </ul>
           </div>
         </nav>
       </div>
 
-      <Outlet />
+      {isLoggedin ? <Outlet /> : 
+      <div className="flex flex-col sm:flex-row mx-10 my-6 justify-center">
+        <div className="w-[100%] sm:w-[70%]">
+          <img src={notFound} alt="error: 404"  />
+        </div>
+        <div className="flex flex-col justify-center items-center sm:w-[30%] w-[100%] bg-lightGray p-8">
+          <div className="*:m-4">
+            <h1 className="text-3xl font-bold text-red-600">User Not Found !</h1>
+            <Link to="/"><Button data="Please Login" className="text-xl" /></Link>
+          </div>
+        </div>
+      </div>}
 
       <div>
         Footer

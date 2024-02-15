@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
@@ -18,7 +18,6 @@ function Login() {
     const [error, setError] = useState("error")
     const [progress, setProgress] = useState(0)
     const [loading, setLoading] = useState(false)
-    const ref = useRef(null)
 
     const handleLogin = async (data) => {
 
@@ -79,7 +78,7 @@ function Login() {
                             Welcome back
                         </h1>
                         <form onSubmit={handleSubmit(handleLogin)} className='sm:px-2'>
-                            <div className='mb-4'>
+                            <div className='mb-4 *:my-8'>
                                 <Input 
                                 label="AUID" 
                                 type='text' 
@@ -106,7 +105,7 @@ function Login() {
                             <div className='w-full mb-4'>
                                 {isError ? <ShowError error={error} /> : <ShowError />}
                             </div>
-                            <Button data='Login' type='submit' />
+                            <Button data='Login' type='submit' className={loading ? "bg-secondary" : ""} />
                         </form>
                     </div>
                 </div>
