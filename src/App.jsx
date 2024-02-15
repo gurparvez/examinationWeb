@@ -3,10 +3,13 @@ import { logo, close, menu, profile } from './assets'
 import { Button } from "./components"
 import { navLinks } from "./constants"
 import { useState } from "react"
+import { useSelector } from "react-redux"
 
 function App() {
 
   const [navMenu, setNavMenu] = useState(false)
+  const userData = useSelector(state => state.userData)
+  const profileImage = userData
 
   return (
     <>

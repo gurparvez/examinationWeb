@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
@@ -6,7 +6,8 @@ import axios from 'axios';
 import { api } from '../constants';
 import { login } from '../store/authSlice';
 import { login_img } from '../assets';
-import { Button, Input, ShowError, LoadingBar, FadePage } from '../components/';
+import LoadingBar from 'react-top-loading-bar'
+import { Button, Input, ShowError, FadePage } from '../components/';
 
 function Login() {
 
@@ -15,7 +16,9 @@ function Login() {
     const {register, handleSubmit} = useForm()
     const [isError, setIsError] = useState(false)
     const [error, setError] = useState("error")
+    const [progress, setProgress] = useState(0)
     const [loading, setLoading] = useState(false)
+    const ref = useRef(null)
 
     const handleLogin = async (data) => {
 
@@ -24,9 +27,14 @@ function Login() {
         setError("")
         
         try {
+            setProgress(progress + 10)
+            setProgress(progress + 60)
             const userData = (await axios.post(api.login, data)).data;
+            setProgress(progress + 70)
             const {accessToken, refreshToken, ...user} = userData.data;
+            setProgress(90)
             dispatch(login(user))
+            setProgress(100)
             setLoading(false)
             setIsError(false)
             navigate('/home')
@@ -52,8 +60,8 @@ function Login() {
     return (
         <>
         <div className={`relative flex flex-row w-screen h-screen bg-yellow-200 ${loading ? 'pointer-events-none':'pointer-events-auto'}`}>
+            <LoadingBar color='#f11946' progress={progress} onLoaderFinished={() => setProgress(0)} />
             {loading && <FadePage />}
-            {loading && <LoadingBar classname='z-[51]' />}
             <div className='hidden justify-center items-center sm:flex w-1/2'>
                 <img className='m-6 pl-14' src={login_img} alt="images" />
             </div>
