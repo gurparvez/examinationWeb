@@ -17,8 +17,8 @@ const Examination = () => {
             const form = await (await axios.get(api.formLive)).data
             setProgress(80)
             setChecked(true)
-            // setFormLive(form.data.fromLive)
-            setFormLive(true)
+            setFormLive(form.data.fromLive)
+            // setFormLive(true)
             setProgress(100)
         } catch (error) {
             console.log("Error while fetching is-form-live: ", error);
