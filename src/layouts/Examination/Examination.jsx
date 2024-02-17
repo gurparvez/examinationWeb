@@ -32,7 +32,7 @@ const Examination = () => {
         <div className='flex flex-col items-center'>
         <h1 className='text-xl font-bold text-secondary my-3'>Fill Out the Examinations form !</h1>
         <div className='flex flex-row *:mx-4'>
-            {checked ? FormLive ? <Link to="/home/page1"><Button data='Fill the Examination form' className='bg-green-800' /></Link> : <Button data='Form is not available' className='bg-red-700' /> : <Button data='Check If form is available' onClick={isFormLive} />}
+            {checked ? FormLive ? <Link to="/home/page1"><Button data='Fill the Examination form' bg='bg-green-800' /></Link> : <Button data='Form is not available' bg='bg-red-700' /> : <Button data='Check If form is available' onClick={isFormLive} />}
         </div>
         </div>
     </div>

@@ -38,12 +38,13 @@ const Page1 = () => {
     }
 
     return (
-        <div className='px-6 xs:px-10 sm:px-14 py-8'>
+        <div className='px-6 xs:px-10 sm:px-14 flex justify-center items-center py-8'>
+            <div className='max-w-[1220px] w-[90%]'>
             <h1 className='text-xl font-bold'>Personal Info :</h1>
             <div className='bg-gray-200 rounded-lg'>
                 <div className='flex w-full flex-col-reverse sm:flex-row'>
                     <div className='w-full sm:w-2/3 p-5 sm:p-10 *:py-2'>
-                        <form onSubmit={(e) => { e.preventDefault() }} className='*:my-7 px-5 rounded-xl bg-white'>
+                        <form onSubmit={(e) => { e.preventDefault() }} className='*:my-7 px-5 rounded-xl bg-white overflow-hidden'>
                             <Input label="AUID" value={auid} onChange={changeInput} />
                             <Input label="Candidate's Name" value={fullName} onChange={changeInput} />
                             <Input label="Father's Name" value={fatherName} onChange={changeInput} />
@@ -66,6 +67,7 @@ const Page1 = () => {
             {ispopup && (
                 <Popoup setIspopup={setIspopup} Heading='Error !' Content='If you wish to make changes, you have to do it in your profile' />
             )}
+            </div>
         </div>
     )
 }
