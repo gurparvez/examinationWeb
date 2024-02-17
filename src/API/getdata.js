@@ -23,7 +23,7 @@ function getdata(urlPath) {
 
     }, [])
 
-    return [data, error, loading]
+    return [data, loading, error]
 }
 
 export default getdata
