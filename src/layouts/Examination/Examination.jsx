@@ -30,7 +30,7 @@ const Examination = () => {
     <LoadingBar color='#f11946' progress={progress} onLoaderFinished={() => setProgress(0)} />
     <div className='flex flex-row my-10 mx-16 justify-center items-center'>
         <div className='flex flex-col items-center'>
-        <h1 className='text-xl font-bold text-secondary my-3'>Fill Out the Examinations form !</h1>
+        <h1 className='text-xl font-bold text-secondary my-3'>Fill Out the Examinations form</h1>
         <div className='flex flex-row *:mx-4'>
             {checked ? FormLive ? <Link to="/home/page1"><Button data='Fill the Examination form' bg='bg-green-800' /></Link> : <Button data='Form is not available' bg='bg-red-700' /> : <Button data='Check If form is available' onClick={isFormLive} />}
         </div>
