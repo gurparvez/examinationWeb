@@ -30,8 +30,10 @@ const Profile = () => {
   }, [])
 
   return (
-    <div>
-      <div></div>
+    <div className='w-full flex py-10 px-16'>
+      <div className='w-[75%]'>
+        
+      </div>
     </div>
   )
 }
