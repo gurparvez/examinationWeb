@@ -15,7 +15,7 @@ function App() {
     if (user) {
       setIsLoggedin(true);
     }
-  }, []);
+  }, [user]);
 
   const profileImage = user ? user.user.avatar : profile
 
