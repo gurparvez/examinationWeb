@@ -28,30 +28,41 @@ function Login() {
         try {
             setProgress(progress + 10)
             setProgress(progress + 60)
-            const userData = (await axios.post(api.login, data)).data;
-            setProgress(80)
-            const {accessToken, refreshToken, ...user} = userData.data;
-            setProgress(90)
-            dispatch(login(user))
-            setProgress(100)
-            setLoading(false)
-            setIsError(false)
-            navigate('/home')
+            const response = (await axios.post(api.login, data)).data;
+            console.log(response);
+            // setProgress(80)
+            // const {accessToken, refreshToken, ...user} = userData.data;
+            // setProgress(90)
+            // dispatch(login(user))
+            // setProgress(100)
+            // setLoading(false)
+            // setIsError(false)
+            // navigate('/home')
         } catch (e) {
+            console.log(e.response);
+            const errorObj = e.response
             setIsError(true)
             let errorMessage = "";
-            switch (e.response.status) {
+            switch (errorObj.status) {
                 case 404:
-                    errorMessage = "Please provide correct credentials !";
-                    break;
-                case 400:
-                    errorMessage = "Please fill all the fields !";
+                    errorMessage = "No user found !";
                     break;
                 default:
                     errorMessage = "Sorry, there was an error while logging in !";
             }
+            // switch (e.response.status) {
+            //     case 404:
+            //         errorMessage = "Please provide correct credentials !";
+            //         break;
+            //     case 400:
+            //         errorMessage = "Please fill all the fields !";
+            //         break;
+            //     default:
+            //         errorMessage = "Sorry, there was an error while logging in !";
+            // }
             setError(errorMessage);
         } finally {
+            setProgress(100)
             setLoading(false)
         }
     }
