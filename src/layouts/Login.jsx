@@ -28,9 +28,9 @@ function Login() {
         try {
             setProgress(progress + 10)
             setProgress(progress + 60)
-            const userData = (await axios.post(api.login, data)).data;
+            const response = (await axios.post(api.login, data)).data;
             setProgress(80)
-            const {accessToken, refreshToken, ...user} = userData.data;
+            const {accessToken, refreshToken, ...user} = response.data;
             setProgress(90)
             dispatch(login(user))
             setProgress(100)
@@ -38,20 +38,12 @@ function Login() {
             setIsError(false)
             navigate('/home')
         } catch (e) {
+            const errorObj = e.response
             setIsError(true)
-            let errorMessage = "";
-            switch (e.response.status) {
-                case 404:
-                    errorMessage = "Please provide correct credentials !";
-                    break;
-                case 400:
-                    errorMessage = "Please fill all the fields !";
-                    break;
-                default:
-                    errorMessage = "Sorry, there was an error while logging in !";
-            }
+            const errorMessage = errorObj.data.message;
             setError(errorMessage);
         } finally {
+            setProgress(100)
             setLoading(false)
         }
     }
