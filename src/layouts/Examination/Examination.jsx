@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import LoadingBar from 'react-top-loading-bar'
 import { api } from '../../constants'
 import { Button, FadePage } from '../../components'

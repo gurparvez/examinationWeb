@@ -15,7 +15,7 @@ function App() {
     if (user) {
       setIsLoggedin(true);
     }
-  }, []);
+  }, [user]);
 
   const profileImage = user ? user.user.avatar : profile
 
@@ -72,7 +72,7 @@ function App() {
         </div>
         <div className="flex flex-col justify-center items-center sm:w-[30%] w-[100%] bg-lightGray p-8">
           <div className="*:m-4">
-            <h1 className="text-3xl font-bold text-red-600">User Not Found !</h1>
+            <h1 className="text-3xl font-bold text-red-600">User Not Found</h1>
             <Link to="/"><Button data="Please Login" className="text-xl" /></Link>
           </div>
         </div>
