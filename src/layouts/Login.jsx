@@ -1,58 +1,38 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import axios from 'axios';
 import { api } from '../constants';
 import { login } from '../store/authSlice';
 import { login_img } from '../assets';
 import LoadingBar from 'react-top-loading-bar'
 import { Button, Input, ShowError, FadePage } from '../components/';
+import usePost from '../API/usePost';
 
 function Login() {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const {register, handleSubmit} = useForm()
-    const [isError, setIsError] = useState(false)
-    const [error, setError] = useState("error")
-    const [progress, setProgress] = useState(0)
-    const [loading, setLoading] = useState(false)
+    const {postData, response, isLoading, progress, error} = usePost();
 
     const handleLogin = async (data) => {
-
-        setLoading(true)
-        setIsError(false)
-        setError("")
-        
-        try {
-            setProgress(progress + 10)
-            setProgress(progress + 60)
-            const response = (await axios.post(api.login, data)).data;
-            setProgress(80)
-            const {accessToken, refreshToken, ...user} = response.data;
-            setProgress(90)
-            dispatch(login(user))
-            setProgress(100)
-            setLoading(false)
-            setIsError(false)
+        await postData(api.login, data);
+        if (!error) {
+            console.log(response);
+            const {accessToken, refreshToken, ...user} = response?.data;
+            dispatch(login(user));
             navigate('/home')
-        } catch (e) {
-            const errorObj = e.response
-            setIsError(true)
-            const errorMessage = errorObj.data.message;
-            setError(errorMessage);
-        } finally {
-            setProgress(100)
-            setLoading(false)
+        } else {
+            console.log(error);
         }
     }
 
     return (
         <>
-        <div className={`relative flex flex-row w-screen h-screen bg-yellow-200 ${loading ? 'pointer-events-none':'pointer-events-auto'}`}>
-            <LoadingBar color='#f11946' progress={progress} onLoaderFinished={() => setProgress(0)} />
-            {loading && <FadePage />}
+        <div className={`relative flex flex-row w-screen h-screen bg-yellow-200 ${isLoading ? 'pointer-events-none':'pointer-events-auto'}`}>
+            <LoadingBar color='#f11946' progress={progress} />
+            {isLoading && <FadePage />}
             <div className='hidden justify-center items-center sm:flex w-1/2'>
                 <img className='m-6 pl-14' src={login_img} alt="images" />
             </div>
@@ -74,9 +54,9 @@ function Login() {
                                 <Input 
                                 label="AUID" 
                                 type='text' 
-                                className={`my-7 ${isError ? 'border-red-500' : ''}`}
-                                error={isError}
-                                readonly={loading}
+                                className={`my-7 ${error ? 'border-red-500' : ''}`}
+                                error={error}
+                                readonly={isLoading}
                                 {...register("auid", {
                                     required: true,
                                     matchPatren: (value) => /^\d{9}$/.test(value) || "Please provide a valid AUID !"
@@ -86,8 +66,8 @@ function Login() {
                                 label="Password" 
                                 type='password' 
                                 className={`mt-7`}
-                                error={isError}
-                                readonly={loading}
+                                error={error}
+                                readonly={isLoading}
                                 {...register("password", {
                                     required: true,
                                     matchPatren: (value) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])(.{8,})$/.test(value) || "Password must contain atleast 1 uppercase, 1 lowercase, 1 sepcial character and atleast 8 characters long !"
@@ -95,9 +75,9 @@ function Login() {
 
                             </div>
                             <div className='w-full mb-4'>
-                                {isError ? <ShowError error={error} /> : <ShowError />}
+                                {error ? <ShowError error={error} /> : <ShowError />}
                             </div>
-                            <Button data='Login' type='submit' className={loading ? "bg-secondary" : ""} />
+                            <Button data='Login' type='submit' className={isLoading ? "bg-secondary" : ""} />
                         </form>
                     </div>
                 </div>
