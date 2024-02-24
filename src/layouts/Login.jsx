@@ -7,24 +7,29 @@ import { login } from '../store/authSlice';
 import { login_img } from '../assets';
 import LoadingBar from 'react-top-loading-bar'
 import { Button, Input, ShowError, FadePage } from '../components/';
-import usePost from '../API/usePost';
+import useApi from '../API/useApi';
 
 function Login() {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const {register, handleSubmit} = useForm()
-    const {postData, response, isLoading, progress, error} = usePost();
+    const {register, handleSubmit} = useForm();
+    const {apiData, response, isLoading, progress, error} = useApi('post');
 
+    // TODO: Solve the 2 time login issue.
     const handleLogin = async (data) => {
-        await postData(api.login, data);
-        if (!error) {
-            console.log(response);
-            const {accessToken, refreshToken, ...user} = response?.data;
-            dispatch(login(user));
-            navigate('/home')
-        } else {
-            console.log(error);
+        await apiData(api.login, data);
+        try {
+            if (!error) {
+                console.log(response);
+                const {accessToken, refreshToken, ...user} = response?.data;
+                dispatch(login(user));
+                navigate('/home')
+            } else {
+                console.log(error);
+            }
+        } catch (e) {
+            console.log(e);
         }
     }
 
