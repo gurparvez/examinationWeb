@@ -20,10 +20,12 @@ const useApi = (type) => {
                     break;
                 case 'get':
                     res = (await axios.get(url)).data
+                    break;
                 default:
                     break;
             }
             setResponse(res)
+            console.log(`The response came is: ${res} and the response returned is ${response}`);
         } catch (error) {
             setError(error.response.data.message)
         } finally {

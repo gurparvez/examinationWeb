@@ -20,8 +20,8 @@ function Login() {
     const handleLogin = async (data) => {
         await apiData(api.login, data);
         try {
-            if (!error) {
-                console.log(response);
+            console.log(response);
+            if (!error && response?.data) {
                 const {accessToken, refreshToken, ...user} = response?.data;
                 dispatch(login(user));
                 navigate('/home')
@@ -64,7 +64,7 @@ function Login() {
                                 readonly={isLoading}
                                 {...register("auid", {
                                     required: true,
-                                    matchPatren: (value) => /^\d{9}$/.test(value) || "Please provide a valid AUID !"
+                                    maxLength: 9,
                                 })} />
 
                                 <Input 
@@ -75,7 +75,10 @@ function Login() {
                                 readonly={isLoading}
                                 {...register("password", {
                                     required: true,
-                                    matchPatren: (value) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])(.{8,})$/.test(value) || "Password must contain atleast 1 uppercase, 1 lowercase, 1 sepcial character and atleast 8 characters long !"
+                                    pattern: {
+                                        value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])(.{8,})$/,
+                                        message: "Password must contain atleast 1 uppercase, 1 lowercase, 1 sepcial character and atleast 8 characters long !"
+                                    }
                                 })} />
 
                             </div>
