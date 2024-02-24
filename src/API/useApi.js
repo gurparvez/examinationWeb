@@ -1,5 +1,5 @@
 import axios from "axios"
-import { useState } from "react"
+import { useState} from "react"
 
 const useApi = (type) => {
     const [error, setError] = useState(null)
@@ -8,7 +8,6 @@ const useApi = (type) => {
     const [progress, setProgress] = useState(0)
 
     const apiData = async (url, data=null) => {
-        console.log(`URL: ${url}, data: ${data}`);
         setIsLoading(true)
         setProgress(60)
 
@@ -25,7 +24,6 @@ const useApi = (type) => {
                     break;
             }
             setResponse(res)
-            console.log(`The response came is: ${res} and the response returned is ${response}`);
         } catch (error) {
             setError(error.response.data.message)
         } finally {

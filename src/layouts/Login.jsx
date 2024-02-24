@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
@@ -16,22 +16,17 @@ function Login() {
     const {register, handleSubmit} = useForm();
     const {apiData, response, isLoading, progress, error} = useApi('post');
 
-    // TODO: Solve the 2 time login issue.
     const handleLogin = async (data) => {
         await apiData(api.login, data);
-        try {
-            console.log(response);
-            if (!error && response?.data) {
-                const {accessToken, refreshToken, ...user} = response?.data;
-                dispatch(login(user));
-                navigate('/home')
-            } else {
-                console.log(error);
-            }
-        } catch (e) {
-            console.log(e);
-        }
     }
+
+    useEffect(() => {
+        if (!error && response?.data) {
+            const { accessToken, refreshToken, ...user } = response.data;
+            dispatch(login(user));
+            navigate('/home');
+        }
+    }, [response, error]);
 
     return (
         <>
