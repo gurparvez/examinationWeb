@@ -2,7 +2,8 @@ const root = `/api/v1`
 export const api = {
     login: `${root}/user/login`,
     logout: `${root}/user/logout`,
-    formLive: `${root}/user/form-live`
+    formLive: `${root}/user/form-live`,
+    updateProfile: `${root}/user/update-user`,
 };
 export const navLinks = [
     {
