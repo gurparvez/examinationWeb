@@ -6,6 +6,7 @@ import menu from './menu.svg'
 import home1 from './home1.png'
 import profile from './profile.png'
 import notFound from './notFound.png'
+import notFound2 from './notFound2.png'
 
 export { 
     login_img, 
@@ -16,4 +17,5 @@ export {
     home1, 
     profile,
     notFound,
+    notFound2,
 }
