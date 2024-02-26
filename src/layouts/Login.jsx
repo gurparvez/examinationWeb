@@ -58,7 +58,10 @@ function Login() {
                                 error={error}
                                 readonly={isLoading}
                                 {...register("auid", {
-                                    required: true,
+                                    required: {
+                                        value: true,
+                                        message: "Please fill this field"
+                                    },
                                     maxLength: 9,
                                 })} />
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { profile } from '../assets'
 import {useDispatch, useSelector} from 'react-redux'
-import {Button, Input, ShowError} from '../components'
+import {Button, FadePage, Input, ShowError} from '../components'
 import {useForm} from "react-hook-form";
 import useApi from "../API/useApi.js";
 import {api} from "../constants/index.js";
@@ -22,13 +22,12 @@ const Profile = () => {
   })
   const [isChange, setIsChange] = useState(false)
   const [message, setMessage] = useState("")
-  const {register, handleSubmit} = useForm()
   const {apiData, response, isLoading, progress, error} = useApi('post');
   const dispatch = useDispatch()
-
+  
   const user = useSelector(state => state.auth.userData);
   const userData = user.user
-
+  
   useEffect(() => {
     if (userData) {
       setProfileData((prev) => ({
@@ -44,6 +43,12 @@ const Profile = () => {
       }))
     }
   }, [])
+  
+  const {register, handleSubmit} = useForm({
+    defaultValues: profileData
+  })
+
+  //TODO: set default values using useForm
 
   const updateProfile = async (data) => {
     await apiData(api.updateProfile, data)
@@ -62,6 +67,7 @@ const Profile = () => {
   return (
     <div className='w-full flex py-10 px-3 xs:px-16 justify-center bg-yellow-200'>
       <LoadingBar color='#f11946' progress={progress} />
+      {isLoading && <FadePage />}
       <div className='w-[95%] xs:w-[75%]  rounded-3xl bg-home shadow-2xl'>
         <div className='h-16 xxs:h-24 sm:h-36 flex justify-center my-5'>
           <div className='relative'>
@@ -89,50 +95,44 @@ const Profile = () => {
                       value={profileData.auid}
                       error={error}
                       readonly={true}
-                      onChange={(e) => {
-                        setIsChange(true)
-                        setProfileData({...profileData, auid: e.target.value})
-                      }}
                     />
                     <Input
                       label="Name"
-                      value={profileData.fullName}
+                      defaultValue={profileData.fullName}
                       error={error}
                       readonly={isLoading}
-                      onChange={(e) => {
-                        setIsChange(true)
-                        setProfileData({...profileData, fullName: e.target.value})
-                      }}
-                      {...register("name", {
-                        required: true
+                      {...register("fullName", {
+                        value: profileData.fullName,
+                        onChange: (e) => {
+                          setIsChange(true)
+                          setProfileData({...profileData, fullName: e.target.value})
+                        }
                       })}
                     />
                   </div>
                   <div className=''>
                     <Input
                       label="Father's Name"
-                      value={profileData.fatherName}
+                      defaultValue={profileData.fatherName}
                       error={error}
                       readonly={isLoading}
-                      onChange={(e) => {
-                        setIsChange(true)
-                        setProfileData({...profileData, fatherName: e.target.value})
-                      }}
                       {...register("fatherName", {
-                        required: true
+                        onChange: (e) => {
+                          setIsChange(true)
+                          setProfileData({...profileData, fatherName: e.target.value})
+                        }
                       })}
                     />
                     <Input
                       label="Mother's Name"
-                      value={profileData.motherName}
+                      defaultValue={profileData.motherName}
                       error={error}
                       readonly={isLoading}
-                      onChange={(e) => {
-                        setIsChange(true)
-                        setProfileData({...profileData, motherName: e.target.value})
-                      }}
                       {...register("motherName", {
-                        required: true
+                        onChange: (e) => {
+                          setIsChange(true)
+                          setProfileData({...profileData, motherName: e.target.value})
+                        }
                       })}
                     />
                   </div>
@@ -142,12 +142,11 @@ const Profile = () => {
                       value={profileData.phoneNumber}
                       error={error}
                       readonly={isLoading}
-                      onChange={(e) => {
-                        setIsChange(true)
-                        setProfileData({...profileData, phoneNumber: e.target.value})
-                      }}
                       {...register("phoneNumber", {
-                        required: true
+                        onChange: (e) => {
+                          setIsChange(true)
+                          setProfileData({...profileData, phoneNumber: e.target.value})
+                        }
                       })}
                     />
                     <Input
@@ -155,12 +154,11 @@ const Profile = () => {
                       value={profileData.email}
                       error={error}
                       readonly={isLoading}
-                      onChange={(e) => {
-                        setIsChange(true)
-                        setProfileData({...profileData, email: e.target.value})
-                      }}
                       {...register("email", {
-                        required: true
+                        onChange: (e) => {
+                          setIsChange(true)
+                          setProfileData({...profileData, email: e.target.value})
+                        }
                       })}
                     />
                   </div>
@@ -170,19 +168,18 @@ const Profile = () => {
                       value={profileData.address}
                       error={error}
                       readonly={isLoading}
-                      onChange={(e) => {
-                        setIsChange(true)
-                        setProfileData({...profileData, address: e.target.value})
-                      }}
                       {...register("address", {
-                        required: true
+                        onChange: (e) => {
+                          setIsChange(true)
+                          setProfileData({...profileData, address: e.target.value})
+                        }
                       })}
                     />
                   </div>
                 </div>
                 <div className='*:mx-3 mt-3'>
-                  <Button data='Password'/>
-                  {isChange && <Button data='Save' type='submit'/>}
+                  <Button data='Password' className={isLoading ? "bg-secondary" : ""} />
+                  {isChange && <Button data='Save' type='submit' className={isLoading ? "bg-secondary" : ""} />}
                 </div>
               </form>
             </div>

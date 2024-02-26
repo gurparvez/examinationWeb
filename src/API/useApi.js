@@ -8,6 +8,8 @@ const useApi = (type) => {
     const [progress, setProgress] = useState(0)
 
     const apiData = async (url, data=null) => {
+        console.log(url);
+        console.log(data);
         setIsLoading(true)
         setProgress(60)
 
