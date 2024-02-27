@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { profile } from '../assets'
 import {useDispatch, useSelector} from 'react-redux'
 import {Button, FadePage, Input, ShowError} from '../components'
-import {useForm} from "react-hook-form";
 import useApi from "../API/useApi.js";
 import {api} from "../constants/index.js";
 import LoadingBar from "react-top-loading-bar";
@@ -23,6 +22,14 @@ const Profile = () => {
     duration: '',
     semester: '',
     profileImage: profile,
+  })
+  const [dataToSubmit, setDataToSubmit] = useState({
+    fullName: '',
+    phoneNumber: '',
+    email: '',
+    fatherName: '',
+    motherName: '',
+    address: '',
   })
   const [isEditable, setIsEditable] = useState(false)
   const [message, setMessage] = useState("")
@@ -52,15 +59,24 @@ const Profile = () => {
     }
   }, [])
 
-  const {register, handleSubmit, reset, getValues} = useForm()
+  useEffect(() => {
+    setDataToSubmit((prev) => ({
+      ...prev,
+      fullName: profileData.fullName,
+      phoneNumber: profileData.phoneNumber,
+      email: profileData.email,
+      fatherName: profileData.fatherName,
+      motherName: profileData.motherName,
+      address: profileData.address,
+    }))
+  }, [profileData])
 
-  //TODO: set default values using useForm
-
-  const updateProfile = async () => {
-    const formData = getValues()
-    console.log(formData)
-    // await apiData("https://examform.onrender.com/api/v1/user/update-user", data)
-    setIsEditable(false)
+  const updateProfile = async (e) => {
+    e.preventDefault()
+    await apiData("https://examform.onrender.com/api/v1/user/update-user", dataToSubmit)
+    if (response) {
+      setIsEditable(false)
+    }
   }
 
   useEffect(() => {
@@ -97,7 +113,7 @@ const Profile = () => {
               <h1 className='text-3xl font-jost font-semibold '>Your Profile</h1>
             </div>
             <div className='py-3'>
-              <form onSubmit={handleSubmit(updateProfile)}>
+              <form onSubmit={updateProfile}>
                 <div className='w-full my-2'>
                   <h3 className='font-bold text-gray-500'>Personal details</h3>
                   {error ? <ShowError error={error}/> : message ?
@@ -117,12 +133,7 @@ const Profile = () => {
                         error={error}
                         value={profileData.fullName}
                         readonly={!isEditable}
-                        {...register("fullName", {
-                          value: profileData.fullName,
-                          onChange: (e) => {
-                            setProfileData({...profileData, fullName: e.target.value})
-                          }
-                        })}
+                        onChange = {e => {setProfileData({...profileData, fullName: e.target.value})}}
                     />
                   </div>
                   <div className=''>
@@ -131,24 +142,14 @@ const Profile = () => {
                         error={error}
                         value={profileData.fatherName}
                         readonly={!isEditable}
-                        {...register("fatherName", {
-                          value: profileData.fatherName,
-                          onChange: (e) => {
-                            setProfileData({...profileData, fatherName: e.target.value})
-                          }
-                        })}
+                        onChange={e => {setProfileData({...profileData, fatherName: e.target.value})}}
                     />
                     <Input
                         label="Mother's Name"
                         error={error}
                         value={profileData.motherName}
                         readonly={!isEditable}
-                        {...register("motherName", {
-                          value: profileData.motherName,
-                          onChange: (e) => {
-                            setProfileData({...profileData, motherName: e.target.value})
-                          }
-                        })}
+                        onChange={e => setProfileData({...profileData, motherName: e.target.value})}
                     />
                   </div>
                   <div className=''>
@@ -157,24 +158,14 @@ const Profile = () => {
                         error={error}
                         value={profileData.phoneNumber}
                         readonly={!isEditable}
-                        {...register("phoneNumber", {
-                          value: profileData.phoneNumber,
-                          onChange: (e) => {
-                            setProfileData({...profileData, phoneNumber: e.target.value})
-                          }
-                        })}
+                        onChange={e => setProfileData({...profileData, phoneNumber: e.target.value})}
                     />
                     <Input
                         label="Email"
                         error={error}
                         value={profileData.email}
                         readonly={!isEditable}
-                        {...register("email", {
-                          value: profileData.email,
-                          onChange: (e) => {
-                            setProfileData({...profileData, email: e.target.value})
-                          }
-                        })}
+                        onChange={e => setProfileData({...profileData, email: e.target.value})}
                     />
                   </div>
                   <div className=''>
@@ -183,12 +174,7 @@ const Profile = () => {
                         error={error}
                         value={profileData.address}
                         readonly={!isEditable}
-                        {...register("address", {
-                          value: profileData.address,
-                          onChange: (e) => {
-                            setProfileData({...profileData, address: e.target.value})
-                          }
-                        })}
+                        onChange={e => setProfileData({...profileData, address: e.target.value})}
                     />
                   </div>
                   <div className=''>
