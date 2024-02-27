@@ -30,23 +30,11 @@ const Profile = () => {
   
   useEffect(() => {
     if (userData) {
-      setProfileData((prev) => ({
-        ...prev,
-        auid: userData.auid,
-        fullName: userData.fullName,
-        phoneNumber: userData.phoneNumber,
-        email: userData.email,
-        fatherName: userData.fatherName,
-        motherName: userData.motherName,
-        address: userData.address,
-        profileImage: userData.avatar
-      }))
+      console.log(userData);
     }
   }, [])
   
-  const {register, handleSubmit} = useForm({
-    defaultValues: profileData
-  })
+  const {register, handleSubmit, setValue} = useForm()
 
   //TODO: set default values using useForm
 
@@ -98,7 +86,6 @@ const Profile = () => {
                     />
                     <Input
                       label="Name"
-                      defaultValue={profileData.fullName}
                       error={error}
                       readonly={isLoading}
                       {...register("fullName", {
@@ -113,10 +100,10 @@ const Profile = () => {
                   <div className=''>
                     <Input
                       label="Father's Name"
-                      defaultValue={profileData.fatherName}
                       error={error}
                       readonly={isLoading}
                       {...register("fatherName", {
+                        value: profileData.fatherName,
                         onChange: (e) => {
                           setIsChange(true)
                           setProfileData({...profileData, fatherName: e.target.value})
@@ -125,10 +112,10 @@ const Profile = () => {
                     />
                     <Input
                       label="Mother's Name"
-                      defaultValue={profileData.motherName}
                       error={error}
                       readonly={isLoading}
                       {...register("motherName", {
+                        value: profileData.motherName,
                         onChange: (e) => {
                           setIsChange(true)
                           setProfileData({...profileData, motherName: e.target.value})
@@ -139,10 +126,10 @@ const Profile = () => {
                   <div className=''>
                     <Input
                       label="Contact Number"
-                      value={profileData.phoneNumber}
                       error={error}
                       readonly={isLoading}
                       {...register("phoneNumber", {
+                        value: profileData.phoneNumber,
                         onChange: (e) => {
                           setIsChange(true)
                           setProfileData({...profileData, phoneNumber: e.target.value})
@@ -151,10 +138,10 @@ const Profile = () => {
                     />
                     <Input
                       label="Email"
-                      value={profileData.email}
                       error={error}
                       readonly={isLoading}
                       {...register("email", {
+                        value: profileData.email,
                         onChange: (e) => {
                           setIsChange(true)
                           setProfileData({...profileData, email: e.target.value})
@@ -165,10 +152,10 @@ const Profile = () => {
                   <div className=''>
                     <Input
                       label="Address"
-                      value={profileData.address}
                       error={error}
                       readonly={isLoading}
                       {...register("address", {
+                        value: profileData.address,
                         onChange: (e) => {
                           setIsChange(true)
                           setProfileData({...profileData, address: e.target.value})
