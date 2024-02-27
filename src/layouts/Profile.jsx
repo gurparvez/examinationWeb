@@ -18,9 +18,13 @@ const Profile = () => {
     fatherName: '',
     motherName: '',
     address: '',
+    department: '',
+    program: '',
+    duration: '',
+    semester: '',
     profileImage: profile,
   })
-  const [isChange, setIsChange] = useState(false)
+  const [isEditable, setIsEditable] = useState(false)
   const [message, setMessage] = useState("")
   const {apiData, response, isLoading, progress, error} = useApi('post');
   const dispatch = useDispatch()
@@ -30,16 +34,33 @@ const Profile = () => {
   
   useEffect(() => {
     if (userData) {
-      console.log(userData);
+      setProfileData((prev) => ({
+        ...prev,
+        auid: userData.auid,
+        fullName: userData.fullName,
+        phoneNumber: userData.phoneNumber,
+        email: userData.email,
+        fatherName: userData.fatherName,
+        motherName: userData.motherName,
+        address: userData.address,
+        department: userData.department.departmentName,
+        program: userData.course.programName,
+        duration: userData.course.duration,
+        semester: userData.course.sem,
+        profileImage: userData.avatar
+      }))
     }
   }, [])
-  
-  const {register, handleSubmit, setValue} = useForm()
+
+  const {register, handleSubmit, reset, getValues} = useForm()
 
   //TODO: set default values using useForm
 
-  const updateProfile = async (data) => {
-    await apiData(api.updateProfile, data)
+  const updateProfile = async () => {
+    const formData = getValues()
+    console.log(formData)
+    // await apiData("https://examform.onrender.com/api/v1/user/update-user", data)
+    setIsEditable(false)
   }
 
   useEffect(() => {
@@ -48,9 +69,13 @@ const Profile = () => {
       const msg = response.message;
       setMessage(msg);
       dispatch(login(user));
-      navigate('/home');
     }
   }, [response, error]);
+
+  const handleEditProfile = () => {
+    setIsEditable(true)
+    window.scrollTo({ top: 0, behavior: "smooth"})
+  }
 
   return (
     <div className='w-full flex py-10 px-3 xs:px-16 justify-center bg-yellow-200'>
@@ -74,101 +99,144 @@ const Profile = () => {
             <div className='py-3'>
               <form onSubmit={handleSubmit(updateProfile)}>
                 <div className='w-full my-2'>
-                  {error ? <ShowError error={error}/> : message ? <ShowError classname="text-green-400" error={message} /> : <ShowError />}
+                  <h3 className='font-bold text-gray-500'>Personal details</h3>
+                  {error ? <ShowError error={error}/> : message ?
+                      <ShowError classname="text-green-400" error={message}/> : <ShowError/>}
                 </div>
-                <div className='border-t border-b border-yellow-700 *:*:my-4 *:flex *:flex-col sm:*:flex-row *:py-1 sm:*:*:mx-2'>
+                <div
+                    className='border-t rounded-b bg-gray-50 border-yellow-700 *:*:my-4 *:flex *:flex-col sm:*:flex-row *:py-1 sm:*:*:mx-2'>
                   <div className=''>
                     <Input
-                      label="Auid"
-                      value={profileData.auid}
-                      error={error}
-                      readonly={true}
+                        label="Auid"
+                        value={profileData.auid}
+                        error={error}
+                        readonly={true}
                     />
                     <Input
-                      label="Name"
-                      error={error}
-                      readonly={isLoading}
-                      {...register("fullName", {
-                        value: profileData.fullName,
-                        onChange: (e) => {
-                          setIsChange(true)
-                          setProfileData({...profileData, fullName: e.target.value})
-                        }
-                      })}
+                        label="Name"
+                        error={error}
+                        value={profileData.fullName}
+                        readonly={!isEditable}
+                        {...register("fullName", {
+                          value: profileData.fullName,
+                          onChange: (e) => {
+                            setProfileData({...profileData, fullName: e.target.value})
+                          }
+                        })}
                     />
                   </div>
                   <div className=''>
                     <Input
-                      label="Father's Name"
-                      error={error}
-                      readonly={isLoading}
-                      {...register("fatherName", {
-                        value: profileData.fatherName,
-                        onChange: (e) => {
-                          setIsChange(true)
-                          setProfileData({...profileData, fatherName: e.target.value})
-                        }
-                      })}
+                        label="Father's Name"
+                        error={error}
+                        value={profileData.fatherName}
+                        readonly={!isEditable}
+                        {...register("fatherName", {
+                          value: profileData.fatherName,
+                          onChange: (e) => {
+                            setProfileData({...profileData, fatherName: e.target.value})
+                          }
+                        })}
                     />
                     <Input
-                      label="Mother's Name"
-                      error={error}
-                      readonly={isLoading}
-                      {...register("motherName", {
-                        value: profileData.motherName,
-                        onChange: (e) => {
-                          setIsChange(true)
-                          setProfileData({...profileData, motherName: e.target.value})
-                        }
-                      })}
-                    />
-                  </div>
-                  <div className=''>
-                    <Input
-                      label="Contact Number"
-                      error={error}
-                      readonly={isLoading}
-                      {...register("phoneNumber", {
-                        value: profileData.phoneNumber,
-                        onChange: (e) => {
-                          setIsChange(true)
-                          setProfileData({...profileData, phoneNumber: e.target.value})
-                        }
-                      })}
-                    />
-                    <Input
-                      label="Email"
-                      error={error}
-                      readonly={isLoading}
-                      {...register("email", {
-                        value: profileData.email,
-                        onChange: (e) => {
-                          setIsChange(true)
-                          setProfileData({...profileData, email: e.target.value})
-                        }
-                      })}
+                        label="Mother's Name"
+                        error={error}
+                        value={profileData.motherName}
+                        readonly={!isEditable}
+                        {...register("motherName", {
+                          value: profileData.motherName,
+                          onChange: (e) => {
+                            setProfileData({...profileData, motherName: e.target.value})
+                          }
+                        })}
                     />
                   </div>
                   <div className=''>
                     <Input
-                      label="Address"
-                      error={error}
-                      readonly={isLoading}
-                      {...register("address", {
-                        value: profileData.address,
-                        onChange: (e) => {
-                          setIsChange(true)
-                          setProfileData({...profileData, address: e.target.value})
-                        }
-                      })}
+                        label="Contact Number"
+                        error={error}
+                        value={profileData.phoneNumber}
+                        readonly={!isEditable}
+                        {...register("phoneNumber", {
+                          value: profileData.phoneNumber,
+                          onChange: (e) => {
+                            setProfileData({...profileData, phoneNumber: e.target.value})
+                          }
+                        })}
+                    />
+                    <Input
+                        label="Email"
+                        error={error}
+                        value={profileData.email}
+                        readonly={!isEditable}
+                        {...register("email", {
+                          value: profileData.email,
+                          onChange: (e) => {
+                            setProfileData({...profileData, email: e.target.value})
+                          }
+                        })}
+                    />
+                  </div>
+                  <div className=''>
+                    <Input
+                        label="Address"
+                        error={error}
+                        value={profileData.address}
+                        readonly={!isEditable}
+                        {...register("address", {
+                          value: profileData.address,
+                          onChange: (e) => {
+                            setProfileData({...profileData, address: e.target.value})
+                          }
+                        })}
+                    />
+                  </div>
+                  <div className=''>
+                    {isEditable && <Button data="Save" type="submit" className={isLoading && "bg-secondary"} />}
+                  </div>
+                </div>
+              </form>
+
+              <div className='mt-8'>
+                <div className='w-full my-2'>
+                  <h3 className='font-bold text-gray-500'>Program details</h3>
+                  {error ? <ShowError error={error}/> : message ?
+                      <ShowError classname="text-green-400" error={message}/> : <ShowError/>}
+                </div>
+                <div
+                    className='border-t border-b border-yellow-700 *:*:my-4 *:flex *:flex-col sm:*:flex-row *:py-1 sm:*:*:mx-2'>
+                  <div className=''>
+                    <Input
+                        label="Department"
+                        value={profileData.department}
+                        readonly={true}
+                    />
+                    <Input
+                        label="Program"
+                        value={profileData.program}
+                        readonly={true}
+                    />
+                  </div>
+                  <div className=''>
+                    <Input
+                        label="Duration"
+                        value={`${profileData.duration} years`}
+                        readonly={true}
+                    />
+                    <Input
+                        label="Semester"
+                        value={profileData.semester}
+                        readonly={true}
                     />
                   </div>
                 </div>
                 <div className='*:mx-3 mt-3'>
-                  <Button data='Password' className={isLoading ? "bg-secondary" : ""} />
-                  {isChange && <Button data='Save' type='submit' className={isLoading ? "bg-secondary" : ""} />}
+                  <Button data='Password' className={isLoading ? "bg-secondary" : ""}/>
+                  {!isEditable &&
+                      <Button data={isEditable ? "Save Changes" : "Edit Profile"} className={isLoading ? "bg-secondary" : ""} onClick={handleEditProfile} />
+                  }
                 </div>
-              </form>
+              </div>
             </div>
           </div>
         </div>
