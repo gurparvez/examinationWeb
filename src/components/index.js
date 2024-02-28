@@ -7,5 +7,6 @@ import ShowError from "./ShowError";
 import Popoup from "./Popoup";
 import Card from "./Cards/Card.jsx";
 import CardAdd from "./Cards/CardAdd.jsx";
+import Loader from "./Loading/Loader.jsx";
 
-export { Input, Button, FadePage, LoadingBar, LoadingCircle, ShowError, Popoup, Card, CardAdd }
+export { Input, Button, FadePage, LoadingBar, LoadingCircle, ShowError, Popoup, Card, CardAdd, Loader }
