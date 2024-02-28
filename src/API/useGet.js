@@ -2,28 +2,28 @@ import axios from "axios"
 import { useState } from "react"
 
 const useGet = () => {
-    const [error, setError] = useState(null)
-    const [isLoading, setIsLoading] = useState(null)
-    const [response, setResponse] = useState(null)
-    const [progress, setProgress] = useState(0)
+    const [err, setErr] = useState(null)
+    const [isProgressing, setIsProgressing] = useState(null)
+    const [res, setRes] = useState(null)
+    const [prog, setProg] = useState(0)
 
     const getData = async (url) => {
         console.log(`URL: ${url}`);
-        setIsLoading(true)
-        setProgress(60)
+        setIsProgressing(true)
+        setProg(60)
 
         try {
             const response = (await axios.get(url)).data
-            setResponse(response)
+            setRes(response)
         } catch (error) {
-            setError(error.response.data.message)
+            setErr(error.response.data.message)
         } finally {
-            setIsLoading(false)
-            setProgress(100)
+            setIsProgressing(false)
+            setProg(100)
         }
     }
 
-    return { getData, response, isLoading, progress, error }
+    return { getData, res, isProgressing, prog, err }
 }
 
 export default useGet

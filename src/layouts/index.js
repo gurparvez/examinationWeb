@@ -6,5 +6,6 @@ import Page2 from "./Examination/pages/Page2";
 import Page3 from "./Examination/pages/Page3";
 import Profile from "./Profile";
 import Home from "./Home";
+import ShowForm from "./Examination/ShowForm.jsx";
 
-export { Login, Home, Courses, Examination, Page1, Page2, Page3, Profile };
+export { Login, Home, Courses, Examination, Page1, Page2, Page3, Profile, ShowForm };

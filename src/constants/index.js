@@ -4,6 +4,7 @@ export const api = {
     logout: `${root}/user/logout`,
     formLive: `${root}/user/form-live`,
     updateProfile: `${root}/user/update-user`,
+    allForms: `${root}/form/all-forms`,
 };
 export const navLinks = [
     {

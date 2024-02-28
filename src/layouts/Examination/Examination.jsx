@@ -1,57 +1,59 @@
 import axios from 'axios'
-import { useState } from 'react'
+import {useEffect, useState} from 'react'
 import LoadingBar from 'react-top-loading-bar'
 import { api } from '../../constants'
-import { Button, FadePage } from '../../components'
-import { Link } from 'react-router-dom'
+import {Button, Card, CardAdd, FadePage} from '../../components'
+import useApi from "../../API/useApi.js";
 
 const Examination = () => {
 
-    const [FormLive, setFormLive] = useState(false)
-    const [loading, setLoading] = useState(false)
-    const [checked, setChecked] = useState(false)
-    const [progress, setProgress] = useState(0)
+    const [formData, setFormData] = useState(null)
+    const {apiData, response, isLoading, progress, error} = useApi('get')
 
-    const isFormLive = async () => {
-        try {
-            setLoading(true)
-            setProgress(progress + 60)
-            const form = await (await axios.get(api.formLive)).data
-            setProgress(80)
-            setChecked(true)
-            setFormLive(form.data.fromLive)
-            // setFormLive(true)
-            setProgress(100)
-        } catch (error) {
-            console.log("Error while fetching is-form-live: ", error);
-        }
-        finally {
-            setLoading(false)
-        }
-    }
+    useEffect(() => {
+        (async () => {
+            await apiData(api.allForms)
+        })()
+    }, [])
 
-  return (
-    <>
-    <LoadingBar color='#f11946' progress={progress} onLoaderFinished={() => setProgress(0)} />
-    {loading && <FadePage />}
-    <div className={`flex flex-row py-10 px-16 justify-center items-center bg-home ${loading ? 'pointer-events-none':'pointer-events-auto'}`}>
-        <div className='flex flex-col items-center'>
-        <h1 className='text-xl font-bold text-secondary my-3'>Fill Out the Examinations Form</h1>
-        <div className='flex flex-row *:mx-4'>
-            {
-                checked ? 
-                    FormLive ? 
-                        <Link to="/home/page1"><Button data='Fill the Examination form' bg='bg-green-800' /></Link> 
-                        : 
-                        <Link to="/home"><Button data='Form is not available' bg='bg-red-700' /></Link> 
-                    :
-                    <Button data='Check If form is Available' onClick={isFormLive} className={loading && "bg-secondary"} />
-            }
-        </div>
-        </div>
-    </div>
-    </>
-  )
+    useEffect(() => {
+        if (response) {
+            console.log(response)
+            setFormData(response.data)
+        }
+    }, [response])
+
+    const formatDate = (timestamp) => {
+        const date = new Date(timestamp);
+        return date.toLocaleDateString(); // Adjust the format as per your preference
+    };
+
+    return (
+        <>
+            <div className='w-full flex justify-center border'>
+                {isLoading && <LoadingBar progress={progress} />}
+                <div className='w-full max-w-7xl border px-3 py-8 bg-gray-100'>
+                    <div className='w-[95%]'>
+                        <div>
+                            <h1 className='text-2xl font-semibold font-jost'>Examination Forms</h1>
+                            <p>All the examination forms you filled will appear here</p>
+                        </div>
+                        <div className='flex flex-col *:my-5 md:flex-row md:*:mx-5 mt-7 mx-4'>
+                            <CardAdd href='/home/page1'/>
+                            {response && response?.data[0].forms.map((form) => (
+                                <Card
+                                    id={form._id}
+                                    href={`/home/${form._id}`}
+                                    heading={form.regular ? "Regular" : "Re-appear"}
+                                    date={formatDate(form.createdAt)}
+                                    submittedAt={formatDate(form.updatedAt)} />
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </>
+    )
 }
 
 export default Examination
