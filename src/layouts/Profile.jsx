@@ -6,6 +6,7 @@ import useApi from "../API/useApi.js";
 import {api} from "../constants/index.js";
 import LoadingBar from "react-top-loading-bar";
 import {login} from "../store/authSlice.js";
+import axios from 'axios';
 
 const Profile = () => {
 
@@ -73,9 +74,21 @@ const Profile = () => {
 
   const updateProfile = async (e) => {
     e.preventDefault()
-    await apiData("https://examform.onrender.com/api/v1/user/update-user", dataToSubmit)
-    if (response) {
-      setIsEditable(false)
+    console.log(dataToSubmit);
+    try {
+      console.log("Inside try");
+      const res = await axios.patch("https://examform.onrender.com/api/v1/user/update-user", dataToSubmit, {
+        headers: {
+          'content-type': 'x-www-form-urlencoded'
+        }
+      })
+      if (res) {
+        console.log(res);
+        setIsEditable(false)
+      }
+    } catch (e) {
+      console.log("Inside catch");
+      console.log(e);
     }
   }
 
