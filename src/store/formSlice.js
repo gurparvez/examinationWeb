@@ -11,7 +11,7 @@ const formSlice = createSlice({
     reducers: {
         put: (state, action) => {
             state.status = true;
-            state.userData = action.payload;
+            state.formsData = action.payload;
         }
     }
 })

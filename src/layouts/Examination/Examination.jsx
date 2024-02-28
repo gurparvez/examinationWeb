@@ -1,27 +1,8 @@
-import axios from 'axios'
-import {useEffect, useState} from 'react'
-import LoadingBar from 'react-top-loading-bar'
-import { api } from '../../constants'
-import {Button, Card, CardAdd, FadePage} from '../../components'
-import useApi from "../../API/useApi.js";
+import {Card, CardAdd} from '../../components'
+import {useSelector} from "react-redux";
 
 const Examination = () => {
-
-    const [formData, setFormData] = useState(null)
-    const {apiData, response, isLoading, progress, error} = useApi('get')
-
-    useEffect(() => {
-        (async () => {
-            await apiData(api.allForms)
-        })()
-    }, [])
-
-    useEffect(() => {
-        if (response) {
-            console.log(response)
-            setFormData(response.data)
-        }
-    }, [response])
+    const response = useSelector(state => state.form.formsData)
 
     const formatDate = (timestamp) => {
         const date = new Date(timestamp);
@@ -31,7 +12,6 @@ const Examination = () => {
     return (
         <>
             <div className='w-full flex justify-center border'>
-                {isLoading && <LoadingBar progress={progress} />}
                 <div className='w-full max-w-7xl border px-3 py-8 bg-gray-100'>
                     <div className='w-[95%]'>
                         <div>
@@ -40,7 +20,7 @@ const Examination = () => {
                         </div>
                         <div className='flex flex-col *:my-5 md:flex-row md:*:mx-5 mt-7 mx-4'>
                             <CardAdd href='/home/page1'/>
-                            {response && response?.data[0].forms.map((form) => (
+                            {response && response.map((form) => (
                                 <Card
                                     id={form._id}
                                     href={`/home/${form._id}`}
