@@ -11,10 +11,6 @@ export const navLinks = [
         id: "/home",
         title: "Home",
     },
-    {
-        id: "courses",
-        title: "Courses",
-    },
 ];
 export const footerLinks = [
     {

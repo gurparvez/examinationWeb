@@ -1,12 +1,16 @@
-import {Card, CardAdd} from '../../components'
+import {Button, Card, CardAdd} from '../../components'
 import {useSelector} from "react-redux";
+import Popup from '../../components/Popup';
+import { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 
 const Examination = () => {
     const response = useSelector(state => state.form.formsData)
+    const [newForm, setNewForm] = useState(false)
 
     const formatDate = (timestamp) => {
         const date = new Date(timestamp);
-        return date.toLocaleDateString(); // Adjust the format as per your preference
+        return date.toLocaleDateString();
     };
 
     return (
@@ -19,7 +23,7 @@ const Examination = () => {
                             <p>All the examination forms you filled will appear here</p>
                         </div>
                         <div className='flex flex-col *:my-5 md:flex-row md:*:mx-5 mt-7 mx-4'>
-                            <CardAdd href='/home/page1'/>
+                            <CardAdd onClick={() => {setNewForm(true)}} />
                             {response && response.map((form) => (
                                 <Card
                                     id={form._id}
