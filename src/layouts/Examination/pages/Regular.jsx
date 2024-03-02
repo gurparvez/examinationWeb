@@ -191,7 +191,7 @@ const Regular = () => {
                                         checked={q1}
                                         name="qus1"
                                         onChange={(e) => {
-                                            setValue("ques1", e.target.checked ? "1" : "0")
+                                            setValue("qus1", e.target.checked ? "1" : "0")
                                             setQ1((prev) => !prev)
                                         }}
                                     />
@@ -200,7 +200,7 @@ const Regular = () => {
                                         checked={q2}
                                         name="qus2"
                                         onChange={(e) => {
-                                            setValue("ques2", e.target.checked ? "1" : "0")
+                                            setValue("qus2", e.target.checked ? "1" : "0")
                                             setQ2((prev) => !prev)
                                         }}
                                     />
@@ -209,7 +209,7 @@ const Regular = () => {
                                         checked={q3}
                                         name="qus3"
                                         onChange={(e) => {
-                                            setValue("ques3", e.target.checked ? "1" : "0")
+                                            setValue("qus3", e.target.checked ? "1" : "0")
                                             setQ3((prev) => !prev)
                                         }}
                                     />
