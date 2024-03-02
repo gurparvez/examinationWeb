@@ -1,4 +1,4 @@
-const root = `/api/v1`
+const root = `https://examform.onrender.com/api/v1`
 export const api = {
     login: `${root}/user/login`,
     logout: `${root}/user/logout`,

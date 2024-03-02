@@ -29,9 +29,7 @@ const Regular = () => {
 
     const handleLogin = async (data) => {
         data.regular = "1"
-        console.log(data)
-        const res = await axios.post(api.submitForm, data);
-        console.log(res)
+        await apiData(api.submitForm, data);
     }
 
     useEffect(() => {
