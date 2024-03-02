@@ -28,7 +28,7 @@ const Regular = () => {
     };
 
     const handleLogin = async (data) => {
-        data.regular = 1
+        data.regular = "1"
         console.log(data)
         const res = await axios.post(api.submitForm, data);
         console.log(res)
@@ -163,7 +163,7 @@ const Regular = () => {
                                         })}
                                     />
                                 </div>
-                                <div>
+                                <div className="flex flex-wrap">
                                     {inputFields.map((field, index) => (
                                         <Input
                                             key={index}
@@ -176,7 +176,7 @@ const Regular = () => {
                                             })}
                                         />
                                     ))}
-                                    <Button onClick={addInputField} data="Add" />
+                                    <Button onClick={addInputField} data="Add Subject" />
                                 </div>
                             </div>
                         </div>
