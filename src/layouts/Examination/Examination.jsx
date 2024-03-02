@@ -1,4 +1,4 @@
-import {Button, Card, CardAdd} from '../../components'
+import {Button, Card, CardAdd, Dialog} from '../../components'
 import {useSelector} from "react-redux";
 import Popup from '../../components/Popup';
 import { useState } from 'react';
@@ -7,6 +7,7 @@ import { NavLink } from 'react-router-dom';
 const Examination = () => {
     const response = useSelector(state => state.form.formsData)
     const [newForm, setNewForm] = useState(false)
+    console.log(newForm);
 
     const formatDate = (timestamp) => {
         const date = new Date(timestamp);
@@ -24,6 +25,7 @@ const Examination = () => {
                         </div>
                         <div className='flex flex-col *:my-5 md:flex-row md:*:mx-5 mt-7 mx-4'>
                             <CardAdd onClick={() => {setNewForm(true)}} />
+                            {newForm && <Dialog />}
                             {response && response.map((form) => (
                                 <Card
                                     id={form._id}

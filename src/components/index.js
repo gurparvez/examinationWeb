@@ -8,5 +8,18 @@ import Popoup from "./Popoup";
 import Card from "./Cards/Card.jsx";
 import CardAdd from "./Cards/CardAdd.jsx";
 import Loader from "./Loading/Loader.jsx";
+import Dialog from "./popups/Dialog.jsx";
 
-export { Input, Button, FadePage, LoadingBar, LoadingCircle, ShowError, Popoup, Card, CardAdd, Loader }
+export { 
+    Input, 
+    Button, 
+    FadePage, 
+    LoadingBar, 
+    LoadingCircle, 
+    ShowError, 
+    Popoup, 
+    Card, 
+    CardAdd, 
+    Loader,
+    Dialog 
+}
