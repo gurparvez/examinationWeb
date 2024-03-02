@@ -5,6 +5,7 @@ export const api = {
     formLive: `${root}/user/form-live`,
     updateProfile: `${root}/user/update-user`,
     allForms: `${root}/form/all-forms`,
+    submitForm: `${root}/form//submit-form-data`
 };
 export const navLinks = [
     {

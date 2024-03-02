@@ -1,17 +1,24 @@
-import {Button, Card, CardAdd, Dialog} from '../../components'
+import {Button, Card, CardAdd, Dialog, DialogLib, Loader} from '../../components'
 import {useSelector} from "react-redux";
-import Popup from '../../components/Popup';
-import { useState } from 'react';
+import Popup from '../../components/popups/Popup.jsx';
+import {useEffect, useState} from 'react';
 import { NavLink } from 'react-router-dom';
+import useApi from "../../API/useApi.js";
+import {api} from "../../constants/index.js";
 
 const Examination = () => {
-    const response = useSelector(state => state.form.formsData)
+    const res = useSelector(state => state.form.formsData)
     const [newForm, setNewForm] = useState(false)
-    console.log(newForm);
+    // const isFormLive = useSelector(state => state.auth.userData.user.formLive)
+    const isFormLive = true
 
     const formatDate = (timestamp) => {
         const date = new Date(timestamp);
         return date.toLocaleDateString();
+    };
+
+    const closeDialog = () => {
+        setNewForm(false);
     };
 
     return (
@@ -23,16 +30,16 @@ const Examination = () => {
                             <h1 className='text-2xl font-semibold font-jost'>Examination Forms</h1>
                             <p>All the examination forms you filled will appear here</p>
                         </div>
-                        <div className='flex flex-col *:my-5 md:flex-row md:*:mx-5 mt-7 mx-4'>
-                            <CardAdd onClick={() => {setNewForm(true)}} />
-                            {newForm && <Dialog />}
-                            {response && response.map((form) => (
+                        <div className='flex flex-col flex-wrap *:my-5 ss:flex-row ss:*:mx-4 mt-7 mx-4'>
+                            {isFormLive && <CardAdd key="cardAdd" onClick={() => setNewForm(true)}/>}
+                            {newForm && <DialogLib open={newForm} onClose={closeDialog}/>}
+                            {res && res.map((form) => (
                                 <Card
                                     id={form._id}
                                     href={`/home/${form._id}`}
                                     heading={form.regular ? "Regular" : "Re-appear"}
                                     date={formatDate(form.createdAt)}
-                                    submittedAt={formatDate(form.updatedAt)} />
+                                    submittedAt={formatDate(form.updatedAt)}/>
                             ))}
                         </div>
                     </div>

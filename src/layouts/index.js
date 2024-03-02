@@ -7,5 +7,19 @@ import Page3 from "./Examination/pages/Page3";
 import Profile from "./Profile";
 import Home from "./Home";
 import ShowForm from "./Examination/ShowForm.jsx";
+import Regular from "./Examination/pages/Regular.jsx";
+import ReAppear from "./Examination/pages/ReAppear.jsx";
 
-export { Login, Home, Courses, Examination, Page1, Page2, Page3, Profile, ShowForm };
+export {
+    Login,
+    Home,
+    Courses,
+    Examination,
+    Page1,
+    Page2,
+    Page3,
+    Profile,
+    ShowForm,
+    Regular,
+    ReAppear,
+};

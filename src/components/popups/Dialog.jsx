@@ -1,4 +1,5 @@
 const Dialog = () => {
+  console.log("Dialog Rendered")
   return (
     <div className="pointer-events-none fixed inset-0 z-[999] grid h-screen w-screen place-items-center bg-black bg-opacity-60 opacity-0 backdrop-blur-sm transition-opacity duration-300">
       <div data-dialog="dialog-xs"

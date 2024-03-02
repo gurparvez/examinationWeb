@@ -67,7 +67,7 @@ function Login() {
 
                                 <Input 
                                 label="Password" 
-                                type='password' 
+                                type='password'
                                 className={`mt-7`}
                                 error={error}
                                 readonly={isLoading}
