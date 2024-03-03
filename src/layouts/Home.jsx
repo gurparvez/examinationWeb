@@ -20,7 +20,6 @@ function Home() {
 
     useEffect(() => {
         if(response){
-            console.log(response)
             dispatch(put(response.data[0].forms))
         }
     }, [response, error]);
