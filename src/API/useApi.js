@@ -17,10 +17,10 @@ const useApi = (type) => {
             let res = null;
             switch (type) {
                 case 'post':
-                    res = (await axios.post(url, data)).data
+                    res = (await axios.post(url, data, { withCredentials: true })).data
                     break;
                 case 'get':
-                    res = (await axios.get(url)).data
+                    res = (await axios.get(url, { withCredentials: true })).data
                     break;
                 default:
                     break;

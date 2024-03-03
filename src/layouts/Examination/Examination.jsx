@@ -1,14 +1,12 @@
-import {Button, Card, CardAdd, Dialog, DialogLib, Loader} from '../../components'
-import {useSelector} from "react-redux";
-import Popup from '../../components/popups/Popup.jsx';
+import {Card, CardAdd, DialogLib, Loader} from '../../components'
+import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from 'react';
-import { NavLink } from 'react-router-dom';
 import useApi from "../../API/useApi.js";
 import {api} from "../../constants/index.js";
 import {put} from "../../store/formSlice.js";
 
 const Examination = () => {
-
+    const dispatch = useDispatch()
     const [err, setErr] = useState("")
     const {apiData, response, isLoading, progress, error} = useApi('get');
     const res = useSelector(state => state.form.formsData)
@@ -47,12 +45,12 @@ const Examination = () => {
         <>
             <div className='w-full flex justify-center border'>
                 <div className='w-full max-w-7xl border px-3 py-8 bg-gray-100'>
-                    <div className='w-[95%]'>
+                    <div className='w-full'>
                         <div>
                             <h1 className='text-2xl font-semibold font-jost'>Examination Forms</h1>
                             <p>All the examination forms you filled will appear here</p>
                         </div>
-                        <div className='flex flex-col flex-wrap *:my-5 ss:flex-row ss:*:mx-4 mt-7 mx-4'>
+                        <div className='flex w-full justify-center flex-col flex-wrap *:my-5 ss:flex-row ss:*:mx-4 mt-7 mx-4'>
                             {isFormLive && <CardAdd key="cardAdd" onClick={() => setNewForm(true)}/>}
                             {newForm && <DialogLib open={newForm} onClose={closeDialog}/>}
                             {isLoading ? <div><Loader /></div> :

@@ -60,7 +60,7 @@ const YourFormComponent = () => {
                         <p>Controller: {formDetails.approvedByController ? "Yes" : "No"}</p>
                     </div>
                 </div>
-                {formDetails.isEditable && <Button data="Edit Form" />}
+                {/*{formDetails.isEditable && <Button data="Edit Form" />}*/}
             </div>
         </div>
     );

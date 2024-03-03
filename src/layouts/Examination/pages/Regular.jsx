@@ -40,7 +40,7 @@ const Regular = () => {
 
     return(
         <div>
-            <div className='w-full flex justify-center border-4'>
+            <div className={`w-full flex justify-center border-4 ${isLoading ? 'pointer-events-none':'pointer-events-auto'}`}>
                 <LoadingBar color='#f11946' progress={progress} />
                 <form onSubmit={handleSubmit(handleLogin)} className='w-[95%] my-5 p-3 border-2 bg-gray-200 rounded drop-shadow-xl'>
                     <div className='border-b-2 border-gray-800 my-2'>
@@ -215,7 +215,7 @@ const Regular = () => {
                             </div>
                         </div>
                     </div>
-                    <Button type="submit" data="Submit" />
+                    <Button type="submit" data="Submit" className={isLoading ? "bg-secondary" : ""} />
                 </form>
             </div>
         </div>
