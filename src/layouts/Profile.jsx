@@ -7,7 +7,6 @@ import useApi from "../API/useApi.js";
 import {api} from "../constants/index.js";
 import LoadingBar from "react-top-loading-bar";
 import {login} from "../store/authSlice.js";
-import axios from "axios";
 
 const Profile = () => {
 

@@ -5,7 +5,6 @@ import useApi from "../../../API/useApi.js";
 import {api} from "../../../constants/index.js";
 import LoadingBar from "react-top-loading-bar";
 import {useDispatch, useSelector} from "react-redux";
-import {useNavigate} from "react-router-dom";
 import {put} from "../../../store/formSlice.js";
 
 const Regular = () => {
@@ -18,7 +17,6 @@ const Regular = () => {
     const forms = useSelector(state => state.form.formsData)
     const {register, handleSubmit, setValue} = useForm();
     const {apiData, response, isLoading, progress, error} = useApi('post');
-    const navigate = useNavigate()
     const dispatch = useDispatch()
 
     const addInputField = () => {
@@ -30,7 +28,7 @@ const Regular = () => {
         setInputFields(newInputFields);
     };
 
-    const handleLogin = async (data) => {
+    const submitExam = async (data) => {
         data.regular = "1"
         await apiData(api.submitForm, data);
     }
@@ -41,11 +39,8 @@ const Regular = () => {
 
     useEffect(() => {
         if (response && !error) {
-            console.log(response?.data)
-            console.log(forms)
             const newForms = Object.assign([], forms)
             newForms.push(response?.data)
-            console.log(newForms)
             dispatch(put(newForms))
             setFormSubmitted(true)
         } else if (error) {
@@ -60,13 +55,17 @@ const Regular = () => {
             <div className={`w-full flex justify-center border-4 ${isLoading ? 'pointer-events-none':'pointer-events-auto'}`}>
                 <LoadingBar color='#f11946' progress={progress} />
                 {isLoading && <FadePage />}
-                {formSubmitted && <DialogLib open={formSubmitted} onClose={closeDialog} Heading="Successfully Submitted" para="Your regular examination form has been submitted successfully." value1="View Form" url1={`/home/${response?.data._id}`} value2="Home" url2={`/home`} />}
-                <form onSubmit={handleSubmit(handleLogin)} className='w-[95%] my-5 p-3 border-2 bg-gray-200 rounded drop-shadow-xl'>
+                {formSubmitted && <DialogLib open={formSubmitted} onClose={closeDialog}
+                                             Heading="Successfully Submitted"
+                                             para="Your regular examination form has been submitted successfully."
+                                             value1="View Form" url1={`/home/${response?.data._id}`}
+                                             value2="Home" url2={`/home`} />}
+                <form onSubmit={handleSubmit(submitExam)} className='w-[95%] my-5 p-3 border-2 bg-gray-200 rounded drop-shadow-xl'>
                     <div className='border-b-2 border-gray-800 my-2'>
                         <h1 className='text-3xl font-bold font-jost'>Regular</h1>
                     </div>
                     <div className='my-8'>
-                        <h3 className='text-lg text-gray-700 font-bold font-jost'>Receipt Details</h3>
+                        <h3 className='text-lg text-gray-700 font-bold font-jost'>Examination Fee Details</h3>
                         <div>
                             <div
                                 className='bg-gray-50 *:*:my-4 *:flex *:flex-col sm:*:flex-row *:py-1 sm:*:*:mx-2 px-2 rounded-lg shadow-xl'>
