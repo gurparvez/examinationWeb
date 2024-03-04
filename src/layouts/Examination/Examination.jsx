@@ -8,7 +8,7 @@ import {put} from "../../store/formSlice.js";
 const Examination = () => {
     const dispatch = useDispatch()
     const [err, setErr] = useState("")
-    const {apiData, response, isLoading, progress, error} = useApi('get');
+    const {apiData, response, isLoading, error} = useApi('get');
     const res = useSelector(state => state.form.formsData)
     const [newForm, setNewForm] = useState(false)
     // const isFormLive = useSelector(state => state.auth.userData.user.formLive)
@@ -52,7 +52,7 @@ const Examination = () => {
                         </div>
                         <div className='flex w-full justify-center flex-col flex-wrap *:my-5 ss:flex-row ss:*:mx-4 mt-7 mx-4'>
                             {isFormLive && <CardAdd key="cardAdd" onClick={() => setNewForm(true)}/>}
-                            {newForm && <DialogLib open={newForm} onClose={closeDialog}/>}
+                            {newForm && <DialogLib Heading="Choose the Type of Examination" para="Select exam type: Regular for new, Re-appear for any previous year pending re-appears." open={newForm} onClose={closeDialog} value1="Regular" url1="/home/regular" value2="Re Appear" url2='/home/reappear' />}
                             {isLoading ? <div><Loader /></div> :
                                 err && <div className="text-red-700">There is an error on our end while getting your forms !</div>
                             }

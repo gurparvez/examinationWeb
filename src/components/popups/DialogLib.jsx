@@ -1,11 +1,9 @@
-import { Fragment, useRef, useState } from 'react'
+import { Fragment, useRef } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
 import {useNavigate} from "react-router-dom";
 
-export default function DialogLib({
-    open,
-    onClose,}) {
+export default function DialogLib({open, onClose, Heading="Heading", para="Paragraph", value1="Home", url1="/home", value2="Home", url2="/home"}) {
 
     const cancelButtonRef = useRef(null)
     const navigate = useNavigate();
@@ -44,11 +42,11 @@ export default function DialogLib({
                                         </div>
                                         <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
                                             <Dialog.Title as="h3" className="text-base font-semibold leading-6 text-gray-900">
-                                                Choose the Type of Examination
+                                                {Heading}
                                             </Dialog.Title>
                                             <div className="mt-2">
                                                 <p className="text-sm text-gray-500">
-                                                    Select exam type: Regular for new, Re-appear for any previous year pending re-appears.
+                                                    {para}
                                                 </p>
                                             </div>
                                         </div>
@@ -58,17 +56,17 @@ export default function DialogLib({
                                     <button
                                         type="button"
                                         className="inline-flex w-full justify-center rounded-md bg-primary px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-secondary sm:ml-3 sm:w-auto"
-                                        onClick={() => navigate('/home/regular')}
+                                        onClick={() => navigate(url1)}
                                     >
-                                        Regular
+                                        {value1}
                                     </button>
                                     <button
                                         type="button"
                                         className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
-                                        onClick={() => navigate('/home/reappear')}
+                                        onClick={() => navigate(url2)}
                                         ref={cancelButtonRef}
                                     >
-                                        Re-Appear
+                                        {value2}
                                     </button>
                                 </div>
                             </Dialog.Panel>

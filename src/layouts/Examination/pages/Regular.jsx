@@ -1,22 +1,25 @@
-import {Button, Checkbox, Input} from "../../../components/index.js";
+import {Button, Checkbox, DialogLib, FadePage, Input} from "../../../components/index.js";
 import React, {useEffect, useState} from "react";
 import {useForm} from "react-hook-form";
 import useApi from "../../../API/useApi.js";
 import {api} from "../../../constants/index.js";
 import LoadingBar from "react-top-loading-bar";
-import {useSelector} from "react-redux";
-import axios from "axios";
-import {json} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {useNavigate} from "react-router-dom";
+import {put} from "../../../store/formSlice.js";
 
 const Regular = () => {
     const [pass, setPass] = useState(false)
     const [q1, setQ1] = useState(true)
     const [q2, setQ2] = useState(true)
     const [q3, setQ3] = useState(true)
+    const [formSubmitted, setFormSubmitted] = useState(false)
     const [inputFields, setInputFields] = useState([{ label: 'Subjects', name: 'coursePassed[]' }]);
     const forms = useSelector(state => state.form.formsData)
     const {register, handleSubmit, setValue} = useForm();
     const {apiData, response, isLoading, progress, error} = useApi('post');
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     const addInputField = () => {
         const newIndex = inputFields.length;
@@ -32,9 +35,20 @@ const Regular = () => {
         await apiData(api.submitForm, data);
     }
 
+    const closeDialog = () => {
+        setFormSubmitted(false);
+    };
+
     useEffect(() => {
         if (response && !error) {
-            console.log(response)
+            forms.push(response?.data)
+            dispatch(put(forms))
+            setFormSubmitted(true)
+            navigate(`home/${response?.data._id}`)
+        } else if (error) {
+            console.log("There was an error");
+        } else if (!response) {
+            console.log("No response");
         }
     }, [response, error]);
 
@@ -42,6 +56,8 @@ const Regular = () => {
         <div>
             <div className={`w-full flex justify-center border-4 ${isLoading ? 'pointer-events-none':'pointer-events-auto'}`}>
                 <LoadingBar color='#f11946' progress={progress} />
+                {isLoading && <FadePage />}
+                {formSubmitted && <DialogLib open={formSubmitted} onClose={closeDialog} Heading="Successfully Submitted" para="Your regular examination form has been submitted successfully." value1="View Form" url1={`/home/${response?.data._id}`} value2="Home" url2={`/home`} />}
                 <form onSubmit={handleSubmit(handleLogin)} className='w-[95%] my-5 p-3 border-2 bg-gray-200 rounded drop-shadow-xl'>
                     <div className='border-b-2 border-gray-800 my-2'>
                         <h1 className='text-3xl font-bold font-jost'>Regular</h1>
