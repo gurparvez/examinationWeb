@@ -19,8 +19,8 @@ function Home() {
     }, []);
 
     useEffect(() => {
-        if(response){
-            dispatch(put(response.data[0].forms))
+        if(response?.data){
+            dispatch(put(response.data[0]?.forms))
         }
     }, [response, error]);
 

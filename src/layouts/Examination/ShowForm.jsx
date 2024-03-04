@@ -1,9 +1,9 @@
 import {useParams} from 'react-router-dom';
 import {useSelector} from "react-redux";
-import {Button, Input} from "../../components/index.js";
+import {Input} from "../../components/index.js";
 import React from "react";
 
-const YourFormComponent = () => {
+const ShowForm = () => {
     const { formId } = useParams();
     const forms = useSelector(state => state.form.formsData)
     const formDetails = forms.filter((form) => form._id === formId)[0]
@@ -66,4 +66,4 @@ const YourFormComponent = () => {
     );
 };
 
-export default YourFormComponent;
+export default ShowForm;

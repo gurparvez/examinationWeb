@@ -1,7 +1,7 @@
 import axios from "axios"
 import { useState} from "react"
 
-const useApi = (type) => {
+const useApi = (type="get") => {
     const [error, setError] = useState(null)
     const [isLoading, setIsLoading] = useState(null)
     const [response, setResponse] = useState(null)
@@ -21,6 +21,9 @@ const useApi = (type) => {
                     break;
                 case 'get':
                     res = (await axios.get(url, { withCredentials: true })).data
+                    break;
+                case 'patch':
+                    res = (await axios.patch(url, data, {withCredentials: true})).data
                     break;
                 default:
                     break;

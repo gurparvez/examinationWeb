@@ -41,10 +41,13 @@ const Regular = () => {
 
     useEffect(() => {
         if (response && !error) {
-            forms.push(response?.data)
-            dispatch(put(forms))
+            console.log(response?.data)
+            console.log(forms)
+            const newForms = Object.assign([], forms)
+            newForms.push(response?.data)
+            console.log(newForms)
+            dispatch(put(newForms))
             setFormSubmitted(true)
-            navigate(`home/${response?.data._id}`)
         } else if (error) {
             console.log("There was an error");
         } else if (!response) {

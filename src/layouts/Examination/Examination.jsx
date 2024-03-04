@@ -34,7 +34,7 @@ const Examination = () => {
 
     useEffect(() => {
         if (response && !error) {
-            dispatch(put(response.data[0].forms))
+            dispatch(put(response.data[0]?.forms))
         }
         if (error) {
             setErr("Cannot get the forms !")

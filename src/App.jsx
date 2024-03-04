@@ -13,6 +13,9 @@ function App() {
   const user = useSelector(state => state.auth.userData);
   useEffect(() => {
     if (user) {
+
+      console.log(user)
+
       setIsLoggedin(true);
     }
   }, [user]);
