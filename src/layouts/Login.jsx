@@ -81,7 +81,7 @@ function Login() {
 
                             </div>
                             <div className='w-full mb-4'>
-                                {error ? <ShowError error={error} /> : <ShowError />}
+                                {error && <ShowError error={error} />}
                             </div>
                             <Button data='Login' type='submit' className={isLoading ? "bg-secondary" : ""} />
                         </form>

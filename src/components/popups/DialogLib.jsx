@@ -3,7 +3,16 @@ import { Dialog, Transition } from '@headlessui/react'
 import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
 import {useNavigate} from "react-router-dom";
 
-export default function DialogLib({open, onClose, Heading="Heading", para="Paragraph", value1="Home", url1="/home", value2="Home", url2="/home"}) {
+export default function DialogLib({
+    open,
+    onClose,
+    Heading="Heading",
+    para="Paragraph",
+    value1="Home",
+    url1="/home",
+    value2="Home",
+    url2="/home"
+}) {
 
     const cancelButtonRef = useRef(null)
     const navigate = useNavigate();

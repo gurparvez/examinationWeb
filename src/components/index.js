@@ -1,4 +1,4 @@
-import Input from "./Input";
+import Input from "./Inputs/Input.jsx";
 import Button from "./Button";
 import FadePage from "./FadePage";
 import LoadingBar from "./Loading/LoadingBar";
@@ -11,6 +11,7 @@ import Loader from "./Loading/Loader.jsx";
 import Dialog from "./popups/Dialog.jsx";
 import DialogLib from "./popups/DialogLib.jsx";
 import Checkbox from './Inputs/Checkbox.jsx'
+import ChangePass from "./popups/ChangePass.jsx";
 
 export {
     Input, 
@@ -25,5 +26,6 @@ export {
     Loader,
     Dialog,
     DialogLib,
-    Checkbox
+    Checkbox,
+    ChangePass,
 }

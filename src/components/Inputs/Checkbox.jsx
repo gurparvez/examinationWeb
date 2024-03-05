@@ -1,4 +1,8 @@
-const Checkbox = ({ text="Checkbox", className, ...props }) => {
+const Checkbox = ({
+  text="Checkbox",
+  className,
+  ...props
+}) => {
     return(
         <div className={`flex items-center ${className}`}>
             <input checked id="checked-checkbox" type="checkbox" {...props}

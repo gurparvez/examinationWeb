@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { profile } from '../assets'
 import {useDispatch, useSelector} from 'react-redux'
-import {Button, DialogLib, FadePage, Input, ShowError} from '../components'
+import {Button, ChangePass, DialogLib, FadePage, Input, ShowError} from '../components'
 import {useForm} from "react-hook-form";
 import useApi from "../API/useApi.js";
 import {api} from "../constants/index.js";
@@ -29,7 +29,7 @@ const Profile = () => {
   const [isEditable, setIsEditable] = useState(false)
   const [success, setSuccess] = useState(false)
   const [message, setMessage] = useState("")
-  const [res, setRes] = useState(null)
+  const [isPassChange, setIsPassChange] = useState(false)
   const {apiData, response, isLoading, progress, error} = useApi('patch');
   const dispatch = useDispatch()
   
@@ -63,6 +63,10 @@ const Profile = () => {
   const closeDialog = () => {
     setSuccess(false);
   };
+
+  const closePassDialog = () => {
+    setIsPassChange(false)
+  }
 
   const updateProfile = async () => {
     console.log(editableData)
@@ -239,7 +243,8 @@ const Profile = () => {
                   </div>
                 </div>
                 <div className='*:mx-3 mt-3'>
-                  <Button data='Password' className={isLoading ? "bg-secondary" : ""}/>
+                  {isPassChange && <ChangePass open={isPassChange} onClose={closePassDialog} Heading="Change your password" />}
+                  <Button data="Password" type="button" onClick={() => setIsPassChange(true)} className="my-2" />
                   {!isEditable &&
                       <Button data={isEditable ? "Save Changes" : "Edit Profile"} className={isLoading ? "bg-secondary" : ""} onClick={handleEditProfile} />
                   }
