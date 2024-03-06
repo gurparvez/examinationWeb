@@ -91,11 +91,11 @@ const Profile = () => {
   }
 
   return (
-    <div className='w-full flex py-10 px-3 xs:px-16 justify-center bg-yellow-200'>
+    <div className='w-full flex py-10 px-3 xs:px-16 justify-center bg-[#4485d1]'>
       <LoadingBar color='#f11946' progress={progress} />
       {isLoading && <FadePage />}
       {success && <DialogLib open={success} onClose={closeDialog} Heading={message} para="Your profile is successfully updated" value1="Ok" />}
-      <div className='w-[95%] xs:w-[75%]  rounded-3xl bg-home shadow-2xl'>
+      <div className='w-[95%] pb-4 rounded-3xl bg-gray-200 shadow-2xl'>
         <div className='h-16 xxs:h-24 sm:h-36 flex justify-center my-5'>
           <div className='relative'>
             <img src={noneEditableData.profileImage} alt="image" className='h-full aspect-[3/4] object-cover border border-primary rounded-2xl shadow-2xl' />
@@ -105,7 +105,7 @@ const Profile = () => {
           </div>
         </div>
         <div className='my-2 px-3 xxs:px-6'>
-          <div className='px-2 xxs:px-4 mb-5 border bg-white rounded-xl'>
+          <div className='px-2 xxs:px-4 mb-5 border bg-white shadow-2xl rounded-xl'>
             <div className='mt-4'>
               <h3 className='text-primary font-jost font-bold'>About You</h3>
               <h1 className='text-3xl font-jost font-semibold '>Your Profile</h1>
