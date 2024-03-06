@@ -30,7 +30,11 @@ const useApi = (type="get") => {
             }
             setResponse(res)
         } catch (error) {
-            setError(error.response.data.message)
+            if (error.response.status === 500) {
+                setError("Some internal server error occurred !")
+            } else {
+                setError(error.response.data.message)
+            }
         } finally {
             setIsLoading(false)
             setProgress(100)

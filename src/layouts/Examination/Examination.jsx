@@ -45,12 +45,12 @@ const Examination = () => {
         <>
             <div className='w-full flex justify-center border'>
                 <div className='w-full max-w-7xl border px-3 py-8 bg-gray-100'>
-                    <div className='w-full'>
+                    <div className='w-[95%] flex flex-col justify-center'>
                         <div>
                             <h1 className='text-2xl font-semibold font-jost'>Examination Forms</h1>
                             <p>All the examination forms you filled will appear here</p>
                         </div>
-                        <div className='flex w-full justify-center flex-col flex-wrap *:my-5 ss:flex-row ss:*:mx-4 mt-7 mx-4'>
+                        <div className='flex w-full justify-center text-center flex-wrap *:my-5 ss:flex-row ss:*:mx-4 mt-7 mx-4'>
                             {isFormLive && <CardAdd key="cardAdd" onClick={() => setNewForm(true)}/>}
                             {newForm && <DialogLib Heading="Choose the Type of Examination" para="Select exam type: Regular for new, Re-appear for any previous year pending re-appears." open={newForm} onClose={closeDialog} value1="Regular" url1="/home/regular" value2="Re Appear" url2='/home/reappear' />}
                             {isLoading ? <div><Loader /></div> :
@@ -61,7 +61,7 @@ const Examination = () => {
                                     id={form._id}
                                     href={`/home/${form._id}`}
                                     heading={form.regular ? "Regular" : "Re-appear"}
-                                    recpt={formatDate(form.receiptNumber)}
+                                    recpt={form.receiptNumber}
                                     submittedAt={formatDate(form.updatedAt)}/>
                             ))}
                         </div>

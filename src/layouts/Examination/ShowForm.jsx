@@ -7,7 +7,6 @@ const ShowForm = () => {
     const { formId } = useParams();
     const forms = useSelector(state => state.form.formsData)
     const formDetails = forms.filter((form) => form._id === formId)[0]
-    console.log(formDetails)
 
     const formatDate = (timestamp) => {
         const date = new Date(timestamp);

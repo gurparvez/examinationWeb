@@ -1,24 +1,32 @@
 import LoadingBar from "react-top-loading-bar";
-import {Button, Checkbox, DialogLib, FadePage, Input} from "../../../components/index.js";
+import {Button, Checkbox, DialogLib, FadePage, Input, ShowError} from "../../../components/index.js";
 import React, {useEffect, useState} from "react";
 import {useForm} from "react-hook-form";
 import useApi from "../../../API/useApi.js";
 import {api} from "../../../constants/index.js";
 import {put} from "../../../store/formSlice.js";
 import {useDispatch, useSelector} from "react-redux";
+import Select from "../../../components/Inputs/Select.jsx";
+import {useNavigate} from "react-router-dom";
 
 const ReAppear = () => {
 
-    const [pass, setPass] = useState(true)
     const [q1, setQ1] = useState(true)
     const [q2, setQ2] = useState(true)
     const [q3, setQ3] = useState(true)
+    const [resultValue, setResultValue] = useState("pass")
     const [inputFields, setInputFields] = useState([{ label: 'Subjects', name: 'coursePassed[]' }]);
     const {register, handleSubmit, setValue} = useForm();
     const {apiData, response, isLoading, progress, error} = useApi('post');
     const dispatch = useDispatch()
     const forms = useSelector(state => state.form.formsData)
     const [formSubmitted, setFormSubmitted] = useState(false)
+    const navigate = useNavigate()
+    const resultOptions = [
+        { value: 'pass', label: 'Pass' },
+        { value: 'fail', label: 'Fail' },
+        { value: 'reAppear', label: 'Re-Appear' },
+    ];
 
     const addInputField = () => {
         const newIndex = inputFields.length;
@@ -29,14 +37,25 @@ const ReAppear = () => {
         setInputFields(newInputFields);
     };
 
+    const removeInputField = () => {
+        if (inputFields.length > 1) {
+            const newInputFields = inputFields.slice(0, -1);
+            setInputFields(newInputFields);
+        } else {
+            console.warn("Cannot remove the last input field. There must be at least one.");
+        }
+    }
+
     const submitExam = async (data) => {
         data.regular = "0"
-        console.log(data)
+        data.result = resultValue
+        // console.log(data)
         await apiData(api.submitForm, data)
     }
 
     const closeDialog = () => {
         setFormSubmitted(false);
+        navigate('/home/examination');
     };
 
     useEffect(() => {
@@ -64,7 +83,7 @@ const ReAppear = () => {
                                              value1="View Form" url1={`/home/${response?.data._id}`}
                                              value2="Home" url2={`/home`}/>}
                 <form onSubmit={handleSubmit(submitExam)}
-                    className='w-[95%] my-5 p-3 border-2 bg-gray-200 rounded drop-shadow-xl'>
+                      className='w-[95%] my-5 p-3 border-2 bg-gray-200 rounded drop-shadow-xl'>
                     <div className='border-b-2 border-gray-800 my-2'>
                         <h1 className='text-3xl font-bold font-jost'>Re-Appear</h1>
                     </div>
@@ -82,6 +101,7 @@ const ReAppear = () => {
                                                 message: "Please fill this field"
                                             }
                                         })}
+                                        error={error}
                                     />
                                     <Input
                                         label="Fees"
@@ -91,6 +111,7 @@ const ReAppear = () => {
                                                 message: "Please fill this field"
                                             }
                                         })}
+                                        error={error}
                                     />
                                     <Input
                                         label="Date of Fees Submition"
@@ -101,6 +122,7 @@ const ReAppear = () => {
                                                 message: "Please fill this field"
                                             }
                                         })}
+                                        error={error}
                                     />
                                 </div>
                             </div>
@@ -120,6 +142,7 @@ const ReAppear = () => {
                                                 message: "Please fill this field"
                                             }
                                         })}
+                                        error={error}
                                     />
                                     <Input
                                         label="University"
@@ -129,6 +152,7 @@ const ReAppear = () => {
                                                 message: "Please fill this field"
                                             }
                                         })}
+                                        error={error}
                                     />
                                     <Input
                                         label="Session/Passing year"
@@ -142,6 +166,7 @@ const ReAppear = () => {
                                                 message: "Please fill this field"
                                             }
                                         })}
+                                        error={error}
                                     />
                                 </div>
                                 <div className=''>
@@ -153,16 +178,13 @@ const ReAppear = () => {
                                                 message: "Please fill this field"
                                             }
                                         })}
+                                        error={error}
                                     />
-                                    <Checkbox
-                                        text="Pass"
-                                        className="w-full"
-                                        checked={pass}
-                                        name="result"
-                                        onChange={(e) => {
-                                            setValue("result", e.target.checked ? "pass" : "fail")
-                                            setPass((prev) => !prev)
-                                        }}
+                                    <Select
+                                        heading="Result"
+                                        options={resultOptions}
+                                        value={resultValue}
+                                        onChange={e => setResultValue(e.target.value)}
                                     />
                                     <Input
                                         label="Obtained Marks"
@@ -172,6 +194,7 @@ const ReAppear = () => {
                                                 message: "Please fill this field"
                                             }
                                         })}
+                                        error={error}
                                     />
                                     <Input
                                         label="Maximum Marks"
@@ -181,6 +204,7 @@ const ReAppear = () => {
                                                 message: "Please fill this field"
                                             }
                                         })}
+                                        error={error}
                                     />
                                 </div>
                                 <div className="flex flex-wrap">
@@ -194,9 +218,13 @@ const ReAppear = () => {
                                                     message: 'Please fill this field'
                                                 }
                                             })}
+                                            error={error}
                                         />
                                     ))}
-                                    <Button onClick={addInputField} data="Add Subject"/>
+                                    <Button onClick={addInputField} data="Add Subject"
+                                            className={isLoading ? "bg-secondary" : ""}/>
+                                    {inputFields.length > 1 && <Button onClick={removeInputField} data="Remove Subject"
+                                                                       className={isLoading ? "bg-secondary" : ""}/>}
                                 </div>
                             </div>
                         </div>
@@ -215,6 +243,7 @@ const ReAppear = () => {
                                                 message: "Please fill this field"
                                             }
                                         })}
+                                        error={error}
                                     />
                                 </div>
                             </div>
@@ -257,11 +286,19 @@ const ReAppear = () => {
                             </div>
                         </div>
                     </div>
+                    <div className='my-8'>
+                        <div>
+                            <div
+                                className='bg-gray-50 *:*:my-4 *:flex *:flex-col *:py-1 sm:*:*:mx-2 px-2 rounded-lg shadow-xl'>
+                                {error && <ShowError error={error}/>}
+                            </div>
+                        </div>
+                    </div>
                     <Button type="submit" data="Submit"/>
                 </form>
             </div>
         </div>
-)
+    )
 }
 
 export default ReAppear
