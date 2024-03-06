@@ -2,11 +2,11 @@ import React from 'react'
 
 const ShowError = ({
     error="",
-    classname="",
+    classname="text-red-600",
     ...props
 }) => {
   return (
-    <p className={`text-red-600 ${classname}`} {...props}>
+    <p className={`${classname}`} {...props}>
         {error}
     </p>
   )
