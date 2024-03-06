@@ -71,13 +71,13 @@ const Profile = () => {
   const updateProfile = async () => {
     console.log(editableData)
     await apiData(api.updateProfile, editableData)
-    setIsEditable(false)
   }
 
   useEffect(() => {
     const success = response?.success
     if (success) {
       setSuccess(true)
+      setIsEditable(false)
       const { refreshToken, ...user } = response?.data;
       const msg = response.message;
       setMessage(msg);
@@ -86,6 +86,7 @@ const Profile = () => {
   }, [response, error]);
 
   const handleEditProfile = () => {
+    setMessage("")
     setIsEditable(true)
     window.scrollTo({ top: 0, behavior: "smooth"})
   }
@@ -205,8 +206,10 @@ const Profile = () => {
                   </div>
                   <div className=''>
                     {error ? <ShowError error={error}/> : message ?
-                        <ShowError classname="text-green-400" error={message}/> : <ShowError/>}
+                        <ShowError classname="text-green-600" error={message}/> : <ShowError/>}
                     {isEditable && <Button data="Save" type="submit" className={isLoading && "bg-secondary"} />}
+                    {!isEditable && <Button data={isEditable ? "Save Changes" : "Edit Profile"} type="button" className={isLoading ? "bg-secondary" : ""} onClick={handleEditProfile} />
+                    }
                   </div>
                 </div>
               </form>
@@ -245,9 +248,6 @@ const Profile = () => {
                 <div className='*:mx-3 mt-3'>
                   {isPassChange && <ChangePass open={isPassChange} onClose={closePassDialog} Heading="Change your password" />}
                   <Button data="Password" type="button" onClick={() => setIsPassChange(true)} className="my-2" />
-                  {!isEditable &&
-                      <Button data={isEditable ? "Save Changes" : "Edit Profile"} className={isLoading ? "bg-secondary" : ""} onClick={handleEditProfile} />
-                  }
                 </div>
               </div>
             </div>

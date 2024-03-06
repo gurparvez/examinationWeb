@@ -52,7 +52,7 @@ const Regular = () => {
 
     return(
         <div>
-            <div className={`w-full flex justify-center border-4 ${isLoading ? 'pointer-events-none':'pointer-events-auto'}`}>
+            <div className={`w-full flex justify-center border-4 ${isLoading || formSubmitted ? 'pointer-events-none':'pointer-events-auto'}`}>
                 <LoadingBar color='#f11946' progress={progress} />
                 {isLoading && <FadePage />}
                 {formSubmitted && <DialogLib open={formSubmitted} onClose={closeDialog}
