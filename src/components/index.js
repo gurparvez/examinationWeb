@@ -12,6 +12,8 @@ import Dialog from "./popups/Dialog.jsx";
 import DialogLib from "./popups/DialogLib.jsx";
 import Checkbox from './Inputs/Checkbox.jsx'
 import ChangePass from "./popups/ChangePass.jsx";
+import DialogImage from "./popups/DialogImage.jsx";
+import Dropdown from "./Dropdown.jsx";
 
 export {
     Input, 
@@ -28,4 +30,6 @@ export {
     DialogLib,
     Checkbox,
     ChangePass,
+    DialogImage,
+    Dropdown,
 }

@@ -9,11 +9,22 @@ export const api = {
     updatePassword: `${root}/user/update-password`,
 };
 export const navLinks = [
+    // id of first link should start with /
     {
         id: "/home",
         title: "Home",
     },
+    {
+        id: "courses",
+        title: "Courses",
+    },
 ];
+export const navButtons = [
+    {
+        id: "examination",
+        title: "Examination",
+    },
+]
 export const footerLinks = [
     {
         title: "Useful Links",

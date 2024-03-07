@@ -1,13 +1,13 @@
 import { Fragment, useRef } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
+import {profile} from "../../assets/index.js";
 import { useNavigate } from "react-router-dom";
 
-export default function DialogLib({
+const DialogImage = ({
     open,
     onClose,
-    image="",
-}) {
+    image=profile,
+}) => {
 
     const cancelButtonRef = useRef(null)
     const navigate = useNavigate();
@@ -38,9 +38,9 @@ export default function DialogLib({
                             leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                         >
-                            <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
-                                <div className="opacity-10 px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-                                    <img src="**your_image_url**" alt="Image description" className="w-full h-full object-contain" />
+                            <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 w-full sm:max-w-lg">
+                                <div className="px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                                    <img src={image} alt="Image description" className="w-full aspect-[3/4] object-cover" />
                                 </div>
                             </Dialog.Panel>
                         </Transition.Child>
@@ -50,3 +50,5 @@ export default function DialogLib({
         </Transition.Root>
     )
 }
+
+export default DialogImage
