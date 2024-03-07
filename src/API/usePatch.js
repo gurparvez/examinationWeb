@@ -1,20 +1,21 @@
 import axios from "axios"
-import { useState } from "react"
+import { useState} from "react"
 
-const useGet = () => {
+const usePatch = () => {
     const [err, setErr] = useState(null)
     const [isProgressing, setIsProgressing] = useState(null)
     const [res, setRes] = useState(null)
     const [prog, setProg] = useState(0)
 
-    const getData = async (url) => {
+    const patchData = async (url, data=null) => {
         setErr(null);
-        console.log(`URL: ${url}`);
+        console.log(url);
+        console.log(data);
         setIsProgressing(true)
         setProg(60)
 
         try {
-            const response = (await axios.get(url, { withCredentials: true })).data
+            const response = await axios.patch(url, data, { withCredentials: true })
             setRes(response)
         } catch (error) {
             if (error.response.status === 500) {
@@ -28,7 +29,7 @@ const useGet = () => {
         }
     }
 
-    return { getData, res, isProgressing, prog, err }
+    return { patchData, res, isProgressing, prog, err }
 }
 
-export default useGet
+export default usePatch;

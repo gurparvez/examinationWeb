@@ -14,6 +14,7 @@ import Checkbox from './Inputs/Checkbox.jsx'
 import ChangePass from "./popups/ChangePass.jsx";
 import DialogImage from "./popups/DialogImage.jsx";
 import Dropdown from "./Dropdown.jsx";
+import DialogUpload from "./popups/DialogUpload.jsx";
 
 export {
     Input, 
@@ -32,4 +33,5 @@ export {
     ChangePass,
     DialogImage,
     Dropdown,
+    DialogUpload,
 }

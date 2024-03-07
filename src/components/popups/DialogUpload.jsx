@@ -1,14 +1,13 @@
 import { Fragment, useRef } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import {profile} from "../../assets/index.js";
-import { useNavigate } from "react-router-dom";
+import {CardAdd} from "../index.js";
 
-const DialogImage = ({
+const DialogUpload = ({
     open,
     onClose,
     image=profile,
 }) => {
-
     const cancelButtonRef = useRef(null)
 
     return (
@@ -39,7 +38,9 @@ const DialogImage = ({
                         >
                             <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 w-full sm:max-w-lg">
                                 <div className="px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-                                    <img src={image} alt="Image description" className="w-full aspect-[3/4] object-cover" />
+                                    <CardAdd>
+                                        <input type="file"/>
+                                    </CardAdd>
                                 </div>
                             </Dialog.Panel>
                         </Transition.Child>
@@ -50,4 +51,4 @@ const DialogImage = ({
     )
 }
 
-export default DialogImage
+export default DialogUpload

@@ -25,7 +25,7 @@ const ReAppear = () => {
     const resultOptions = [
         { value: 'pass', label: 'Pass' },
         { value: 'fail', label: 'Fail' },
-        { value: 'reAppear', label: 'Re-Appear' },
+        { value: 're-appear', label: 'Re-Appear' },
     ];
 
     const addInputField = () => {
