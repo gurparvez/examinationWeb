@@ -1,7 +1,7 @@
 import { Fragment, useRef } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import {profile} from "../../assets/index.js";
-import {CardAdd} from "../index.js";
+import {Button, CardAdd} from "../index.js";
 
 const DialogUpload = ({
     open,
@@ -38,9 +38,15 @@ const DialogUpload = ({
                         >
                             <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 w-full sm:max-w-lg">
                                 <div className="px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-                                    <CardAdd>
-                                        <input type="file"/>
-                                    </CardAdd>
+                                    <div className='flex flex-col sm:flex-row justify-center items-center'>
+                                        <CardAdd classname='w-full'>
+                                            <input type="file"/>
+                                        </CardAdd>
+                                        <div className='w-full *:mx-2 *:my-2 flex  sm:flex-col-reverse justify-center items-center'>
+                                            <Button data='Cancel' bg='bg-gray-300' className='border border-gray-500 hover:bg-gray-400' />
+                                            <Button data='Update' />
+                                        </div>
+                                    </div>
                                 </div>
                             </Dialog.Panel>
                         </Transition.Child>

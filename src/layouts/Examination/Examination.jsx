@@ -62,7 +62,8 @@ const Examination = () => {
                                     href={`/home/${form._id}`}
                                     heading={form.regular ? "Regular" : "Re-appear"}
                                     recpt={form.receiptNumber}
-                                    submittedAt={formatDate(form.updatedAt)}/>
+                                    submittedAt={formatDate(form.updatedAt)}
+                                />
                             ))}
                         </div>
                     </div>
