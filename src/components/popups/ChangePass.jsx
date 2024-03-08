@@ -23,6 +23,7 @@ export default function ChangePass({
 
     const handleChangePassword = async (e) => {
         e.preventDefault()
+        setMsg(null)
         if (newPassword === newPassword2) {
             console.log({oldPassword, newPassword});
             await apiData(api.updatePassword, {oldPassword, newPassword});

@@ -1,10 +1,10 @@
 import { Menu, Transition } from '@headlessui/react'
-import { Fragment, useEffect, useRef, useState } from 'react'
-import {Bars3Icon, ChevronDownIcon} from '@heroicons/react/20/solid'
-import {navButtons, navLinks} from "../constants/index.js";
-import {NavLink} from "react-router-dom";
-import {Button} from "./index.js";
-import {profile} from "../assets/index.js";
+import { Fragment } from 'react'
+import { Bars3Icon } from '@heroicons/react/20/solid'
+import { navButtons, navLinks } from "../constants/index.js";
+import { NavLink } from "react-router-dom";
+import { Button } from "./index.js";
+import { profile } from "../assets/index.js";
 
 const Dropdown = ({
     navs=navLinks,
@@ -26,12 +26,12 @@ const Dropdown = ({
                 </div>
                 <Transition
                     as={Fragment}
-                    enter="transition ease-out duration-100"
-                    enterFrom="transform opacity-0 scale-95"
-                    enterTo="transform opacity-100 scale-100"
-                    leave="transition ease-in duration-75"
-                    leaveFrom="transform opacity-100 scale-100"
-                    leaveTo="transform opacity-0 scale-95"
+                    enter="transition ease-out duration-200"
+                    enterFrom="transform opacity-0 translate-x-full"
+                    enterTo="transform opacity-100 translate-x-0"
+                    leave="transition ease-in duration-200"
+                    leaveFrom="transform opacity-100 translate-x-0"
+                    leaveTo="transform opacity-0 translate-x-full"
                 >
                     <Menu.Items className="absolute right-0 mt-2 w-fit origin-top-right divide-y divide-gray-100 rounded-md bg-gray-200 shadow-lg ring-1 ring-black/5 focus:outline-none">
                         <div className="flex flex-col items-center px-3 py-1 *:my-2">
