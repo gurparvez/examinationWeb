@@ -51,7 +51,7 @@ const Examination = () => {
                             <p>All the examination forms you filled will appear here</p>
                         </div>
                         <div className='flex w-full justify-center text-center flex-wrap *:my-5 ss:flex-row ss:*:mx-4 mt-7 mx-4'>
-                            {isFormLive && <CardAdd key="cardAdd" onClick={() => setNewForm(true)}/>}
+                            {isFormLive && <CardAdd key="cardAdd" onClick={() => setNewForm(true)} classname="w-64 *:w-full" />}
                             {newForm && <DialogLib Heading="Choose the Type of Examination" para="Select exam type: Regular for new, Re-appear for any previous year pending re-appears." open={newForm} onClose={closeDialog} value1="Regular" url1="/home/regular" value2="Re Appear" url2='/home/reappear' />}
                             {isLoading ? <div><Loader /></div> :
                                 err && <div className="text-red-700">There is an error on our end while getting your forms !</div>
