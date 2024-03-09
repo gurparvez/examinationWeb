@@ -1,9 +1,13 @@
 import {Fragment, useEffect, useRef, useState} from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import {Button, DialogImage} from "../index.js";
+import {Button, DialogImage, FadePage, ShowError} from "../index.js";
 import axios from "axios";
 import {api} from "../../constants/index.js";
 import {NavLink} from "react-router-dom";
+import useApi from '../../API/useApi.js';
+import LoadingBar from 'react-top-loading-bar';
+import { useDispatch } from 'react-redux';
+import { login } from '../../store/authSlice.js';
 
 const DialogUpload = ({
     open,
@@ -12,8 +16,8 @@ const DialogUpload = ({
     const cancelButtonRef = useRef(null)
     const inputRef = useRef(null)
     const [image, setImage] = useState(null)
-    const [res, setRes] = useState(null)
-    const [err, setErr] = useState(null)
+    const dispatch = useDispatch()
+    const {apiData, response, isLoading, progress, error} = useApi('patchForm');
 
     const handleImageClick = () => {
         inputRef.current.click();
@@ -30,31 +34,23 @@ const DialogUpload = ({
         const formData = new FormData();
         if (image) {
             formData.append('avatar', image);
-            const config = {
-                headers: {
-                    ...formData.getHeaders()
-                },
-            };
-            try {
-                const response = (await axios.post(api.updateAvatar, formData, config)).data
-                setRes(response);
-            } catch (err) {
-                setErr(err);
-            }
+            apiData(api.updateAvatar, formData);
         }
     }
 
     useEffect(() => {
-        if( res && !err ) {
-            console.log(res);
+        if( response && !error ) {
+            console.log(response);
+            dispatch(login({user: response.data}));
         } else {
-            console.log(res);
+            console.log(error);
         }
-    }, [res, err])
+    }, [response, error])
 
     return (
         <Transition.Root show={open} as={Fragment}>
-            <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={() => { onClose(); }}>
+            {/* <div className="fixed top-0 left-0 w-full h-full bg-faded z-50"></div> */}
+            <Dialog as="div" className={`relative z-10 ${isLoading ? 'pointer-events-none bg-faded' : 'pointer-events-auto'}`} initialFocus={cancelButtonRef} onClose={() => { if(!isLoading) onClose(); }}>
                 <Transition.Child
                     as={Fragment}
                     enter="ease-out duration-300"
@@ -89,6 +85,7 @@ const DialogUpload = ({
                                                 <input
                                                     type="file"
                                                     ref={inputRef}
+                                                    accept='image/*'
                                                     onChange={handleImageChange}
                                                     className="hidden"
                                                 />
@@ -99,8 +96,10 @@ const DialogUpload = ({
                                                 <img src={URL.createObjectURL(image)} alt="image" className="xs:w-56 xs:aspect-[3/4] object-cover" />
                                                 <div
                                                     className='w-full *:mx-2 *:my-2 flex sm:flex-col-reverse justify-center items-center'>
+                                                    {isLoading && <div>Loading...</div>}
+                                                    {error ? <ShowError error={error}/> : response && <ShowError error={response.message} classname='text-green-600' />}
                                                     <Button data='Cancel' bg='bg-white' border="border border-gray-500"
-                                                            textColor="text-gray-900" bgHover="bg-gray-400"/>
+                                                            textColor="text-gray-900" bgHover="bg-gray-300"/>
                                                     <Button type="submit" data='Update'/>
                                                 </div>
                                             </>

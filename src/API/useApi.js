@@ -8,6 +8,9 @@ const useApi = (type="get") => {
     const [progress, setProgress] = useState(0)
 
     const apiData = async (url, data=null) => {
+        setResponse(null);
+        setIsLoading(null);
+        setProgress(0);
         setError(null);
         console.log(url);
         console.log(data);
@@ -24,7 +27,10 @@ const useApi = (type="get") => {
                     res = (await axios.get(url, { withCredentials: true })).data
                     break;
                 case 'patch':
-                    res = (await axios.patch(url, data, {withCredentials: true})).data
+                    res = (await axios.patch(url, data, { withCredentials: true })).data
+                    break;
+                case 'patchForm':
+                    res = (await axios.patchForm(url, data, { withCredentials: true })).data
                     break;
                 default:
                     break;

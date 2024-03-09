@@ -10,7 +10,11 @@ const Button = ({
   ...props
 }) => {
   return (
-    <button type={type} className={`${bg} w-auto ${border} rounded py-2 px-3 ${textColor} hover:cursor-pointer hover:${bgHover} transition-all ease-in-out ${className}`} {...props} >
+    <button
+      type={type}
+      className={`${bg} ${textColor} ${border} hover:${bgHover} w-auto rounded py-2 px-3 hover:cursor-pointer transition-all ease-in-out ${className}`}
+      {...props}
+    >
       {data}
     </button>
   )

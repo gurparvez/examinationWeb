@@ -58,7 +58,7 @@ const Profile = () => {
         address: userData.address,
       }))
     }
-  }, [])
+  }, [userData])
 
   const {register, handleSubmit} = useForm()
 
