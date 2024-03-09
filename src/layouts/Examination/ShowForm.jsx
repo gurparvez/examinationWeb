@@ -1,11 +1,12 @@
 import {useParams} from 'react-router-dom';
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {Button, Checkbox, FadePage, Input, ShowError} from "../../components/index.js";
 import React, { useEffect, useState } from "react";
 import { useForm } from 'react-hook-form';
 import useApi from '../../API/useApi.js';
 import LoadingBar from 'react-top-loading-bar';
 import { api } from '../../constants/index.js';
+import { put } from '../../store/formSlice.js';
 
 const ShowForm = () => {
 
@@ -33,6 +34,7 @@ const ShowForm = () => {
     const [isFormEditing, setIsFormEditing] = useState(false)
     const {apiData, response, isLoading, progress, error} = useApi('patch');
     const {register, handleSubmit} = useForm()
+    const dispatch = useDispatch();
 
     useEffect(() => {
         if (formDetails) {
@@ -100,13 +102,14 @@ const ShowForm = () => {
     useEffect(() => {
         if (response && !error) {
             setIsFormEditing(false)
-            console.log(response);
-        } 
+            const newFormDetails = forms.map((form) => form._id === formId ? response.data : form)
+            dispatch(put(newFormDetails));
+        }
     }, [response, error])
 
     return (
         <div className='w-full flex justify-center border-4'>
-            <LoadingBar progress={progress} />
+            <LoadingBar height={3} progress={progress} />
             {isLoading && <FadePage />}
             <div className='w-[95%] my-5 p-3 border-2 bg-gray-200 rounded drop-shadow-xl'>
                 <div className='border-b-2 border-gray-800 my-2'>
