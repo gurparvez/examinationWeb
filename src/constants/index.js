@@ -8,6 +8,7 @@ export const api = {
     submitForm: `${root}/form//submit-form-data`,
     updatePassword: `${root}/user/update-password`,
     updateAvatar: `${root}/user/update-avatar`,
+    updateForm: `${root}/form/update-from-data`
 };
 export const navLinks = [
     // id of first link should start with /

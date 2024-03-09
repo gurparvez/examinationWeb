@@ -16,6 +16,7 @@ const DialogUpload = ({
     const cancelButtonRef = useRef(null)
     const inputRef = useRef(null)
     const [image, setImage] = useState(null)
+    const [res, setRes] = useState(false)
     const dispatch = useDispatch()
     const {apiData, response, isLoading, progress, error} = useApi('patchForm');
 
@@ -40,7 +41,7 @@ const DialogUpload = ({
 
     useEffect(() => {
         if( response && !error ) {
-            console.log(response);
+            setRes(true);
             dispatch(login({user: response.data}));
         } else {
             console.log(error);
@@ -98,9 +99,9 @@ const DialogUpload = ({
                                                     className='w-full *:mx-2 *:my-2 flex sm:flex-col-reverse justify-center items-center'>
                                                     {isLoading && <div>Loading...</div>}
                                                     {error ? <ShowError error={error}/> : response && <ShowError error={response.message} classname='text-green-600' />}
-                                                    <Button data='Cancel' bg='bg-white' border="border border-gray-500"
-                                                            textColor="text-gray-900" bgHover="bg-gray-300"/>
-                                                    <Button type="submit" data='Update'/>
+                                                    <Button data='Cancel' bg='bg-white' border="border border-gray-500" textColor="text-gray-900" bgHover="bg-gray-300"/>
+                                                    {res && <Button type='button' data='OK' onClick={() => onClose()} />}
+                                                    {!res && <Button type="submit" data='Update'/>}
                                                 </div>
                                             </>
                                         }

@@ -33,6 +33,7 @@ const Profile = () => {
   const [viewImage, setViewImage] = useState(false)
   const [uploadImage, setUploadImage] = useState(false)
   const {apiData, response, isLoading, progress, error} = useApi('patch');
+  const {register, handleSubmit} = useForm()
   const dispatch = useDispatch()
   
   const user = useSelector(state => state.auth.userData);
@@ -59,8 +60,6 @@ const Profile = () => {
       }))
     }
   }, [userData])
-
-  const {register, handleSubmit} = useForm()
 
   const closeDialog = () => {
     setSuccess(false);
@@ -255,7 +254,7 @@ const Profile = () => {
                 </div>
                 <div className='*:mx-3 mt-3'>
                   {isPassChange && <ChangePass open={isPassChange} onClose={closePassDialog} Heading="Change your password" />}
-                  <Button data="Password" type="button" onClick={() => setIsPassChange(true)} className="my-2" />
+                  <Button data="Change Password" type="button" onClick={() => setIsPassChange(true)} className="my-2" />
                 </div>
               </div>
             </div>
