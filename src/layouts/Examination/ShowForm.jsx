@@ -79,6 +79,7 @@ const ShowForm = () => {
                 qus2: formDetails.prevYearData.qus2,
                 qus3: formDetails.prevYearData.qus3
             }))
+            if (formDetails.regular === false) setFormData(prev => ({...prev, subjectCode: formDetails.subjectCode}))
             setInputFields(formDetails.prevYearData.coursePassed)
             setQ1(formDetails.prevYearData.qus1)
             setQ2(formDetails.prevYearData.qus2)

@@ -33,7 +33,7 @@ function Login() {
         <div className={`relative flex flex-row w-screen h-screen bg-yellow-200 ${isLoading ? 'pointer-events-none':'pointer-events-auto'}`}>
             <LoadingBar color='#f11946' progress={progress} height={3} />
             {isLoading && <FadePage />}
-            <div className='absolute top-10 left-7'>
+            <div className='absolute sm:hidden top-10 left-7 z-30'>
                 <img src={logo} alt="logo" />
             </div>
             <div className='hidden justify-center items-center sm:flex w-1/2'>
