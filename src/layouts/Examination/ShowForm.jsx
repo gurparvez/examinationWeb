@@ -28,7 +28,13 @@ const ShowForm = () => {
         marksMax: '',
         marksObtained: '',
         coursePassed: [],
+        qus1: '',
+        qus2: '',
+        qus3: ''
     })
+    const [q1, setQ1] = useState(true)
+    const [q2, setQ2] = useState(true)
+    const [q3, setQ3] = useState(true)
     const [showDate, setShowDate] = useState(Date.now())
     const [err, setErr] = useState(null)
     const { formId } = useParams();
@@ -68,13 +74,15 @@ const ShowForm = () => {
                 result: formDetails.prevYearData.result,
                 marksMax: formDetails.prevYearData.marksMax,
                 marksObtained: formDetails.prevYearData.marksObtained,
-                coursePassed: formDetails.prevYearData.coursePassed
+                coursePassed: formDetails.prevYearData.coursePassed,
+                qus1: formDetails.prevYearData.qus1,
+                qus2: formDetails.prevYearData.qus2,
+                qus3: formDetails.prevYearData.qus3
             }))
             setInputFields(formDetails.prevYearData.coursePassed)
-            console.log(formDetails);
-            console.log(prevYearData.auid);
-            console.log(prevYearData.marksObtained);
-            console.log(prevYearData.marksMax);
+            setQ1(formDetails.prevYearData.qus1)
+            setQ2(formDetails.prevYearData.qus2)
+            setQ3(formDetails.prevYearData.qus3)
         }
     }, [formDetails])
 
@@ -95,7 +103,7 @@ const ShowForm = () => {
             setFormData({...formData, date: e.target.value})
             setShowDate(e.target.value)
         } else {
-            setErr(`Date needs to be less than or equall to ${formatDate(Date.now())} !`)
+            setErr(`Date needs to be less than or equal to ${formatDate(Date.now())} !`)
         }
     }
 
@@ -138,8 +146,11 @@ const ShowForm = () => {
 
     const updatePrevYearData = async () => {
         prevYearData._id = formId;
-        console.log(prevYearData);
-        // await apiData(api.updatePrevYearData, prevYearData);
+        prevYearData.coursePassed = inputFields;
+        prevYearData.qus1 = prevYearData.qus1 ? "1" : "0";
+        prevYearData.qus2 = prevYearData.qus2 ? "1" : "0";
+        prevYearData.qus3 = prevYearData.qus3 ? "1" : "0";
+        await patchData(api.updatePrevYearData, prevYearData);
     }
 
     useEffect(() => {
@@ -150,8 +161,16 @@ const ShowForm = () => {
         }
     }, [response, error])
 
+    useEffect(() => {
+        if (res && !e) {
+            setIsPrevYearFormEditing(false)
+            const newFormDetails = forms.map((form) => form._id === formId ? res.data : form)
+            dispatch(put(newFormDetails))
+        }
+    }, [res, e])
+
     const resultValue = () => {
-        return resultOptions.filter(option => option.value === prevYearData.result)[0]
+        return resultOptions.filter(option => option.value === prevYearData.result)[0]?.value
     }
 
     const addInputField = () => {
@@ -164,16 +183,11 @@ const ShowForm = () => {
         setInputFields(newInputFields);
     };
 
-    const handleCourseChange = (index, value) => {
-        const newInputFields = [...inputFields];
-        newInputFields[index] = value;
-        setInputFields(newInputFields);
-      };
-
     return (
         <div className='w-full flex justify-center border-4'>
             <LoadingBar height={3} progress={progress} />
-            {isLoading && <FadePage />}
+            <LoadingBar height={3} progress={prog} />
+            {isLoading || isProgressing && <FadePage />}
             <div className='w-[95%] my-5 p-3 border-2 bg-gray-200 rounded drop-shadow-xl'>
                 <div className='border-b-2 border-gray-800 my-2'>
                     <h1 className='text-3xl font-bold font-jost'>{regular ? "Regular Form" : "Re-appear Form"}</h1>
@@ -266,7 +280,10 @@ const ShowForm = () => {
                                         readonly={!isPrevYearFormEditing}
                                         {...register('examination', {
                                             value: prevYearData?.examination,
-                                            onChange: e => ({...prevYearData, examination: e.target.value})
+                                            onChange: (e) => setPrevYearData({
+                                                ...prevYearData,
+                                                examination: e.target.value
+                                            })
                                         })}
                                     />
                                     <Input
@@ -276,7 +293,10 @@ const ShowForm = () => {
                                         readonly={!isPrevYearFormEditing}
                                         {...register('university', {
                                             value: prevYearData?.university,
-                                            onChange: e => ({...prevYearData, university: e.target.value})
+                                            onChange: (e) => setPrevYearData({
+                                                ...prevYearData,
+                                                university: e.target.value
+                                            })
                                         })}
                                     />
                                     <Input
@@ -286,7 +306,7 @@ const ShowForm = () => {
                                         readonly={!isPrevYearFormEditing}
                                         {...register('session', {
                                             value: prevYearData?.session,
-                                            onChange: e => ({...prevYearData, session: e.target.value})
+                                            onChange: (e) => setPrevYearData({...prevYearData, session: e.target.value})
                                         })}
                                     />
                                 </div>
@@ -298,7 +318,7 @@ const ShowForm = () => {
                                         readonly={!isPrevYearFormEditing}
                                         {...register('auid', {
                                             value: prevYearData?.auid,
-                                            onChange: e => ({...prevYearData, auid: e.target.value})
+                                            onChange: (e) => setPrevYearData({...prevYearData, auid: e.target.value})
                                         })}
                                     />
                                     {!isPrevYearFormEditing &&
@@ -312,8 +332,8 @@ const ShowForm = () => {
                                         <Select
                                             heading="Result"
                                             options={resultOptions}
-                                            value={resultValue}
-                                            onChange={e => setPrevYearData({...prevYearData, result: e.target.value})}
+                                            value={resultValue()}
+                                            onChange={(e) => setPrevYearData({...prevYearData, result: e.target.value})}
                                         />
                                     }
                                     <Input
@@ -321,18 +341,25 @@ const ShowForm = () => {
                                         value={prevYearData?.marksObtained}
                                         error={e}
                                         readonly={!isPrevYearFormEditing}
-                                        {...register('auid', {
+                                        {...register('marksObtained', {
                                             value: prevYearData?.marksObtained,
-                                            onChange: e => ({...prevYearData, marksObtained: e.target.value})
+                                            onChange: (e) => setPrevYearData({
+                                                ...prevYearData,
+                                                marksObtained: e.target.value
+                                            })
                                         })}
                                     />
                                     <Input
                                         label="Maximum Marks"
                                         value={prevYearData?.marksMax}
+                                        error={e}
                                         readonly={!isPrevYearFormEditing}
                                         {...register('marksMax', {
                                             value: prevYearData?.marksMax,
-                                            onChange: e => ({...prevYearData, marksMax: e.target.value})
+                                            onChange: (e) => setPrevYearData({
+                                                ...prevYearData,
+                                                marksMax: e.target.value
+                                            })
                                         })}
                                     />
                                 </div>
@@ -342,12 +369,12 @@ const ShowForm = () => {
                                             key={index}
                                             label={`Subject ${index + 1}`}
                                             value={course}
-                                            error={error}
+                                            error={e}
                                             readonly={!isPrevYearFormEditing}
                                             {...register(`coursePassed[${index}]`, {
                                                 value: course,
-                                                onchange: (e) => {
-                                                    newInputs = inputFields.splice(index, 0, e.target.value)
+                                                onChange: (e) => {
+                                                    const newInputs = inputFields.with(index, e.target.value)
                                                     setInputFields(newInputs)
                                                 },
                                             })}
@@ -355,19 +382,66 @@ const ShowForm = () => {
                                     ))}
                                     {isPrevYearFormEditing && (
                                         <>
-                                            <Button onClick={addInputField} data="Add Subject" className={isLoading ? "bg-secondary" : ""} />
-                                            {inputFields.length > 1 && <Button onClick={() => removeInputField(inputFields.length - 1)} data="Remove Subject" className={isLoading ? "bg-secondary" : ""} />}
+                                            <Button onClick={addInputField} data="Add Subject" className={isLoading ? "bg-secondary" : ""}/>
+                                            {inputFields.length > 1 &&
+                                                <Button onClick={() => removeInputField(inputFields.length - 1)} data="Remove Subject" className={isLoading ? "bg-secondary" : ""}/>}
                                         </>
                                     )}
+                                </div>
+                                <div className=''>
+                                    <Checkbox
+                                        text="Have You ever been disqualified ?"
+                                        checked={q1}
+                                        readonly={!isPrevYearFormEditing}
+                                        error={e}
+                                        {...register('qus1', {
+                                            value: prevYearData.qus1,
+                                            onChange: (e) => {
+                                                setQ1((prev) => !prev)
+                                                const checkboxValue = e.target.checked ? '1' : '0';
+                                                setPrevYearData({...prevYearData, qus1: checkboxValue})
+                                            }
+                                        })}
+                                    />
+                                    <Checkbox
+                                        text="Are you appearing in two examinations simulatneously ?"
+                                        checked={q2}
+                                        readonly={!isPrevYearFormEditing}
+                                        error={e}
+                                        {...register('qus2', {
+                                            value: prevYearData.qus2,
+                                            onChange: (e) => {
+                                                setQ2((prev) => !prev)
+                                                const checkboxValue = e.target.checked ? '1' : '0';
+                                                setPrevYearData({...prevYearData, qus2: checkboxValue})
+                                            }
+                                        })}
+                                    />
+                                    <Checkbox
+                                        text="Have you applied for re-evevaluation of lower examination ?"
+                                        checked={q3}
+                                        readonly={!isPrevYearFormEditing}
+                                        error={e}
+                                        {...register('qus3', {
+                                            value: prevYearData.qus3,
+                                            onChange: (e) => {
+                                                setQ3((prev) => !prev)
+                                                const checkboxValue = e.target.checked ? '1' : '0';
+                                                setPrevYearData({...prevYearData, qus3: checkboxValue})
+                                            }
+                                        })}
+                                    />
                                 </div>
                             </div>
                         </div>
                     </div>
-                    {isEditable && !isPrevYearFormEditing && <Button type='button' data='Edit Form' onClick={handlePrevYearEditClick} />}
-                    {isPrevYearFormEditing && <Button type='submit' data='Save Changes' />}
+                    {res?.success && <ShowError error={res?.message} classname='text-green-500' />}
+                    {e && <ShowError error={err} />}
+                    {isEditable && !isPrevYearFormEditing &&
+                        <Button type='button' data='Edit Form' onClick={handlePrevYearEditClick}/>}
+                    {isPrevYearFormEditing && <Button type='submit' data='Save Changes'/>}
                 </form>
                 <div className='my-8'>
-                    {/*<h3 className='text-lg text-gray-700 font-bold font-jost'>Approved By</h3>*/}
                     <div className="relative overflow-x-auto rounded-lg shadow-xl">
                         <table className="w-full rounded-lg text-sm text-left rtl:text-right text-gray-500">
                             <thead

@@ -44,10 +44,10 @@ const Profile = () => {
       setNoneEditableData((prev) => ({
         ...prev,
         auid: userData.auid,
-        department: userData.department.departmentName,
-        program: userData.course.programName,
-        duration: userData.course.duration,
-        semester: userData.course.sem,
+        department: userData.department?.departmentName,
+        program: userData.course?.programName,
+        duration: userData.course?.duration,
+        semester: userData.course?.sem,
         profileImage: userData.avatar
       }))
       setEditableData(() => ({
@@ -230,19 +230,19 @@ const Profile = () => {
                   <div className=''>
                     <Input
                         label="Department"
-                        value={noneEditableData.department}
+                        value={noneEditableData.department || ''}
                         readonly={true}
                     />
                     <Input
                         label="Program"
-                        value={noneEditableData.program}
+                        value={noneEditableData.program || ''}
                         readonly={true}
                     />
                   </div>
                   <div className=''>
                     <Input
                         label="Duration"
-                        value={`${noneEditableData.duration} years`}
+                        value={ noneEditableData.duration ? `${noneEditableData.duration} years` : ''}
                         readonly={true}
                     />
                     <Input

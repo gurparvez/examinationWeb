@@ -15,7 +15,7 @@ const usePatch = () => {
         setProg(60)
 
         try {
-            const response = await axios.patch(url, data, { withCredentials: true })
+            const response = (await axios.patch(url, data, {withCredentials: true})).data
             setRes(response)
         } catch (error) {
             if (error.response.status === 500) {
