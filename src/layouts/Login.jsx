@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { api } from '../constants';
 import { login } from '../store/authSlice';
-import { login_img } from '../assets';
+import {login_img, logo} from '../assets';
 import LoadingBar from 'react-top-loading-bar'
 import { Button, Input, ShowError, FadePage } from '../components/';
 import useApi from '../API/useApi';
@@ -33,6 +33,9 @@ function Login() {
         <div className={`relative flex flex-row w-screen h-screen bg-yellow-200 ${isLoading ? 'pointer-events-none':'pointer-events-auto'}`}>
             <LoadingBar color='#f11946' progress={progress} height={3} />
             {isLoading && <FadePage />}
+            <div className='absolute top-10 left-7'>
+                <img src={logo} alt="logo" />
+            </div>
             <div className='hidden justify-center items-center sm:flex w-1/2'>
                 <img className='m-6 pl-14' src={login_img} alt="images" />
             </div>
@@ -46,9 +49,10 @@ function Login() {
                         </div>
                     </div>
                     <div className='p-7'>
-                        <h1 className='font-jost font-semibold text-2xl mb-3'>
-                            Welcome back
+                        <h1 className='font-jost font-semibold text-2xl'>
+                            Akal University
                         </h1>
+                        <p>Please login to continue</p>
                         <form onSubmit={handleSubmit(handleLogin)} className='sm:px-2'>
                             <div className='mb-4 *:my-8'>
                                 <Input 
