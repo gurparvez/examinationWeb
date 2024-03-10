@@ -76,7 +76,7 @@ const FormFill = ({
     return(
         <div>
             <div className={`w-full flex justify-center border-4 ${isLoading || formSubmitted ? 'pointer-events-none':'pointer-events-auto'}`}>
-                <LoadingBar color='#f11946' progress={progress} />
+                <LoadingBar color='#f11946' height={3} progress={progress} />
                 {isLoading || formSubmitted ? <FadePage /> : <div />}
                 {formSubmitted && <DialogLib open={formSubmitted} onClose={closeDialog}
                                              Heading="Successfully Submitted"

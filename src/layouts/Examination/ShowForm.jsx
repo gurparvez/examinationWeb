@@ -7,6 +7,7 @@ import useApi from '../../API/useApi.js';
 import LoadingBar from 'react-top-loading-bar';
 import { api } from '../../constants/index.js';
 import { put } from '../../store/formSlice.js';
+import { format } from 'date-fns';
 
 const ShowForm = () => {
 
@@ -15,8 +16,8 @@ const ShowForm = () => {
         fees: '',
         date: '',
         subjectCode: '',
-      })
-      const [prevYearData, setPrevYearData] = useState({
+    })
+    const [prevYearData, setPrevYearData] = useState({
         examination: "",
         university: "",
         session: '',
@@ -25,7 +26,9 @@ const ShowForm = () => {
         marksMax: '',
         marksObtained: '',
         coursePassed: [],
-      })
+    })
+    const [showDate, setShowDate] = useState(Date.now())
+    const [err, setErr] = useState(null)
     const { formId } = useParams();
     const forms = useSelector(state => state.form.formsData)
     const formDetails = forms.filter((form) => form._id === formId)[0]
@@ -44,6 +47,7 @@ const ShowForm = () => {
                 fees: formDetails.fees,
                 date: formDetails.date
             }))
+            setShowDate(formDetails.date)
             setPrevYearData(prev => ({
                 ...prev,
                 auid: formDetails.auid,
@@ -63,8 +67,23 @@ const ShowForm = () => {
         return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`
     };
 
-    const formattedToDate = (date) => {
-        return Date.parse(date)
+    const formatDateForInput = (date) => {
+        console.log("Date to be Formatted(from formDetails): ", formData?.date);
+        console.log("Date to be Formatted(from showDate): ", date);
+        const dateObj = new Date(date);
+        console.log("Date converted to Date object: ", dateObj);
+        return format(new Date(dateObj), 'yyyy-MM-dd');
+    }
+
+    const handleDateChange = (e) => {
+        setErr(null)
+        const dateChanged = new Date(e.target.value)
+        if (dateChanged <= Date.now()) {
+            setFormData({...formData, date: e.target.value})
+            setShowDate(e.target.value)
+        } else {
+            setErr(`Date needs to be less than or equall to ${formatDate(Date.now())} !`)
+        }
     }
 
     const getTimeFromTimestamp = (timestamp) => {
@@ -96,7 +115,7 @@ const ShowForm = () => {
 
     const updateFormData = async () => {
         formData._id = formId;
-        await apiData(api.updateForm, formData);
+        if (!err) await apiData(api.updateForm, formData);
     }
 
     useEffect(() => {
@@ -148,12 +167,13 @@ const ShowForm = () => {
                                     />
                                     <Input
                                         label="Date of Fees Submition"
-                                        value={!isFormEditing ? formatDate(formData.date) : ""}
-                                        type={isFormEditing ? 'date' : 'text'}
+                                        value={formatDateForInput(showDate)}
+                                        type='date'
                                         error={error}
                                         readonly={!isFormEditing}
                                         {...register('date', {
-                                            value: isFormEditing ? '' : formatDate(formData.date),
+                                            value: (formData?.date),
+                                            onChange: handleDateChange
                                         })}
                                     />
                                 </div>
@@ -170,7 +190,7 @@ const ShowForm = () => {
                                         <Input
                                             label="Subject Code"
                                             value={formData.subjectCode}
-                                            error={error}
+                                            error={error || err}
                                             readonly={!isFormEditing}
                                             {...register('subjectCode', {
                                                 value: formData.subjectCode,
@@ -184,6 +204,7 @@ const ShowForm = () => {
                     }
                     {response?.success && <ShowError error={response?.message} classname='text-green-500' />}
                     {error && <ShowError error={error} />}
+                    {err && <ShowError error={err} />}
                     {isEditable && !isFormEditing && <Button type='button' data='Edit Form' onClick={handleFormEditClick} />}
                     {isFormEditing && <Button type='submit' data='Save Changes' />}
                 </form>
