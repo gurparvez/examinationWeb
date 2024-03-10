@@ -29,7 +29,7 @@ const usePatch = () => {
         }
     }
 
-    return { patchData, res, isProgressing, prog, err }
+    return { patchData, res, isProgressing, prog, e: err }
 }
 
 export default usePatch;
