@@ -15,13 +15,18 @@ const useApi = (type="get") => {
         console.log(url);
         console.log(data);
         setIsLoading(true)
-        setProgress(60)
+        
+        const onUploadProgress = (progressEvent) => {
+            const { loaded, total } = progressEvent;
+            const percentCompleted = Math.round((loaded * 100) / total);
+            setProgress(percentCompleted)
+        }
 
         try {
             let res = null;
             switch (type) {
                 case 'post':
-                    res = (await axios.post(url, data, { withCredentials: true })).data
+                    res = (await axios.post(url, data, { withCredentials: true, onUploadProgress: onUploadProgress })).data
                     break;
                 case 'get':
                     res = (await axios.get(url, { withCredentials: true })).data
