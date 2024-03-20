@@ -28,7 +28,8 @@ function App() {
 
   useEffect(() => {
     if (!error && response?.data) {
-      dispatch(login({user: response.data}))
+      const {refreshToken, ...user} = response.data
+      dispatch(login({user: user}))
     }
   }, [response])
 
