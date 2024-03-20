@@ -10,6 +10,7 @@ export const api = {
     updateAvatar: `${root}/user/update-avatar`,
     updateForm: `${root}/form/update-from-data`,
     updatePrevYearData: `${root}/form/update-prev-year-data`,
+    getUser: `${root}/user/get-user`
 };
 export const navLinks = [
     // id of first link should start with /

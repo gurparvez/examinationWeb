@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import {Login, Home, Courses, Examination, Page1, Profile, Page2, ShowForm, Regular, ReAppear, FormFill} from './layouts'
+import {Login, Home, Courses, Examination, Page1, Profile, Page2, ShowForm, FormFill} from './layouts'
 import App from './App'
 import './index.css'
 import { Provider } from 'react-redux'
@@ -11,8 +11,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Login />}>
-        </Route>
+        <Route path='/' element={<Login />} />
         <Route path='/home' element={<App />}>
           <Route index element={<Home />} />
           <Route path='courses' element={<Courses />} />
