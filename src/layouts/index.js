@@ -10,6 +10,7 @@ import ShowForm from "./Examination/ShowForm.jsx";
 import Regular from "./Examination/pages/Regular.jsx";
 import ReAppear from "./Examination/pages/ReAppear.jsx";
 import FormFill from "./Examination/pages/FormFill.jsx";
+import Form from "./Examination/pages/form.jsx";
 
 export {
     Login,
@@ -24,4 +25,5 @@ export {
     Regular,
     ReAppear,
     FormFill,
+    Form,
 };
