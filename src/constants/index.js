@@ -1,3 +1,5 @@
+import {announcement1} from "../assets/index.js";
+
 const root = `https://examform.onrender.com/api/v1`
 export const api = {
     login: `${root}/user/login`,
@@ -148,26 +150,45 @@ export const aboutUniversity = [
 ];
 export const announcements = [
     {
-        heading: " Info At A Glance",
-        title: "Important Announcements",
+        heading: "Important Announcements",
+        title: "Info At A Glance",
         contentCard: [
             {
-                title: "View all Announcements",
-                content: "This is the announcement page. Click on the announcement to know more about it. Also see RESOURCES section in the Website Footer to get to this page",
-                readmore: "https://auts.ac.in/announcement/view-all-announcements/",
+                title: "Scholarship Announcement",
+                image: 'https://auts.ac.in/wp-content/uploads/2024/01/schlorship-ug-pg.png',
+                content: "Apply Now for Scholarships to Secure Your Spot 100 percent Scholarship for UG Registration -Last date 15 January [...]",
+                readMore: "https://auts.ac.in/announcement/100-percent-scholarship-apply-now/",
             },
             {
-                title: "100% Scholarship - Apply Now !",
-                image: "./src/assets/announcements1.jpg",
-                content: "",
-                readmore: "",
+                title: "Ph.D Admission – Important Information and Entrance Exam Application",
+                image: "https://auts.ac.in/wp-content/uploads/2023/12/phdpage-featured.jpg",
+                content: "◉ Ph.D Admission Notice 2023 ◉ Syllabus for Ph.D entrance test ◉ Ph.D Entrance Examination 2023-2024 – Important Information ◉ Application Form for entrance test to admission to Ph.D. Programme 2024",
+                readMore: "https://auts.ac.in/announcement/ph-d-admission-important-information-and-entrance-exam-application/",
             },
             {
-                title: "",
-                image: "",
-                content: "",
-                readmore: "",
+                title: "ICSSR sponsored one day workshop (on 27 February, 2024)",
+                image: "https://auts.ac.in/wp-content/uploads/2024/02/icssr-announcement-banner.jpg",
+                content: "This workshop has a two-fold purpose. First to disseminate the key insights of the short-term empirical research project entitled [...]",
+                readMore: "https://auts.ac.in/announcement/icssr-sponsored-one-day-workshop-on-27-february-2024/",
             },
         ],
     },
+]
+export const testimonials = [
+    {
+        heading: "Testimonials",
+        title: "What Our Students Say",
+        contentCard: [
+            {
+                title: "Resleen Kaur",
+                image: "https://blog.auts.ac.in/wp-content/uploads/1.jpg",
+                content: "My experience at Akal University is outstanding. I checked out many universities However, the other universities only offered specializations in Marketing, Finance, and Human Resources, and the fees were also relatively high. On the other hand, Akal University offers an MBA specializing in Business Analytics.",
+            },
+            {
+                title: "Harjaganjot Kaur",
+                image: "https://blog.auts.ac.in/wp-content/uploads/harjaganjot.png",
+                content: "After completing my Grade 12th, I was looking for an institution that was highly equipped with the instruction of Physics, and that is when I stumbled upon Akal University. Akal University is highly equipped with advanced labs and faculty with outstanding credentials.",
+            },
+        ]
+    }
 ]

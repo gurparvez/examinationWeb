@@ -1,5 +1,5 @@
 import login_img from './2_images.png'
-import announcement_img from './announcements1.jpeg'
+import announcement1 from './announcements1.jpeg'
 import logo from './logo.png'
 import close from './close.svg'
 import menu from './menu.svg'
@@ -11,7 +11,7 @@ import underConstruction from './under-construction.png'
 
 export { 
     login_img, 
-    announcement_img, 
+    announcement1,
     logo, 
     close, 
     menu, 
