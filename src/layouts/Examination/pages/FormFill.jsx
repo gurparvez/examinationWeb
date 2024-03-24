@@ -13,14 +13,14 @@ const FormFill = ({
     regular=1
 }) => {
 
-    const [q1, setQ1] = useState(true)
-    const [q2, setQ2] = useState(true)
-    const [q3, setQ3] = useState(true)
+    const [q1, setQ1] = useState(false)
+    const [q2, setQ2] = useState(false)
+    const [q3, setQ3] = useState(false)
     const [formSubmitted, setFormSubmitted] = useState(false)
     const [resultValue, setResultValue] = useState("pass")
     const [inputFields, setInputFields] = useState([{ label: 'Subjects', name: 'coursePassed[]' }]);
     const forms = useSelector(state => state.form.formsData)
-    const {register, handleSubmit, setValue} = useForm();
+    const {register, handleSubmit} = useForm();
     const {apiData, response, isLoading, progress, error} = useApi('post');
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -51,6 +51,9 @@ const FormFill = ({
     const submitExam = async (data) => {
         data.regular = `${regular}`
         data.result = resultValue
+        data.qus1 = q1
+        data.qus2 = q2
+        data.qus3 = q3
         // console.log(data)
         await apiData(api.submitForm, data);
     }
@@ -259,27 +262,21 @@ const FormFill = ({
                                     <Checkbox
                                         text="Have You ever been disqualified ?"
                                         checked={q1}
-                                        name="qus1"
-                                        onChange={(e) => {
-                                            setValue("qus1", e.target.checked ? "1" : "0")
+                                        onChange={() => {
                                             setQ1((prev) => !prev)
                                         }}
                                     />
                                     <Checkbox
                                         text="Are you appearing in two examinations simulatneously ?"
                                         checked={q2}
-                                        name="qus2"
-                                        onChange={(e) => {
-                                            setValue("qus2", e.target.checked ? "1" : "0")
+                                        onChange={() => {
                                             setQ2((prev) => !prev)
                                         }}
                                     />
                                     <Checkbox
                                         text="Have you applied for re-evevaluation of lower examination ?"
                                         checked={q3}
-                                        name="qus3"
-                                        onChange={(e) => {
-                                            setValue("qus3", e.target.checked ? "1" : "0")
+                                        onChange={() => {
                                             setQ3((prev) => !prev)
                                         }}
                                     />
