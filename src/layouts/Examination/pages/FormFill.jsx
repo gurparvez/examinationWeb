@@ -8,6 +8,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {put} from "../../../store/formSlice.js";
 import Select from "../../../components/Inputs/Select.jsx";
 import {useNavigate} from "react-router-dom";
+import { CheckBadgeIcon } from "@heroicons/react/24/outline";
 
 const FormFill = ({
     regular=1
@@ -81,11 +82,14 @@ const FormFill = ({
             <div className={`w-full flex justify-center border-4 ${isLoading || formSubmitted ? 'pointer-events-none':'pointer-events-auto'}`}>
                 <LoadingBar color='#f11946' height={3} progress={progress} />
                 {isLoading || formSubmitted ? <FadePage /> : <div />}
-                {formSubmitted && <DialogLib open={formSubmitted} onClose={closeDialog}
-                                             Heading="Successfully Submitted"
-                                             para="Your regular examination form has been submitted successfully."
-                                             value1="View Form" url1={`/home/${response?.data._id}`}
-                                             value2="Home" url2={`/home`} />}
+                {formSubmitted && <DialogLib
+                                            svgComponent={CheckBadgeIcon}
+                                            svgClassName="text-green-600 bg-green-100"
+                                            open={formSubmitted} onClose={closeDialog}
+                                            Heading="Successfully Submitted"
+                                            para="Your regular examination form has been submitted successfully."
+                                            value1="View Form" url1={`/home/${response?.data._id}`}
+                                            value2="Home" url2={`/home`} />}
                 <form onSubmit={handleSubmit(submitExam)}
                       className='w-[95%] my-5 p-3 border-2 bg-gray-200 rounded drop-shadow-xl'>
                     <div className='border-b-2 border-gray-800 my-2'>
