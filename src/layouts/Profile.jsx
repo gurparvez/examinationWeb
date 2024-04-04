@@ -1,7 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { profile } from '../assets'
 import {useDispatch, useSelector} from 'react-redux'
-import {Button, ChangePass, DialogImage, DialogLib, DialogUpload, FadePage, Input, ShowError} from '../components'
+import {
+  Button,
+  ChangePass,
+  DialogImage,
+  DialogLib,
+  DialogUpload,
+  FadePage,
+  Input,
+  Logout,
+  ShowError
+} from '../components'
 import {useForm} from "react-hook-form";
 import useApi from "../API/useApi.js";
 import {api} from "../constants/index.js";
@@ -30,6 +40,7 @@ const Profile = () => {
   const [success, setSuccess] = useState(false)
   const [message, setMessage] = useState("")
   const [isPassChange, setIsPassChange] = useState(false)
+  const [isLogout, setIsLogout] = useState(false)
   const [viewImage, setViewImage] = useState(false)
   const [uploadImage, setUploadImage] = useState(false)
   const {apiData, response, isLoading, progress, error} = useApi('patch');
@@ -253,8 +264,10 @@ const Profile = () => {
                   </div>
                 </div>
                 <div className='*:mx-3 mt-3'>
-                  {isPassChange && <ChangePass open={isPassChange} onClose={closePassDialog} Heading="Change your password" />}
                   <Button data="Change Password" type="button" onClick={() => setIsPassChange(true)} className="my-2" />
+                  {isPassChange && <ChangePass open={isPassChange} onClose={closePassDialog} Heading="Change your password" />}
+                  <Button data="Logout" type="button" bg="bg-red-500" onClick={() => setIsLogout(true)} className="my-2" />
+                  {isLogout && <Logout open={isLogout} onClose={() => setIsLogout(false)} />}
                 </div>
               </div>
             </div>
