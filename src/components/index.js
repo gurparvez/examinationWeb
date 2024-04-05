@@ -16,6 +16,7 @@ import DialogImage from "./popups/DialogImage.jsx";
 import Dropdown from "./Dropdown.jsx";
 import DialogUpload from "./popups/DialogUpload.jsx";
 import Logout from "./popups/Logout.jsx";
+import Container from "./Container.jsx";
 
 export {
     Input, 
@@ -36,4 +37,5 @@ export {
     Dropdown,
     DialogUpload,
     Logout,
+    Container,
 }
