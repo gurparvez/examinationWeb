@@ -148,11 +148,12 @@ const ShowForm = () => {
     const updatePrevYearData = async () => {
         prevYearData._id = formId;
         prevYearData.coursePassed = inputFields;
-        prevYearData.qus1 = prevYearData.qus1 ? "1" : "0";
-        prevYearData.qus2 = prevYearData.qus2 ? "1" : "0";
-        prevYearData.qus3 = prevYearData.qus3 ? "1" : "0";
         await patchData(api.updatePrevYearData, prevYearData);
     }
+
+    useEffect(() => {
+        console.log(prevYearData);
+    }, [prevYearData])
 
     useEffect(() => {
         if (response && !error) {
