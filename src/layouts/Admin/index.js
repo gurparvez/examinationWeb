@@ -1,4 +1,3 @@
-import Admin from "./Admin";
-import AdminHeader from "./AdminHeader";
+import Admin from './Admin';
 
-export { Admin, AdminHeader };
+export { Admin };
