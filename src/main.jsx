@@ -10,7 +10,6 @@ import {
     Profile,
     ShowForm,
     FormFill,
-    Form,
 } from './layouts';
 import { Admin } from './layouts/Admin';
 import App from './App';
@@ -30,11 +29,11 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                     <Route index element={<Home />} />
                     <Route path='courses' element={<Courses />} />
                     <Route path='examination' element={<Examination />} />
-                    <Route path='regular' element={<Form />}>
+                    <Route path='regular'>
                         <Route path='page1' element={<Page1 regular={true} />} />
                         <Route path='page2' element={<FormFill regular={1} />} />
                     </Route>
-                    <Route path='reappear' element={<Form />}>
+                    <Route path='reappear'>
                         <Route path='page1' element={<Page1 regular={false} />} />
                         <Route path='page2' element={<FormFill regular={0} />} />
                     </Route>
