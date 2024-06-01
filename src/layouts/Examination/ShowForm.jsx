@@ -7,9 +7,9 @@ import useApi from '../../API/useApi.js';
 import LoadingBar from 'react-top-loading-bar';
 import { api } from '../../constants/index.js';
 import { put } from '../../store/formSlice.js';
-import { format } from 'date-fns';
 import Select from '../../components/Inputs/Select.jsx';
 import usePatch from '../../API/usePatch.js';
+import {formatDateForInput, formatDate} from '../../utils'
 
 const ShowForm = () => {
 
@@ -86,16 +86,6 @@ const ShowForm = () => {
             setQ3(formDetails.prevYearData.qus3)
         }
     }, [formDetails])
-
-    const formatDate = (timestamp) => {
-        const date = new Date(timestamp);
-        return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`
-    };
-
-    const formatDateForInput = (date) => {
-        const dateObj = new Date(date);
-        return format(new Date(dateObj), 'yyyy-MM-dd');
-    }
 
     const handleDateChange = (e) => {
         setErr(null)
