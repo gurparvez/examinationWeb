@@ -19,6 +19,9 @@ import Logout from './popups/Logout.jsx';
 import Container from './Container.jsx';
 import AdminHeader from './Headers/AdminHeader.jsx';
 import AdminFooter from './Footers/AdminFooter.jsx';
+import Header from './Headers/Header.jsx';
+import Footer from './Footers/Footer.jsx';
+import PageNotfound from "./PageNotfound.jsx";
 
 export {
     Input,
@@ -42,4 +45,7 @@ export {
     Container,
     AdminFooter,
     AdminHeader,
+    Header,
+    Footer,
+    PageNotfound,
 };
