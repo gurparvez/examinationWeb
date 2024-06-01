@@ -3,12 +3,12 @@ import {useDispatch, useSelector} from "react-redux";
 import {Button, Checkbox, FadePage, Input, ShowError} from "../../components/index.js";
 import React, { useEffect, useRef, useState } from "react";
 import { useForm } from 'react-hook-form';
-import useApi from '../../API/useApi.js';
+import useApi from '../../hooks/useApi.js';
 import LoadingBar from 'react-top-loading-bar';
 import { api } from '../../constants/index.js';
 import { put } from '../../store/formSlice.js';
 import Select from '../../components/Inputs/Select.jsx';
-import usePatch from '../../API/usePatch.js';
+import usePatch from '../../hooks/usePatch.js';
 import {formatDateForInput, formatDate} from '../../utils'
 
 const ShowForm = () => {

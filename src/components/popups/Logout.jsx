@@ -2,7 +2,7 @@ import {Fragment, useEffect, useRef} from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
 import {useNavigate} from "react-router-dom";
-import useApi from "../../API/useApi.js";
+import useApi from "../../hooks/useApi.js";
 import {api} from "../../constants/index.js";
 
 export default function Logout({

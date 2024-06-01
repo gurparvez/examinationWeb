@@ -2,7 +2,7 @@ import React, {Fragment, useEffect, useRef, useState} from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { LockClosedIcon } from '@heroicons/react/24/outline'
 import {FadePage, Input, ShowError} from "../index.js";
-import useApi from "../../API/useApi.js";
+import useApi from "../../hooks/useApi.js";
 import {api} from "../../constants/index.js";
 import LoadingBar from "react-top-loading-bar";
 

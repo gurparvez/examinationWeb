@@ -1,7 +1,7 @@
 import {Card, CardAdd, DialogLib, Loader} from '../../components'
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from 'react';
-import useApi from "../../API/useApi.js";
+import useApi from "../../hooks/useApi.js";
 import {api} from "../../constants/index.js";
 import {put} from "../../store/formSlice.js";
 import { AcademicCapIcon } from '@heroicons/react/24/outline';

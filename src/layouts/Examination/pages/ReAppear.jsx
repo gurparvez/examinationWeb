@@ -2,7 +2,7 @@ import LoadingBar from "react-top-loading-bar";
 import {Button, Checkbox, DialogLib, FadePage, Input, ShowError} from "../../../components/index.js";
 import React, {useEffect, useState} from "react";
 import {useForm} from "react-hook-form";
-import useApi from "../../../API/useApi.js";
+import useApi from "../../../hooks/useApi.js";
 import {api} from "../../../constants/index.js";
 import {put} from "../../../store/formSlice.js";
 import {useDispatch, useSelector} from "react-redux";

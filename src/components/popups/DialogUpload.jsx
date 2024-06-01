@@ -1,11 +1,8 @@
 import {Fragment, useEffect, useRef, useState} from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import {Button, DialogImage, FadePage, ShowError} from "../index.js";
-import axios from "axios";
+import {Button, ShowError} from "../index.js";
 import {api} from "../../constants/index.js";
-import {NavLink} from "react-router-dom";
-import useApi from '../../API/useApi.js';
-import LoadingBar from 'react-top-loading-bar';
+import useApi from '../../hooks/useApi.js';
 import { useDispatch } from 'react-redux';
 import { login } from '../../store/authSlice.js';
 

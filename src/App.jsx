@@ -4,7 +4,7 @@ import {Loader, Header, Footer, PageNotfound} from "./components"
 import {api} from "./constants"
 import { useState, useEffect } from "react"
 import {useDispatch, useSelector} from "react-redux"
-import useApi from "./API/useApi.js";
+import useApi from "./hooks/useApi.js";
 import {login} from "./store/authSlice.js";
 
 function App() {

@@ -16,12 +16,6 @@ const useApi = (type="get") => {
         console.log(data);
         setIsLoading(true)
         setProgress(60)
-        
-        const onUploadProgress = (progressEvent) => {
-            const { loaded, total } = progressEvent;
-            const percentCompleted = Math.round((loaded * 100) / total);
-            setProgress(percentCompleted)
-        }
 
         try {
             let res = null;
