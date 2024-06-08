@@ -1,11 +1,11 @@
-import {underConstruction} from "../assets/index.js";
+import { underConstruction } from '../assets/index.js';
 
 const Courses = () => {
-  return (
-    <div className='w-full h-96 flex justify-center items-center'>
-      <img src={underConstruction} alt="under construction" />
-    </div>
-  )
-}
+    return (
+        <div className='flex h-96 w-full items-center justify-center'>
+            <img src={underConstruction} alt='under construction' />
+        </div>
+    );
+};
 
-export default Courses
+export default Courses;

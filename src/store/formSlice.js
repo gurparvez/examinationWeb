@@ -1,21 +1,21 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    status : false,
+    status: false,
     formsData: null,
-}
+};
 
 const formSlice = createSlice({
-    name: "forms",
+    name: 'forms',
     initialState,
     reducers: {
         put: (state, action) => {
             state.status = true;
             state.formsData = action.payload;
-        }
-    }
-})
+        },
+    },
+});
 
-export const {put} = formSlice.actions;
+export const { put } = formSlice.actions;
 
 export default formSlice.reducer;

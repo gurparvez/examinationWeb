@@ -1,19 +1,18 @@
-import {NavLink} from "react-router-dom";
+import { NavLink } from 'react-router-dom';
 
-const CardAdd = ({
-    href="",
-    classname="",
-    ...props
- }) => {
+const CardAdd = ({ href = '', classname = '', ...props }) => {
     return (
         <div className={`${classname}`} {...props}>
-            <NavLink to={href} className={`block w-56 xs:max-w-80 h-36 bg-white border-gray-200 rounded-lg shadow-xl hover:bg-gray-200 hover:scale-105 transition-all ease-in-out duration-300`}>
-                <div className='flex justify-center items-center w-full h-full border-dashed rounded-lg border-4 hover:border-white'>
-                    <p className='text-6xl text-gray-400 font-bold'>+</p>
+            <NavLink
+                to={href}
+                className={`block h-36 w-56 rounded-lg border-gray-200 bg-white shadow-xl transition-all duration-300 ease-in-out hover:scale-105 hover:bg-gray-200 xs:max-w-80`}
+            >
+                <div className='flex h-full w-full items-center justify-center rounded-lg border-4 border-dashed hover:border-white'>
+                    <p className='text-6xl font-bold text-gray-400'>+</p>
                 </div>
             </NavLink>
         </div>
-    )
-}
+    );
+};
 
-export default CardAdd
+export default CardAdd;
