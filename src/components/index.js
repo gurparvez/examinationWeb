@@ -22,6 +22,7 @@ import AdminFooter from './Footers/AdminFooter.jsx';
 import Header from './Headers/Header.jsx';
 import Footer from './Footers/Footer.jsx';
 import PageNotfound from './PageNotfound.jsx';
+import Provider from './Provider.jsx';
 
 export {
     Input,
@@ -48,4 +49,5 @@ export {
     Header,
     Footer,
     PageNotfound,
+    Provider,
 };

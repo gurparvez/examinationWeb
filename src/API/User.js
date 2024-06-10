@@ -19,7 +19,20 @@ class User {
             });
             return response.data;
         } catch (error) {
-            throw error;
+            if (error.response) {
+                // Request made and server responded with an error
+                return error.response.data;
+            } else if (error.request) {
+                // Request made but no response received
+                throw new Error('No response received from server! Check Your internet connection.');
+            } else {
+                // Something happened in setting up the request
+                throw new Error('Error in making request');
+            }
         }
     }
 }
+
+const user = new User();
+
+export default user;
