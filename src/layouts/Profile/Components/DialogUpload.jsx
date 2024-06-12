@@ -1,10 +1,10 @@
 import { Fragment, useEffect, useRef, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import { Button, ShowError } from '../index.js';
-import { api } from '../../constants/index.js';
-import useApi from '../../hooks/useApi.js';
+import { Button, ShowError } from '../../../components/index.js';
+import { api } from '../../../constants/index.js';
+import useApi from '../../../hooks/useApi.js';
 import { useDispatch } from 'react-redux';
-import { login } from '../../store/authSlice.js';
+import { login } from '../../../store/authSlice.js';
 
 const DialogUpload = ({ open, onClose }) => {
     const cancelButtonRef = useRef(null);

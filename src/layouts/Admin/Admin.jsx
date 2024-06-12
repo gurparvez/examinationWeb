@@ -3,7 +3,7 @@ import { Outlet, NavLink, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import useApi from '../../hooks/useApi';
 import { Loader } from '../../components';
-import AdminHeader from '../../components/Headers/AdminHeader';
+import AdminHeader from './components/AdminHeader.jsx';
 
 const Admin = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);

@@ -1,22 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import { profile } from '../assets';
+import { profile } from '../../assets/index.js';
 import { useDispatch, useSelector } from 'react-redux';
 import {
     Button,
-    ChangePass,
-    DialogImage,
     DialogLib,
-    DialogUpload,
     FadePage,
     Input,
-    Logout,
     ShowError,
-} from '../components';
+} from '../../components/index.js';
+import {
+    ChangePass,
+    DialogImage,
+    DialogUpload,
+    Logout,
+} from './Components/index.js';
 import { useForm } from 'react-hook-form';
-import useApi from '../hooks/useApi.js';
-import { api } from '../constants/index.js';
+import useApi from '../../hooks/useApi.js';
+import { api } from '../../constants/index.js';
 import LoadingBar from 'react-top-loading-bar';
-import { login } from '../store/authSlice.js';
+import { login } from '../../store/authSlice.js';
 
 const Profile = () => {
     const [noneEditableData, setNoneEditableData] = useState({
@@ -145,8 +147,7 @@ const Profile = () => {
                         )}
                         <div
                             onClick={() => setUploadImage(true)}
-                            className='absolute -bottom-4 -end-5 h-fit rounded-full border border-white bg-gray-300 p-2 hover:cursor-pointer xs:p-3'
-                        >
+                            className='absolute -bottom-4 -end-5 h-fit rounded-full border border-white bg-gray-300 p-2 hover:cursor-pointer xs:p-3'>
                             <svg
                                 className='h-fit w-5 xxs:w-8'
                                 fill='#000000'
@@ -158,14 +159,12 @@ const Profile = () => {
                                 xmlnsXlink='http://www.w3.org/1999/xlink'
                                 viewBox='0 0 487 487'
                                 xmlSpace='preserve'
-                                stroke='#000000'
-                            >
+                                stroke='#000000'>
                                 <g id='SVGRepo_bgCarrier' strokeWidth='0'></g>
                                 <g
                                     id='SVGRepo_tracerCarrier'
                                     strokeLinecap='round'
-                                    strokeLinejoin='round'
-                                ></g>
+                                    strokeLinejoin='round'></g>
                                 <g id='SVGRepo_iconCarrier'>
                                     {' '}
                                     <g>
@@ -353,8 +352,7 @@ const Profile = () => {
                                     </h3>
                                 </div>
                                 <div
-                                    className={`border-b border-t border-yellow-700 *:*:my-4 *:flex *:flex-col *:py-1 sm:*:*:mx-2 sm:*:flex-row ${isEditable ? 'pointer-events-none' : 'pointer-events-auto'}`}
-                                >
+                                    className={`border-b border-t border-yellow-700 *:*:my-4 *:flex *:flex-col *:py-1 sm:*:*:mx-2 sm:*:flex-row ${isEditable ? 'pointer-events-none' : 'pointer-events-auto'}`}>
                                     <div className=''>
                                         <Input
                                             label='Department'

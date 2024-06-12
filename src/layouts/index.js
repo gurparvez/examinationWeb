@@ -1,9 +1,9 @@
 import Login from './Login';
-import Courses from './Courses';
+import Courses from './Courses/Courses.jsx';
 import Examination from './Examination/Examination';
 import Page1 from './Examination/pages/Page1';
-import Profile from './Profile';
-import Home from './Home';
+import Profile from './Profile/Profile.jsx';
+import Home from './Home/Home.jsx';
 import ShowForm from './Examination/ShowForm.jsx';
 import FormFill from './Examination/pages/FormFill.jsx';
 
