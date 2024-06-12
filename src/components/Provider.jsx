@@ -1,16 +1,17 @@
 import React from 'react';
 import store from '../store/store.js';
+import { Provider as ReduxProvider } from 'react-redux';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const queryClient = new QueryClient();
 
 const Provider = ({ children }) => {
     return (
-        <Provider store={store}>
+        <ReduxProvider store={store}>
             <QueryClientProvider client={queryClient}>
                 {children}
             </QueryClientProvider>
-        </Provider>
+        </ReduxProvider>
     );
 };
 export default Provider;
