@@ -14,13 +14,10 @@ import {
 import { Admin } from './layouts/Admin';
 import App from './App';
 import './index.css';
-// import { Provider } from 'src/components/index.js';
-import store from './store/store';
-import { Provider } from 'react-redux';
-import { PageNotfound } from './components/index.js';
+import { PageNotfound, Provider } from './components/index.js';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-    <Provider store={store}>
+    <Provider>
         <BrowserRouter>
             <Routes>
                 <Route path='*' element={<PageNotfound />} />
