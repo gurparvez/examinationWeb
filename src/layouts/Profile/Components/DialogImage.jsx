@@ -1,6 +1,6 @@
 import { Fragment, useRef } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import { profile } from '../../assets/index.js';
+import { profile } from '../../../assets/index.js';
 
 const DialogImage = ({ open, onClose, image = profile }) => {
     const cancelButtonRef = useRef(null);

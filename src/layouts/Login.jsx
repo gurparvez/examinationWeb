@@ -31,6 +31,8 @@ const Login = () => {
             const { accessToken, refreshToken, ...user } = response.data;
             console.log(user);
             dispatch(login(user));
+
+            // TODO: navigate based on if it is admin or student
             navigate('/home');
         } catch (err) {
             setProgress(100);

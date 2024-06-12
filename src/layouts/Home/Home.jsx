@@ -1,8 +1,13 @@
 import React from 'react';
-import { home1 } from '../assets';
-import { aboutUniversity, announcements, testimonials } from '../constants';
-import CardWithImage from '../components/Cards/CardWithImage.jsx';
-import { Button } from '../components/index.js';
+import { home1 } from '../../assets/index.js';
+import {
+    aboutUniversity,
+    announcements,
+    testimonials,
+} from '../../constants/index.js';
+import CardWithImage from './components/CardWithImage.jsx';
+import { Button } from '../../components/index.js';
+
 function Home() {
     return (
         <>

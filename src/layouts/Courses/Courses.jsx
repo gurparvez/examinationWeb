@@ -1,4 +1,4 @@
-import { underConstruction } from '../assets/index.js';
+import { underConstruction } from '../../assets/index.js';
 
 const Courses = () => {
     return (

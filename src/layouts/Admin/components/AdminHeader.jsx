@@ -1,6 +1,6 @@
 import React from 'react';
 
-const AdminHeader = ({ department, cassname, props }) => {
+const AdminHeader = ({ department, classname, props }) => {
     return <div>AdminHeader</div>;
 };
 
