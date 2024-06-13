@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { root } from '../constants';
+import { api, root } from '../constants';
 
 class User {
     constructor() {
@@ -9,18 +9,35 @@ class User {
         });
     }
 
-    async login({ auid, password }) {
+    login = async({ auid, password }) => {
         try {
-            const response = await this.instance({
-                url: '/user/login',
-                method: 'POST',
-                data: {
-                    auid,
-                    password,
-                },
+            const response = await this.instance.post(api.login, {
+                auid,
+                password,
             });
             return response.data;
         } catch (error) {
+            if (error.response) {
+                // Request made and server responded with an error
+                throw new Error(error.response.data.message || 'Login failed');
+            } else if (error.request) {
+                // Request made but no response received
+                throw new Error(
+                    'No response received from server! Check Your internet connection.',
+                );
+            } else {
+                // Something happened in setting up the request
+                throw new Error('Error in making request to the server');
+            }
+        }
+    }
+
+    logout = async() => {
+        try {
+            const response = await this.instance.post(api.logout);
+            return response.data;
+        } catch (error) {
+            console.log(error);
             if (error.response) {
                 // Request made and server responded with an error
                 throw new Error(error.response.data.message || 'Login failed');

@@ -27,9 +27,7 @@ const Login = () => {
                 password: data.password,
             });
             setProgress(100);
-            console.log('Login successful:', response);
             const { accessToken, refreshToken, ...user } = response.data;
-            console.log(user);
             dispatch(login(user));
 
             // TODO: navigate based on if it is admin or student
