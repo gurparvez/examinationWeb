@@ -15,6 +15,9 @@ import Header from './Headers/Header.jsx';
 import Footer from './Footers/Footer.jsx';
 import PageNotfound from './PageNotfound.jsx';
 import Provider from './Provider.jsx';
+import H1 from './Headings/H1.jsx';
+import H2 from './Headings/H2.jsx';
+import H3 from './Headings/H3.jsx';
 
 export {
     Input,
@@ -34,4 +37,7 @@ export {
     Footer,
     PageNotfound,
     Provider,
+    H1,
+    H2,
+    H3,
 };

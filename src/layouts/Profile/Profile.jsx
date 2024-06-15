@@ -124,6 +124,7 @@ const Profile = () => {
             <div className='w-[100%] bg-gray-200 pb-4 shadow-2xl'>
                 <div className='my-5 flex h-16 justify-center xxs:h-24 sm:h-36'>
                     <div className='relative'>
+                        {/* TODO: Make an Image component */}
                         <img
                             src={noneEditableData.profileImage}
                             onClick={() => {
@@ -145,6 +146,8 @@ const Profile = () => {
                                 onClose={closeUploadImageDialog}
                             />
                         )}
+
+                        {/* TODO: Make this a different component. */}
                         <div
                             onClick={() => setUploadImage(true)}
                             className='absolute -bottom-4 -end-5 h-fit rounded-full border border-white bg-gray-300 p-2 hover:cursor-pointer xs:p-3'>
@@ -189,6 +192,8 @@ const Profile = () => {
                                 Your Profile
                             </h1>
                         </div>
+
+                        {/* TODO: Make form component. */}
                         <div className='py-3'>
                             <form onSubmit={handleSubmit(updateProfile)}>
                                 <div className='my-2 w-full'>
