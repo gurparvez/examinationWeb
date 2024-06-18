@@ -3,7 +3,7 @@ export const api = {
     login: `${root}/user/login`,
     logout: `${root}/user/logout`,
     formLive: `${root}/user/form-live`,
-    updateProfile: `${root}/user/update-user`,
+    updateUser: `${root}/user/update-user`,
     allForms: `${root}/form/all-forms`,
     submitForm: `${root}/form//submit-form-data`,
     updatePassword: `${root}/user/update-password`,

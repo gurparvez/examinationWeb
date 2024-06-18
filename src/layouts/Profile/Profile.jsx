@@ -88,7 +88,7 @@ const Profile = () => {
 
     const updateProfile = async () => {
         console.log(editableData);
-        await apiData(api.updateProfile, editableData);
+        await apiData(api.updateUser, editableData);
     };
 
     useEffect(() => {
@@ -147,8 +147,6 @@ const Profile = () => {
                                 onClose={closeUploadImageDialog}
                             />
                         )}
-
-                        {/* TODO: Make this a different component. */}
                         <div
                             onClick={() => setUploadImage(true)}
                             className='absolute -bottom-4 -end-5 h-fit rounded-full border border-white bg-gray-300 p-2 hover:cursor-pointer xs:p-3'>

@@ -5,6 +5,7 @@ import useApi from '../../../hooks/useApi.js';
 import { useDispatch } from 'react-redux';
 import { login } from '../../../store/authSlice.js';
 
+// TODO: Use React Query
 const DialogUpload = ({ open, onClose }) => {
     const inputRef = useRef(null);
     const [image, setImage] = useState(null);
