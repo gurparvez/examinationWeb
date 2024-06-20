@@ -2,12 +2,11 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import { login } from '../store/authSlice';
-import { login_img, logo } from '../assets';
+import { login } from '../../store/authSlice.js';
+import { login_img, logo } from '../../assets/index.js';
 import LoadingBar from 'react-top-loading-bar';
-import { Button, Input, ShowError, FadePage } from '../components/';
-import { useMutation } from '@tanstack/react-query';
-import user from '../API/User.js';
+import { Button, Input, ShowError, FadePage } from '../../components/index.js';
+import useLogin from './Hooks/useLogin.js';
 
 const Login = () => {
     const [progress, setProgress] = useState(0);
@@ -15,11 +14,10 @@ const Login = () => {
     const dispatch = useDispatch();
     const { register, handleSubmit } = useForm();
 
-    const { mutateAsync, isPending, isError, error } = useMutation({
-        mutationFn: ({ auid, password }) => user.login({ auid, password }),
-    });
+    const { mutateAsync, isPending, isError, error } = useLogin();
 
     const handleLogin = async (data) => {
+        // TODO: Handle the onSuccess and onError in the useLogin mutation hook
         setProgress(60);
         try {
             const response = await mutateAsync({
@@ -123,6 +121,6 @@ const Login = () => {
             </div>
         </>
     );
-}
+};
 
 export default Login;

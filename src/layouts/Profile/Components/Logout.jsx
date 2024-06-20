@@ -2,9 +2,7 @@ import { Fragment, useRef } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
 import { useNavigate } from 'react-router-dom';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import user from '../../../API/User.js';
-import { logout } from '../../../store/authSlice.js';
+import useLogout from '../Hooks/useLogout.js';
 
 export default function Logout({
     open,
@@ -17,28 +15,13 @@ export default function Logout({
     value2 = 'Home',
     url2 = '/home',
 }) {
-    const queryClient = useQueryClient();
     const cancelButtonRef = useRef(null);
     const navigate = useNavigate();
-    const { mutateAsync, isPending, error } = useMutation({
-        mutationFn: user.logout,
-        onSuccess: () => {
-            queryClient.clear();
-            logout();
-            navigate('/');
-        },
-        onError: (err) => console.error('Logout Error:', err),
-    });
+    const { mutateAsync, isPending, error } = useLogout();
 
     const handleLogout = async () => {
         await mutateAsync();
     };
-
-    // useEffect(() => {
-    //     if (response) {
-    //         navigate('/');
-    //     }
-    // }, [response, error]);
 
     return (
         <Transition.Root show={open} as={Fragment}>
@@ -93,7 +76,9 @@ export default function Logout({
                                                 {isPending && (
                                                     <p>Logging out...</p>
                                                 )}
-                                                {error && <p>{error.message}</p>}
+                                                {error && (
+                                                    <p>{error.message}</p>
+                                                )}
                                             </div>
                                         </div>
                                     </div>

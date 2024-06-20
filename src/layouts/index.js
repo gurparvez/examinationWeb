@@ -1,4 +1,4 @@
-import Login from './Login';
+import Login from './Login/Login.jsx';
 import Courses from './Courses/Courses.jsx';
 import Examination from './Examination/Examination';
 import Page1 from './Examination/pages/Page1';
