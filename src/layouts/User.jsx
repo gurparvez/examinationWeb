@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
+import { profile } from '../assets/index.js';
+import { Footer, Header, PageNotfound } from '../components/index.js';
 import { Outlet, useNavigate } from 'react-router-dom';
-import { AdminFooter, AdminHeader } from './components/index.js';
 import { useSelector } from 'react-redux';
 
-const Admin = () => {
+const User = () => {
     const navigate = useNavigate();
     const user = useSelector((state) => state.auth.userData);
 
@@ -13,15 +14,15 @@ const Admin = () => {
         }
     }, [user, navigate]);
 
-
+    const profileImage = user?.avatar || profile;
 
     return (
-        <div>
-            <AdminHeader name={user.fullName} role={user.role} department={user.department?.departmentName} program={user.course?.programName || null} />
-            <Outlet />
-            <AdminFooter />
-        </div>
+        <>
+            <Header profileImage={profileImage} />
+            {user ? <Outlet /> : <PageNotfound />}
+            <Footer />
+        </>
     );
 };
 
-export default Admin;
+export default User;

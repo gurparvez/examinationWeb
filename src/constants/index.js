@@ -15,7 +15,7 @@ export const api = {
 export const navLinks = [
     // id of first link should start with /
     {
-        id: '/home',
+        id: '/user',
         title: 'Home',
     },
     {

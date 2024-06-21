@@ -49,8 +49,7 @@ const Profile = () => {
     const { register, handleSubmit } = useForm();
     const dispatch = useDispatch();
 
-    const user = useSelector((state) => state.auth.userData);
-    const userData = user.user;
+    const userData = useSelector((state) => state.auth.userData);
 
     useEffect(() => {
         if (userData) {

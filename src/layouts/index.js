@@ -6,6 +6,7 @@ import Profile from './Profile/Profile.jsx';
 import Home from './Home/Home.jsx';
 import ShowForm from './Examination/ShowForm.jsx';
 import FormFill from './Examination/pages/FormFill.jsx';
+import User from './User.jsx';
 
 export {
     Login,
@@ -16,4 +17,5 @@ export {
     Profile,
     ShowForm,
     FormFill,
+    User,
 };

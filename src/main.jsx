@@ -9,7 +9,7 @@ import {
     Page1,
     Profile,
     ShowForm,
-    FormFill,
+    FormFill, User,
 } from './layouts';
 import { Admin } from './layouts/Admin';
 import App from './App';
@@ -21,9 +21,10 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <BrowserRouter>
             <Routes>
                 <Route path='*' element={<PageNotfound />} />
-                <Route path='/' element={<Login />} />
+                <Route path='/' element={<App />} />
+                <Route path='/login' element={<Login />} />
 
-                <Route path='/home' element={<App />}>
+                <Route path='/user' element={<User />}>
                     <Route index element={<Home />} />
                     <Route path='courses' element={<Courses />} />
                     <Route path='examination' element={<Examination />} />

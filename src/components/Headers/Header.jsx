@@ -10,7 +10,7 @@ const Header = ({ profileImage }) => {
             <nav className='flex flex-row justify-between px-8'>
                 <ul className='flex flex-row p-3.5'>
                     <li className='flex list-none items-center'>
-                        <NavLink to='https://auts.ac.in/' target='_blank'>
+                        <NavLink to='/user'>
                             <img
                                 src={logo}
                                 alt='AUTS'

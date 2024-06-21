@@ -25,11 +25,10 @@ const Login = () => {
                 password: data.password,
             });
             setProgress(100);
-            const { accessToken, refreshToken, ...user } = response.data;
-            dispatch(login(user));
+            dispatch(login(response.data));
 
             // TODO: navigate based on if it is admin or student
-            navigate('/home');
+            navigate('/user');
         } catch (err) {
             setProgress(100);
             console.error('Login failed:', err.message);
