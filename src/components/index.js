@@ -18,6 +18,7 @@ import Provider from './Provider.jsx';
 import H1 from './Headings/H1.jsx';
 import H2 from './Headings/H2.jsx';
 import H3 from './Headings/H3.jsx';
+import InlineLoadingCircle from './Loading/InlineLoadingCircle.jsx';
 
 export {
     Input,
@@ -40,4 +41,5 @@ export {
     H1,
     H2,
     H3,
+    InlineLoadingCircle,
 };

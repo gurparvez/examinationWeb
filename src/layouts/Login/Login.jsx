@@ -1,46 +1,24 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import React from 'react';
 import { useForm } from 'react-hook-form';
-import { login } from '../../store/authSlice.js';
 import { login_img, logo } from '../../assets/index.js';
-import LoadingBar from 'react-top-loading-bar';
-import { Button, Input, ShowError, FadePage } from '../../components/index.js';
+import { Button, Input, ShowError } from '../../components/index.js';
 import useLogin from './Hooks/useLogin.js';
 
 const Login = () => {
-    const [progress, setProgress] = useState(0);
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
     const { register, handleSubmit } = useForm();
-
     const { mutateAsync, isPending, isError, error } = useLogin();
 
     const handleLogin = async (data) => {
-        // TODO: Handle the onSuccess and onError in the useLogin mutation hook
-        setProgress(60);
-        try {
-            const response = await mutateAsync({
-                auid: data.auid,
-                password: data.password,
-            });
-            setProgress(100);
-            dispatch(login(response.data));
-
-            // TODO: navigate based on if it is admin or student
-            navigate('/user');
-        } catch (err) {
-            setProgress(100);
-            console.error('Login failed:', err.message);
-        }
+        await mutateAsync({
+            auid: data.auid,
+            password: data.password,
+        });
     };
 
     return (
         <>
             <div
                 className={`relative flex h-screen w-screen flex-row bg-yellow-200 ${isPending} ? 'pointer-events-none' : 'pointer-events-auto'}`}>
-                <LoadingBar color='#f11946' progress={progress} height={3} />
-                {isPending && <FadePage />}
                 <div className='absolute left-7 top-10 z-30 sm:hidden'>
                     <img src={logo} alt='logo' />
                 </div>
@@ -111,6 +89,7 @@ const Login = () => {
                                 <Button
                                     data='Login'
                                     type='submit'
+                                    isLoading={isPending}
                                     className={isPending ? 'bg-secondary' : ''}
                                 />
                             </form>

@@ -1,4 +1,6 @@
 // eslint-disable-next-line react/prop-types
+import { InlineLoadingCircle } from './index.js';
+
 const Button = ({
     data = 'click',
     type = 'button',
@@ -6,6 +8,7 @@ const Button = ({
     bgHover = 'bg-secondary',
     textColor = 'text-white',
     border = 'border-none',
+    isLoading = false,
     className = '',
     ...props
 }) => {
@@ -13,9 +16,8 @@ const Button = ({
         <button
             type={type}
             className={`${bg} ${textColor} ${border} hover:${bgHover} w-auto rounded px-3 py-2 transition-all ease-in-out hover:cursor-pointer ${className}`}
-            {...props}
-        >
-            {data}
+            {...props}>
+            {isLoading ? <InlineLoadingCircle /> : data}
         </button>
     );
 };
