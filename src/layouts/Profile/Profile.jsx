@@ -126,7 +126,7 @@ const Profile = () => {
                     <div className='relative'>
                         {/* TODO: Make an Image component */}
                         <img
-                            src={noneEditableData.profileImage}
+                            src={noneEditableData.profileImage || profile}
                             onClick={() => {
                                 setViewImage(true);
                             }}

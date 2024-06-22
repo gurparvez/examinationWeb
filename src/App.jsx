@@ -9,12 +9,13 @@ function App() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const { data, isLoading, isSuccess, isError } = useQuery({
+    const { data, isFetching, isSuccess, isError } = useQuery({
         queryKey: ['user'],
         queryFn: user.getUser,
+        retry: 2,
     });
 
-    if (isLoading) {
+    if (isFetching) {
         return <Loader />;
     }
     if (isError) {

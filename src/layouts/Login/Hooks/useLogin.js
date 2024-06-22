@@ -12,7 +12,7 @@ const useLogin = () => {
         mutationFn: ({ auid, password }) => user.login({ auid, password }),
         onSuccess: (data) => {
             console.log(data);
-            dispatch(login(data.data));
+            dispatch(login(data.data.user));
             const isAdmin = data?.data.user.role === 'A';
             if (isAdmin) navigate('/admin');
             else navigate('/user');
