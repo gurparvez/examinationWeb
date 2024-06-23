@@ -7,6 +7,13 @@ const Admin = () => {
     const navigate = useNavigate();
     const user = useSelector((state) => state.auth.userData);
 
+    // if (!user || user?.role !== 'A') {
+    //     console.log("navigating to /");
+    //     navigate('/');
+    // } else {
+    //     console.log("not navigating to /");
+    // }
+
     // Debug log to check user state
     console.log('Current user:', user);
 
@@ -14,14 +21,11 @@ const Admin = () => {
         console.log("No dependencies effect");
     }, []);
 
-    // TODO: useEffect does not triggers on reload! Why ?
+    // TODO: useEffect does not trigger on reload! Why ?
     useEffect(() => {
         console.log("useEffect triggered");
-        if (user === null) {
-            console.log('User is null, navigating to /');
+        if (!user) {
             navigate('/');
-        } else {
-            console.log('User is not null, staying on admin page');
         }
     }, [user]);
 
