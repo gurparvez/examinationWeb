@@ -11,7 +11,7 @@ import {
     ShowForm,
     FormFill, User,
 } from './layouts';
-import { Admin } from './layouts/Admin';
+import { Admin } from './Admin';
 import App from './App';
 import './index.css';
 import { PageNotfound, Provider } from './components/index.js';

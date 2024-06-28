@@ -1,5 +1,5 @@
 import React from 'react';
-import { logo } from '../../../assets/index.js';
+import { logo } from '../../assets/index.js';
 import { NavLink } from 'react-router-dom';
 
 const AdminFooter = ({ name, role, department, program, classname }) => {
