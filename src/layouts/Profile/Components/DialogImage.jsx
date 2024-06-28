@@ -4,7 +4,7 @@ import { profile } from '../../../assets/index.js';
 
 const DialogImage = ({ open, onClose, image = profile }) => {
     const cancelButtonRef = useRef(null);
-
+    // TODO: use react query, invalidate the 'user' query
     return (
         <Transition.Root show={open} as={Fragment}>
             <Dialog

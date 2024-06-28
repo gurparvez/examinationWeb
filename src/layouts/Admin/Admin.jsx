@@ -18,12 +18,12 @@ const Admin = () => {
     console.log('Current user:', user);
 
     useEffect(() => {
-        console.log("No dependencies effect");
+        console.log('No dependencies effect');
     }, []);
 
     // TODO: useEffect does not trigger on reload! Why ?
     useEffect(() => {
-        console.log("useEffect triggered");
+        console.log('useEffect triggered');
         if (!user) {
             navigate('/');
         }
@@ -38,7 +38,12 @@ const Admin = () => {
                 program={user?.course?.programName || null}
             />
             <Outlet />
-            <AdminFooter />
+            <AdminFooter
+                name={user?.fullName}
+                role={user?.role}
+                department={user?.department?.departmentName}
+                program={user?.course?.programName || null}
+            />
         </div>
     );
 };
