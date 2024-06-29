@@ -306,7 +306,7 @@ const Profile = () => {
                                                 data={
                                                     isEditable
                                                         ? 'Save Changes'
-                                                        : 'Edit Profile'
+                                                        : 'Edit AdminProfile'
                                                 }
                                                 type='button'
                                                 className={

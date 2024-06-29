@@ -9,12 +9,14 @@ import {
     Page1,
     Profile,
     ShowForm,
-    FormFill, User,
+    FormFill,
+    User,
 } from './layouts';
-import { Admin } from './Admin';
+import { Admin, AdminProfile } from './Admin';
 import App from './App';
 import './index.css';
 import { PageNotfound, Provider } from './components/index.js';
+import AdminHome from './Admin/Home/AdminHome.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <Provider>
@@ -52,7 +54,10 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                     <Route path='profile' element={<Profile />} />
                 </Route>
 
-                <Route path='/admin' element={<Admin />}></Route>
+                <Route path='/admin' element={<Admin />}>
+                    <Route index element={<AdminHome />} />
+                    <Route path='profile' element={<AdminProfile />} />
+                </Route>
             </Routes>
         </BrowserRouter>
     </Provider>,

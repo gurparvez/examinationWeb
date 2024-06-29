@@ -9,7 +9,7 @@ const AdminHeader = ({ name, role, department, program, classname }) => {
 
     return (
         <div className={`sticky top-0 z-50 bg-white shadow-lg ${classname}`}>
-            <nav className='flex items-center justify-between bg-gray-300 px-14 py-4'>
+            <nav className='flex items-center justify-between bg-gray-300 px-4 sm:px-14 py-4'>
                 <NavLink to='/admin' className='flex items-center'>
                     <img
                         src={logo}

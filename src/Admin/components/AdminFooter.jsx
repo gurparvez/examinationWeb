@@ -14,7 +14,7 @@ const AdminFooter = ({ name, role, department, program, classname }) => {
 
     return (
         <footer
-            className={`flex items-center justify-between bg-gray-300 px-14 py-4 ${classname}`}>
+            className={`flex items-center justify-between bg-gray-300 px-4 sm:px-14 py-4 ${classname}`}>
             <NavLink to='/admin' className='flex items-center'>
                 <img
                     src={logo}

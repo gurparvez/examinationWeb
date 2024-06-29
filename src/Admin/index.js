@@ -1,4 +1,4 @@
 import Admin from './Admin.jsx';
-import Profile from './Profile/Profile.jsx';
+import AdminProfile from './Profile/AdminProfile.jsx';
 
-export { Admin, Profile };
+export { Admin, AdminProfile };
