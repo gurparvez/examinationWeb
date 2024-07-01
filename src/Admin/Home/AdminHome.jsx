@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Checkbox } from '../../components/index.js';
+import { Button, Checkbox } from '../../components/index.js';
 import { useNavigate } from 'react-router-dom';
+import { getApprovedLabel } from '../../utils/index.js';
 
 const AdminHome = () => {
     const [selected, setSelected] = useState([]);
@@ -16,7 +17,7 @@ const AdminHome = () => {
             course: 'BCA',
             department: 'CSE',
             type: 'regular',
-            status: 'pending',
+            status: 0,
         },
         {
             _id: 2,
@@ -26,7 +27,7 @@ const AdminHome = () => {
             course: 'BCA',
             department: 'CSE',
             type: 'regular',
-            status: 'pending',
+            status: -1,
         },
         {
             _id: 3,
@@ -36,7 +37,7 @@ const AdminHome = () => {
             course: 'BCA',
             department: 'CSE',
             type: 'regular',
-            status: 'pending',
+            status: 0,
         },
         {
             _id: 4,
@@ -46,7 +47,7 @@ const AdminHome = () => {
             course: 'BCA',
             department: 'CSE',
             type: 'regular',
-            status: 'pending',
+            status: 1,
         },
     ];
 
@@ -61,10 +62,19 @@ const AdminHome = () => {
     };
 
     const handleFormClick = (formId) => {
-        navigate(`/admin/${formId}`)
-    }
+        navigate(`/admin/${formId}`);
+    };
 
-    const handleSelectAll = () =>  {}
+    const handleSelectAll = () => {
+        if (selected.length === forms.length) {
+            setSelected([]);
+        } else {
+            setSelected([]);
+            forms.map((form) => {
+                setSelected((prev) => [...prev, form._id]);
+            });
+        }
+    };
 
     return (
         <div className='overflow-x-scroll p-4 sm:p-7'>
@@ -72,7 +82,12 @@ const AdminHome = () => {
                 <thead>
                     <tr>
                         <th className='px-6 py-3'>
-                            <Checkbox text='' className='border-none' />
+                            <Checkbox
+                                text=''
+                                className='border-none'
+                                checked={selected.length === forms.length}
+                                onChange={handleSelectAll}
+                            />
                         </th>
                         <th className='px-6 py-3 text-start font-medium uppercase text-gray-500'>
                             auid
@@ -99,7 +114,12 @@ const AdminHome = () => {
                 </thead>
                 <tbody>
                     {forms.map((form) => (
-                        <tr key={form._id} className='hover:bg-gray-200 cursor-pointer' onClick={() => {handleFormClick(form._id)}}>
+                        <tr
+                            key={form._id}
+                            className='cursor-pointer hover:bg-gray-200'
+                            onClick={() => {
+                                handleFormClick(form._id);
+                            }}>
                             <td className='px-6 py-3'>
                                 <Checkbox
                                     text=''
@@ -107,6 +127,7 @@ const AdminHome = () => {
                                     onChange={() =>
                                         handleCheckboxChange(form._id)
                                     }
+                                    onClick={(event) => {event.stopPropagation();}}
                                     className='border-none'
                                 />
                             </td>
@@ -116,13 +137,41 @@ const AdminHome = () => {
                             <td className='px-6 py-3'>{form.course}</td>
                             <td className='px-6 py-3'>{form.department}</td>
                             <td className='px-6 py-3'>{form.type}</td>
-                            <td className='px-6 py-3'>
-                                {/* You can add Approve/Reject buttons or status here */}
-                            </td>
+                            {form.status === 0 ? (
+                                <td className='px-6 py-3'>
+                                    <Button
+                                        bg='bg-green-600'
+                                        data='Approve'
+                                        className='mr-1'
+                                        onClick={(event) => {
+                                            event.stopPropagation();
+                                            console.log(form);
+                                        }}
+                                    />
+                                    <Button
+                                        bg='bg-red-600'
+                                        data='Reject'
+                                        className='ml-1'
+                                        onClick={(event) => {
+                                            event.stopPropagation();
+                                            console.log(form);
+                                        }}
+                                    />
+                                </td>
+                            ) : (
+                                <td
+                                    className={`px-6 py-3 ${getApprovedLabel(form.status).color}`}>
+                                    {getApprovedLabel(form.status).label}
+                                </td>
+                            )}
                         </tr>
                     ))}
                 </tbody>
             </table>
+            <div className={`w-full my-3 *:mx-2 ${selected.length > 0 ? '' : 'invisible'}`}>
+                <Button data='Approve' bg='bg-green-600' />
+                <Button data='Reject' bg='bg-red-600' />
+            </div>
         </div>
     );
 };
