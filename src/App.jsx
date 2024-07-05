@@ -10,10 +10,6 @@ function App() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    useEffect(() => {
-        console.log("On /");
-    }, [])
-
     const { data, isFetching, isSuccess, isError } = useQuery({
         queryKey: ['user'],
         queryFn: user.getUser,
@@ -28,8 +24,9 @@ function App() {
     }
 
     if (isSuccess) {
-        console.log(data?.data.role === 'A');
         dispatch(login(data.data));
+
+        // todo: this will be a variable in api call response
         const isAdmin = data?.data.role === 'A';
         if (isAdmin) navigate('/admin');
         else navigate('/user');

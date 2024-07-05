@@ -6,7 +6,6 @@ import { getApprovedLabel } from '../../utils/index.js';
 const AdminHome = () => {
     const [selected, setSelected] = useState([]);
     const navigate = useNavigate();
-    console.log(selected);
 
     const forms = [
         {

@@ -3,7 +3,6 @@ import { NavLink } from 'react-router-dom';
 import { logo } from '../../assets/index.js';
 
 const AdminHeader = ({ name, role, department, program, classname }) => {
-    console.log(name, role, department, program);
 
     const topHeading = program || department
 
