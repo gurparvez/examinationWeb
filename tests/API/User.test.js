@@ -1,4 +1,3 @@
-import { describe, it, expect } from 'vitest';
 import user from '/src/API/User.js';
 
 describe('User Login', () => {
@@ -18,7 +17,7 @@ describe('User Login', () => {
         try {
             await user.login({ auid: '222706030' });
         } catch (error) {
-            expect(error.message).toBe('auid and password is requried.');
+            expect(error.message).toBe('auid and password is required.');
         }
     });
 
@@ -48,7 +47,7 @@ describe('Get User', () => {
         const response = await user.getUser();
 
         expect(response.success).toBe(true);
-        expect(response.message).toBe('User fetched sucessfully.');
+        expect(response.message).toBe('User fetched successfully.');
     });
 
     it('Should handle failure if user does not exist', async () => {
@@ -56,21 +55,23 @@ describe('Get User', () => {
         try {
             await user.getUser();
         } catch (error) {
-            expect(error.message).toBe('Unauthorizes request.');
+            expect(error.message).toBe('Unauthorize request.');
         }
     });
 });
 
 describe('Update User avatar', () => {
     it('Should update avatar', async () => {
-        await user.login({auid: '222706030', password: 'Naresh@123'});
+        await user.login({ auid: '222706030', password: 'Naresh@123' });
 
-        const mockImage = new File(['avatar'], 'avatar.jpg', { type: 'image/jpeg' });
-        const response = await user.updateAvatar(mockImage)
+        const mockImage = new File(['avatar'], 'avatar.jpg', {
+            type: 'image/jpeg',
+        });
+        const response = await user.updateAvatar(mockImage);
 
         expect(response.success).toBe(true);
-    })
-})
+    });
+});
 
 describe('User Logout', () => {
     it('Should logout', async () => {

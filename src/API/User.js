@@ -1,17 +1,10 @@
-import axios from 'axios';
-import { api, root } from '../constants';
+import axiosInstance from './axios.js';
+import { api } from '../constants';
 
 class User {
-    constructor() {
-        this.instance = axios.create({
-            baseURL: root,
-            withCredentials: true,
-        });
-    }
-
     login = async ({ auid, password }) => {
         try {
-            const response = await this.instance.post(api.login, {
+            const response = await axiosInstance.post(api.login, {
                 auid,
                 password,
             });
@@ -34,7 +27,7 @@ class User {
 
     logout = async () => {
         try {
-            const response = await this.instance.post(api.logout);
+            const response = await axiosInstance.post(api.logout);
             return response.data;
         } catch (error) {
             console.log(error);
@@ -55,7 +48,7 @@ class User {
 
     getUser = async () => {
         try {
-            const response = await this.instance.get(api.getUser);
+            const response = await axiosInstance.get(api.getUser);
             return response.data;
         } catch (error) {
             console.log(error);
@@ -81,7 +74,7 @@ class User {
         const formData = new FormData();
         formData.append('avatar', image);
         try {
-            const response = await this.instance.patch(
+            const response = await axiosInstance.patch(
                 api.updateAvatar,
                 formData,
             );
@@ -111,7 +104,7 @@ class User {
         fullName,
     }) => {
         try {
-            const response = await this.instance.patch(api.updateUser, {
+            const response = await axiosInstance.patch(api.updateUser, {
                 phoneNumber,
                 email,
                 motherName,
@@ -138,7 +131,7 @@ class User {
 
     isFormLive = async () => {
         try {
-            const response = await this.instance.get(api.formLive);
+            const response = await axiosInstance.get(api.formLive);
             return response.data.data.formLive;
         } catch (error) {
             console.log(error);
