@@ -9,7 +9,7 @@ const User = () => {
     const user = useSelector((state) => state.auth.userData);
 
     useEffect(() => {
-        if (!user || user?.role !== 'admin') {
+        if (!user || user?.role === 'A') {
             navigate('/');
         }
     }, [user, navigate]);
