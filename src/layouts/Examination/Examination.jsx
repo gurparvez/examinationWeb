@@ -52,9 +52,9 @@ const Examination = () => {
                                     open={newForm}
                                     onClose={closeDialog}
                                     value1='Regular'
-                                    url1='/home/regular/page1'
+                                    url1='/user/regular/page1'
                                     value2='Re Appear'
-                                    url2='/home/reappear/page1'
+                                    url2='/user/reappear/page1'
                                 />
                             )}
                             {isLoading ? (

@@ -69,7 +69,7 @@ const FormFill = ({ regular = 1 }) => {
 
     const closeDialog = () => {
         setFormSubmitted(false);
-        navigate('/home/examination');
+        navigate('/user/examination');
     };
 
     useEffect(() => {
