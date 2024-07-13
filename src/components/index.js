@@ -1,5 +1,6 @@
 import Input from './Inputs/Input.jsx';
-import Button from './Button';
+import Button from './Buttons/Button.jsx';
+import ButtonSecondary from './Buttons/ButtonSecondary.jsx';
 import FadePage from './FadePage';
 import LoadingBar from './Loading/LoadingBar';
 import LoadingCircle from './Loading/LoadingCircle';
@@ -23,6 +24,7 @@ import InlineLoadingCircle from './Loading/InlineLoadingCircle.jsx';
 export {
     Input,
     Button,
+    ButtonSecondary,
     FadePage,
     LoadingBar,
     LoadingCircle,

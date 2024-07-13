@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { login_img, logo } from '../../assets/index.js';
-import { Button, Input, ShowError } from '../../components/index.js';
+import { Button, ButtonSecondary, Input, ShowError } from '../../components/index.js';
 import useLogin from './Hooks/useLogin.js';
 
 const Login = () => {
@@ -86,12 +86,15 @@ const Login = () => {
                                         <ShowError error={error.message} />
                                     )}
                                 </div>
-                                <Button
-                                    data='Login'
-                                    type='submit'
-                                    isLoading={isPending}
-                                    className={isPending ? 'bg-secondary' : ''}
-                                />
+                                <div className="*:mx-2">
+                                    <Button
+                                        data='Login'
+                                        type='submit'
+                                        isLoading={isPending}
+                                        className={isPending ? 'bg-secondary' : ''}
+                                    />
+                                    <ButtonSecondary data="Login as Admin" />
+                                </div>
                             </form>
                         </div>
                     </div>

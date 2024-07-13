@@ -1,5 +1,5 @@
 // eslint-disable-next-line react/prop-types
-import { InlineLoadingCircle } from './index.js';
+import { InlineLoadingCircle } from '../index.js';
 
 const Button = ({
     data = 'click',
