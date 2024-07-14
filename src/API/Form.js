@@ -21,6 +21,8 @@ class Form {
             throw new Error('Error in making request to the server');
         }
     };
+
+//     TODO: functions for all the api calls
 }
 
 const form = new Form();
