@@ -1,24 +1,22 @@
-import React from 'react';
-import { useForm } from 'react-hook-form';
+import React, { useState, useTransition } from 'react';
 import { login_img, logo } from '../../assets/index.js';
-import { Button, ButtonSecondary, Input, ShowError } from '../../components/index.js';
-import useLogin from './Hooks/useLogin.js';
+import { AdminLogin, UserLogin } from './pages/index.js';
+import { ButtonSecondary } from '../../components/index.js';
 
 const Login = () => {
-    const { register, handleSubmit } = useForm();
-    const { mutateAsync, isPending, isError, error } = useLogin();
+    const [isAdminTab, setIsAdminTab] = useState(false);
+    const [isPending, startTransition] = useTransition();
 
-    const handleLogin = async (data) => {
-        await mutateAsync({
-            auid: data.auid,
-            password: data.password,
-        });
-    };
+    const changeLoginTab = (isAdmin) => {
+        startTransition(() => {
+            setIsAdminTab(isAdmin);
+        })
+    }
 
     return (
         <>
             <div
-                className={`relative flex h-screen w-screen flex-row bg-yellow-200 ${isPending} ? 'pointer-events-none' : 'pointer-events-auto'}`}>
+                className={`relative flex h-screen w-screen flex-row bg-yellow-200`}>
                 <div className='absolute left-7 top-10 z-30 sm:hidden'>
                     <img src={logo} alt='logo' />
                 </div>
@@ -40,63 +38,18 @@ const Login = () => {
                                 </svg>
                             </div>
                         </div>
-                        <div className='p-7'>
-                            <h1 className='font-jost text-2xl font-semibold'>
-                                Akal University
-                            </h1>
-                            <p>Please login to continue</p>
-                            <form
-                                onSubmit={handleSubmit(handleLogin)}
-                                className='sm:px-2'>
-                                <div className='mb-4 *:my-8'>
-                                    <Input
-                                        label='AUID'
-                                        type='text'
-                                        className={`my-7 ${isError ? 'border-red-500' : ''}`}
-                                        error={error}
-                                        readonly={isPending}
-                                        {...register('auid', {
-                                            required: {
-                                                value: true,
-                                                message:
-                                                    'Please fill this field',
-                                            },
-                                            maxLength: 9,
-                                        })}
-                                    />
-
-                                    <Input
-                                        label='Password'
-                                        type='password'
-                                        className={`my-7 ${isError ? 'border-red-500' : ''}`}
-                                        error={error}
-                                        readonly={isPending}
-                                        {...register('password', {
-                                            required: true,
-                                            pattern: {
-                                                value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])(.{8,})$/,
-                                                message:
-                                                    'Password must contain at least 1 uppercase, 1 lowercase, 1 special character and at least 8 characters long !',
-                                            },
-                                        })}
-                                    />
-                                </div>
-                                <div className='mb-4 w-full'>
-                                    {isError && (
-                                        <ShowError error={error.message} />
-                                    )}
-                                </div>
-                                <div className="*:mx-2">
-                                    <Button
-                                        data='Login'
-                                        type='submit'
-                                        isLoading={isPending}
-                                        className={isPending ? 'bg-secondary' : ''}
-                                    />
-                                    <ButtonSecondary data="Login as Admin" />
-                                </div>
-                            </form>
-                        </div>
+                        {!isAdminTab && (
+                            <div className="m-12 mt-0">
+                                <UserLogin />
+                                <ButtonSecondary data='Login as Admin' className="mt-4" onClick={() => changeLoginTab(true)} />
+                            </div>
+                        )}
+                        {isAdminTab && (
+                            <div className="m-12 mt-0">
+                                <AdminLogin />
+                                <ButtonSecondary data='Login as Student' className="mt-4" onClick={() => changeLoginTab(false)} />
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
