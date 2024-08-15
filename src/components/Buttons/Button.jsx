@@ -14,7 +14,7 @@ const Button = ({
     return (
         <button
             type={type}
-            className={`${bg} ${textColor} ${border} hover:${bgHover} w-auto rounded px-3 py-2 transition-all ease-in-out hover:cursor-pointer ${className}`}
+            className={`${isLoading ? bgHover : bg} ${textColor} ${border} hover:${bgHover} w-auto rounded px-3 py-2 transition-all ease-in-out hover:cursor-pointer ${className}`}
             {...props}>
             {isLoading ? <InlineLoadingCircle /> : data}
         </button>

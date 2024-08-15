@@ -61,7 +61,6 @@ const AdminLogin = () => {
                     data='Login'
                     type='submit'
                     isLoading={isPending}
-                    className={isPending ? 'bg-secondary' : ''}
                 />
             </form>
         </div>
