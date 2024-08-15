@@ -20,8 +20,7 @@ const Page1 = ({ regular = true }) => {
         motherName: '',
         address: '',
     });
-    const user = useSelector((state) => state.auth.userData);
-    const userData = user.user;
+    const userData = useSelector((state) => state.auth.userData);
 
     useEffect(() => {
         setData((prev) => ({
@@ -50,9 +49,9 @@ const Page1 = ({ regular = true }) => {
                     Heading='Cannot make Changes Here !'
                     para="If you wish to make changes in your personal details, you have to do it in 'Profile'"
                     value1='Profile'
-                    url1='/home/profile'
+                    url1='/user/profile'
                     value2='Cancel'
-                    url2='/home/examination'
+                    url2='/user/examination'
                 />
             )}
             <div className='flex w-full justify-center'>
@@ -147,8 +146,8 @@ const Page1 = ({ regular = true }) => {
                         <NavLink
                             to={
                                 regular
-                                    ? '/home/regular/page2'
-                                    : '/home/reappear/page2'
+                                    ? '/user/regular/page2'
+                                    : '/user/reappear/page2'
                             }
                         >
                             <Button className='' data='Next' />

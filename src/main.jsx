@@ -10,23 +10,23 @@ import {
     Profile,
     ShowForm,
     FormFill,
+    User,
 } from './layouts';
-import { Admin } from './layouts/Admin';
+import { Admin, AdminProfile } from './Admin';
 import App from './App';
 import './index.css';
-// import { Provider } from 'src/components/index.js';
-import store from './store/store';
-import { Provider } from 'react-redux';
-import { PageNotfound } from './components/index.js';
+import { PageNotfound, Provider } from './components/index.js';
+import AdminHome from './Admin/Home/AdminHome.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-    <Provider store={store}>
+    <Provider>
         <BrowserRouter>
             <Routes>
                 <Route path='*' element={<PageNotfound />} />
-                <Route path='/' element={<Login />} />
+                <Route path='/' element={<App />} />
+                <Route path='/login' element={<Login />} />
 
-                <Route path='/home' element={<App />}>
+                <Route path='/user' element={<User />}>
                     <Route index element={<Home />} />
                     <Route path='courses' element={<Courses />} />
                     <Route path='examination' element={<Examination />} />
@@ -54,7 +54,11 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                     <Route path='profile' element={<Profile />} />
                 </Route>
 
-                <Route path='/admin' element={<Admin />}></Route>
+                <Route path='/admin' element={<Admin />}>
+                    <Route index element={<AdminHome />} />
+                    <Route path='profile' element={<AdminProfile />} />
+                    {/*todo: <Route path=':formId' element={<ShowForm />} />*/}
+                </Route>
             </Routes>
         </BrowserRouter>
     </Provider>,

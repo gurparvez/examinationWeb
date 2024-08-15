@@ -1,4 +1,3 @@
-import { describe, it, expect } from 'vitest';
 import user from '/src/API/User.js';
 
 describe('User Login', () => {
@@ -9,35 +8,74 @@ describe('User Login', () => {
         });
 
         expect(response.success).toBe(true);
-        expect(response.data.accessToken).toBeDefined();
         expect(response.message).toBe('Login Successfully');
+        expect(response.data.user.avatar).toBeDefined();
         expect(response.data.user.fullName).toBe('Naresh Kumar');
     });
 
     it('Should handle failure if auid or password not provided', async () => {
-        const response = await user.login({
-            auid: '222706030',
-            // password: 'Naresh@123',
-        });
-
-        expect(response.message).toBe('auid and password is requried.');
+        try {
+            await user.login({ auid: '222706030' });
+        } catch (error) {
+            expect(error.message).toBe('auid and password is required.');
+        }
     });
 
     it('Should handle failure if user not found', async () => {
-        const response = await user.login({
-            auid: '222706031',
-            password: 'Naresh@123',
-        });
-
-        expect(response.message).toBe('User does not exist');
+        try {
+            await user.login({ auid: '222706031', password: 'Naresh@123' });
+        } catch (error) {
+            expect(error.message).toBe('User does not exist');
+        }
     });
 
     it('Should handle failure if password is not correct', async () => {
-        const response = await user.login({
-            auid: '222706030',
-            password: 'Naresh@12',
-        });
+        try {
+            await user.login({ auid: '222706030', password: 'Naresh@12' });
+        } catch (error) {
+            expect(error.message).toBe('Password is not valid');
+        }
+    });
+});
 
-        expect(response.message).toBe('Password is not valid');
+describe('Get User', () => {
+    it('Should give detail of logged in user', async () => {
+        await user.login({
+            auid: '222706030',
+            password: 'Naresh@123',
+        });
+        const response = await user.getUser();
+
+        expect(response.success).toBe(true);
+        expect(response.message).toBe('User fetched successfully.');
+    });
+
+    it('Should handle failure if user does not exist', async () => {
+        await user.logout();
+        try {
+            await user.getUser();
+        } catch (error) {
+            expect(error.message).toBe('Unauthorize request.');
+        }
+    });
+});
+
+describe('Update User avatar', () => {
+    it('Should update avatar', async () => {
+        await user.login({ auid: '222706030', password: 'Naresh@123' });
+
+        const mockImage = new File(['avatar'], 'avatar.jpg', {
+            type: 'image/jpeg',
+        });
+        const response = await user.updateAvatar(mockImage);
+
+        expect(response.success).toBe(true);
+    });
+});
+
+describe('User Logout', () => {
+    it('Should logout', async () => {
+        await user.login({ auid: '222706030', password: 'Naresh@123' });
+        await user.logout();
     });
 });

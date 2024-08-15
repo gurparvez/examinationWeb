@@ -1,17 +1,14 @@
 import { Card, CardAdd, DialogLib, Loader } from '../../components';
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
-import useApi from '../../hooks/useApi.js';
-import { api } from '../../constants/index.js';
-import { put } from '../../store/formSlice.js';
+import { useState } from 'react';
 import { AcademicCapIcon } from '@heroicons/react/24/outline';
+import { useGetAllForms } from './Hooks/index.js';
 
+// FIXME: test this component and api calls
 const Examination = () => {
-    const dispatch = useDispatch();
-    const [err, setErr] = useState('');
-    const { apiData, response, isLoading, error } = useApi('get');
-    const res = useSelector((state) => state.form.formsData);
     const [newForm, setNewForm] = useState(false);
+
+    const { data, isSuccess, isError, isLoading, error } = useGetAllForms();
+    const forms = data?.data;
     // const isFormLive = useSelector(state => state.auth.userData.user.formLive)
     const isFormLive = true;
 
@@ -23,24 +20,6 @@ const Examination = () => {
     const closeDialog = () => {
         setNewForm(false);
     };
-
-    useEffect(() => {
-        async function fetchData() {
-            await apiData(api.allForms);
-        }
-        if (!res) {
-            fetchData();
-        }
-    }, []);
-
-    useEffect(() => {
-        if (response && !error) {
-            dispatch(put(response.data[0]?.forms));
-        }
-        if (error) {
-            setErr('Cannot get the forms !');
-        }
-    }, [response, error]);
 
     return (
         <>
@@ -73,9 +52,9 @@ const Examination = () => {
                                     open={newForm}
                                     onClose={closeDialog}
                                     value1='Regular'
-                                    url1='/home/regular/page1'
+                                    url1='/user/regular/page1'
                                     value2='Re Appear'
-                                    url2='/home/reappear/page1'
+                                    url2='/user/reappear/page1'
                                 />
                             )}
                             {isLoading ? (
@@ -83,15 +62,15 @@ const Examination = () => {
                                     <Loader />
                                 </div>
                             ) : (
-                                err && (
+                                isError && (
                                     <div className='text-red-700'>
                                         There is an error on our end while
                                         getting your forms !
                                     </div>
                                 )
                             )}
-                            {res &&
-                                res.map((form) => (
+                            {data &&
+                                forms.map((form) => (
                                     <Card
                                         id={form._id}
                                         href={`/home/${form._id}`}

@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { logo } from '../../assets/index.js';
 import { navLinks } from '../../constants/index.js';
-import { Button, Dropdown } from '../index.js';
+import { Button, SideBar } from '../index.js';
 
 const Header = ({ profileImage }) => {
     return (
@@ -10,7 +10,7 @@ const Header = ({ profileImage }) => {
             <nav className='flex flex-row justify-between px-8'>
                 <ul className='flex flex-row p-3.5'>
                     <li className='flex list-none items-center'>
-                        <NavLink to='https://auts.ac.in/' target='_blank'>
+                        <NavLink to='/user'>
                             <img
                                 src={logo}
                                 alt='AUTS'
@@ -53,7 +53,7 @@ const Header = ({ profileImage }) => {
                     </li>
                 </ul>
 
-                <Dropdown classname='sm:hidden' profileImage={profileImage} />
+                <SideBar classname='sm:hidden' profileImage={profileImage} />
             </nav>
         </div>
     );

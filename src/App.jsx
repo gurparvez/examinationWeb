@@ -1,47 +1,38 @@
-import { Outlet } from 'react-router-dom';
-import { profile } from './assets';
-import { Loader, Header, Footer, PageNotfound } from './components';
-import { api } from './constants';
-import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import useApi from './hooks/useApi.js';
+import { useQuery } from '@tanstack/react-query';
+import user from './API/User.js';
+import { Loader, PageNotfound } from './components/index.js';
+import { useNavigate } from 'react-router-dom';
 import { login } from './store/authSlice.js';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
 
 function App() {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const { apiData, response, isLoading, error } = useApi('get');
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
-    const getUser = async () => {
-        await apiData(api.getUser);
-    };
+    const { data, isFetching, isSuccess, isError } = useQuery({
+        queryKey: ['user'],
+        queryFn: user.getUser,
+        retry: 2,
+    });
 
-    const user = useSelector((state) => state.auth.userData);
-    useEffect(() => {
-        if (user) {
-            setIsLoggedIn(true);
-        } else {
-            getUser();
-        }
-    }, [user]);
+    if (isFetching) {
+        return <Loader />;
+    }
+    if (isError) {
+        navigate('/login');
+    }
 
-    useEffect(() => {
-        if (!error && response?.data) {
-            const { refreshToken, ...user } = response.data;
-            dispatch(login({ user: user }));
-        }
-    }, [response]);
+    if (isSuccess) {
+        dispatch(login(data.data));
 
-    const profileImage = user ? user.user.avatar : profile;
+        // todo: this will be a variable in api call response
+        const isAdmin = data?.data.role === 'A';
+        if (isAdmin) navigate('/admin');
+        else navigate('/user');
+    }
 
-    return (
-        <>
-            {isLoading && <Loader />}
-            <Header profileImage={profileImage} />
-            {isLoggedIn ? <Outlet /> : <PageNotfound />}
-            <Footer />
-        </>
-    );
+    return <PageNotfound />;
 }
 
 export default App;
