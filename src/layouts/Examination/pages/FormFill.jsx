@@ -107,9 +107,9 @@ const FormFill = ({ regular = 1 }) => {
                         Heading='Successfully Submitted'
                         para='Your regular examination form has been submitted successfully.'
                         value1='View Form'
-                        url1={`/home/${response?.data._id}`}
+                        url1={`/user/${response?.data._id}`}
                         value2='Home'
-                        url2={`/home`}
+                        url2={`/user`}
                     />
                 )}
                 <form
