@@ -2,4 +2,4 @@
 
 checkout the website: [AU Attendance](https://auts-examination.vercel.app/)
 
-Contace me to get the credentials: gurparvez04@gmail.com
+Contact me for the credentials: gurparvez04@gmail.com
